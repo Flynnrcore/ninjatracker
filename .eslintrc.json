@@ -5,6 +5,9 @@
     "node": true
   },
   "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:@typescript-eslint/recommended",
@@ -29,7 +32,13 @@
       "version": "detect"
     },
     "module.exports": {
-      "ignorePatterns": ["node_modules/", "dist/", "*.css"]
+      "ignorePatterns": [
+        "node_modules/",
+        "build/",
+        "dist/",
+        ".cache/",
+        "out/"
+      ]
     }
   }
 }
