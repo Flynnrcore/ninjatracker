@@ -4,10 +4,7 @@ const Header = () => {
   const menuItemStyle = 'hover:underline text-lg';
   return (
     <header className="flex items-center justify-between border-b-1 border-gray-200 bg-white p-4 shadow-sm">
-      <Link
-        to="/"
-        className="flex items-center gap-2 transition-transform hover:scale-110"
-      >
+      <Link to="/" className="flex items-center gap-2 transition-transform hover:scale-110">
         <img className="h-12" src="/logo.webp" />
         <h1 className="font-[LogoFont] text-2xl font-bold">NinjaTracker</h1>
       </Link>

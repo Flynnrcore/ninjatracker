@@ -3,16 +3,15 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import NotFoundPage from './pages/NotFoundPage.tsx';
-import TrackerPage from './pages/TrackerPage.tsx';
-import MainPage from './pages/MainPage.tsx';
+
 import App from './App';
+import { ErrorPage, MainPage, TrackerPage, NewTrainPage } from './pages';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
-    errorElement: <NotFoundPage />,
+    errorElement: <ErrorPage picUrl="/error-img.webp" message="Упс! Что-то пошло не так" />,
     children: [
       {
         index: true,
@@ -21,6 +20,14 @@ const router = createBrowserRouter([
       {
         path: '/tracker',
         element: <TrackerPage />,
+      },
+      {
+        path: '/newtrain',
+        element: <NewTrainPage />,
+      },
+      {
+        path: '*',
+        element: <ErrorPage picUrl="/404-img.webp" message="Страница не найдена" />,
       },
     ],
   },
