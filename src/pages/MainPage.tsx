@@ -20,7 +20,7 @@ const MainPage = () => {
               <span className="font-[LogoFont] text-4xl">NinjaTracker!</span>
             </p>
             <a href="/newtrain">
-              <button className="mt-6 w-md rounded-lg bg-yellow-500 px-6 py-3 text-2xl text-white transition-colors hover:scale-105 hover:bg-yellow-400">
+              <button className="mt-6 w-md rounded-lg bg-yellow-500 px-6 py-3 text-2xl text-white transition-colors hover:scale-105 hover:bg-yellow-400 active:scale-95">
                 Начать тренировку
               </button>
             </a>

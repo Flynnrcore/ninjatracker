@@ -6,8 +6,7 @@ const Footer = () => {
           &copy; 2026 NinjaTracker. Cоздано{' '}
           <a href="https://github.com/Flynnrcore" className="text-yellow-500 underline">
             Flynnrcore
-          </a>{' '}
-          с ❤️.
+          </a>
         </p>
       </div>
     </footer>

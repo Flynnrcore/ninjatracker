@@ -1,4 +1,6 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
+import { Input } from './ui/input';
+import { Button } from './ui/button';
 
 type TTimerButton = {
   label: string;
@@ -8,18 +10,18 @@ type TTimerButton = {
 
 const TimerButton = ({ label, onClick, variant }: TTimerButton) => {
   const variantStyles = {
-    primary: 'bg-green-600 hover:bg-green-700 focus:ring-green-500',
-    secondary: 'bg-gray-600 hover:bg-gray-700 focus:ring-gray-500',
-    danger: 'bg-red-600 hover:bg-red-700 focus:ring-red-500',
+    primary: 'bg-yellow-500 hover:bg-yellow-400 focus:ring-yellow-400 text-white',
+    secondary: 'bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 text-white',
+    danger: 'bg-red-600 hover:bg-red-700 focus:ring-red-500 text-white',
   };
 
   return (
-    <button
+    <Button
       type="button"
       onClick={onClick}
-      className={`rounded-md px-4 py-2 text-white focus:ring-2 focus:ring-offset-2 focus:outline-none ${variantStyles[variant]}`}>
+      className={`h-12 rounded-md px-6 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none ${variantStyles[variant]}`}>
       {label}
-    </button>
+    </Button>
   );
 };
 
@@ -36,14 +38,14 @@ type TTimeInput = {
 
 const TimeInput = ({ id, value, min, max, label, onChange }: TTimeInput) => (
   <div className="w-1/3">
-    <input
+    <Input
       id={id}
       type="number"
       min={min}
       max={max}
       value={formatTimeUnit(value)}
       onChange={e => onChange(Number(e.target.value))}
-      className="w-full text-center"
+      className="h-12 w-full bg-white text-center text-2xl"
     />
     <label htmlFor={id} className="block text-center font-medium text-gray-600">
       {label}
@@ -115,47 +117,44 @@ const Timer = () => {
     return clearTimer;
   }, [isRunning, clearTimer]);
 
-  const startButtonLabel = totalSeconds === 0 ? 'Начать тренировку' : 'Продолжить тренировку';
-
   return (
-    <div className="mx-auto space-y-4 rounded-lg border-1 border-gray-200 bg-white p-4 shadow-sm">
+    <div className="w-full">
       <div className="flex flex-col items-center space-y-2">
         <label htmlFor="timer">Таймер тренировки:</label>
-        <div className="flex w-1/2 gap-4">
-          <TimeInput
-            id="timerHours"
-            value={hours}
-            min={0}
-            max={24}
-            label="Часы"
-            onChange={value => handleTimeChange('hours', value)}
-          />
-          <TimeInput
-            id="timerMinutes"
-            value={minutes}
-            min={0}
-            max={59}
-            label="Минуты"
-            onChange={value => handleTimeChange('minutes', value)}
-          />
-          <TimeInput
-            id="timerSeconds"
-            value={seconds}
-            min={0}
-            max={59}
-            label="Секунды"
-            onChange={value => handleTimeChange('seconds', value)}
-          />
+        <div className="flex w-full items-start justify-center gap-6">
+          {isRunning ? (
+            <TimerButton label="⏸︎" onClick={handleStartPause} variant="danger" />
+          ) : (
+            <TimerButton label="●" onClick={handleStartPause} variant="primary" />
+          )}
+          <div className="flex w-1/2 items-center justify-between gap-4">
+            <TimeInput
+              id="timerHours"
+              value={hours}
+              min={0}
+              max={24}
+              label="Часы"
+              onChange={value => handleTimeChange('hours', value)}
+            />
+            <TimeInput
+              id="timerMinutes"
+              value={minutes}
+              min={0}
+              max={59}
+              label="Минуты"
+              onChange={value => handleTimeChange('minutes', value)}
+            />
+            <TimeInput
+              id="timerSeconds"
+              value={seconds}
+              min={0}
+              max={59}
+              label="Секунды"
+              onChange={value => handleTimeChange('seconds', value)}
+            />
+          </div>
+          <TimerButton label="■" onClick={handleReset} variant="secondary" />
         </div>
-      </div>
-
-      <div className="flex justify-center gap-3">
-        {isRunning ? (
-          <TimerButton label="Пауза / Остановить" onClick={handleStartPause} variant="danger" />
-        ) : (
-          <TimerButton label={startButtonLabel} onClick={handleStartPause} variant="primary" />
-        )}
-        <TimerButton label="Сбросить" onClick={handleReset} variant="secondary" />
       </div>
     </div>
   );
