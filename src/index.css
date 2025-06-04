@@ -40,13 +40,13 @@
     transform: translateX(0);
   }
   10% {
-    transform: translateX(-16px);
+    transform: translateX(40px);
   }
   20% {
     transform: translateX(0);
   }
   30% {
-    transform: translateX(-12px);
+    transform: translateX(32px);
   }
   40% {
     transform: translateX(0);

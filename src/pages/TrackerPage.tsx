@@ -1,4 +1,5 @@
 import { EXERCISE_TYPES, INSTRUMENTS, mockData } from '@/assets/mockData';
+import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
 import { SelectTrigger } from '@radix-ui/react-select';
 
@@ -53,28 +54,29 @@ const TrackerPage = () => {
         <table className="radius mt-2 flex-1 rounded-xl border border-gray-200 bg-white">
           <thead>
             <tr className="bg-white">
-              <th className="w-[400px] px-4 py-3 text-left text-sm leading-normal font-medium text-black">Название</th>
-              <th className="w-[400px] px-4 py-3 text-left text-sm leading-normal font-medium text-black">Описание</th>
-              <th className="w-[400px] px-4 py-3 text-left text-sm leading-normal font-medium text-black">Дата</th>
-              <th className="w-60 px-4 py-3 text-left text-sm leading-normal font-medium text-black">Тип</th>
-              <th className="w-60 px-4 py-3 text-left text-sm leading-normal font-medium text-black">Инструмент</th>
-              <th className="w-60 px-4 py-3 text-left text-sm leading-normal font-medium text-black">Сложность</th>
+              <th className="w-[400px] px-4 py-3  text-sm leading-normal font-medium text-black">Дата</th>
+              <th className="w-[400px] px-4 py-3  text-sm leading-normal font-medium text-black">Название</th>
+              <th className="w-[400px] px-4 py-3  text-sm leading-normal font-medium text-black">Описание</th>
+              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Тип</th>
+              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Инструмент</th>
+              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Сложность</th>
+              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Удалить</th>
             </tr>
           </thead>
           <tbody>
             {mockData.tableData.length !== 0 &&
               mockData.tableData.map((train, index) => (
                 <tr key={index} className="border-t border-t-gray-200">
-                  <td className="h-[72px] w-[400px] px-4 py-2 text-sm leading-normal font-normal text-yellow-600">
-                    {train.name}
-                  </td>
-                  <td className="h-[72px] w-[400px] px-4 py-2 text-sm leading-normal font-normal text-black">
-                    {train.description}
-                  </td>
-                  <td className="h-[72px] w-[400px] px-4 py-2 text-sm leading-normal font-normal text-black">
+                  <td className="h-[72px] w-[400px] px-4 py-2 text-center text-sm leading-normal font-normal text-black">
                     {train.date}
                   </td>
-                  <td className="h-[72px] w-60 px-4 py-2 text-sm leading-normal font-normal">
+                  <td className="h-[72px] w-[400px] px-4 py-2 text-center text-sm leading-normal font-normal text-yellow-600">
+                    {train.name}
+                  </td>
+                  <td className="h-[72px] w-[400px] px-4 py-2 text-center text-sm leading-normal font-normal text-black">
+                    {train.description}
+                  </td>
+                  <td className="h-[72px] w-60 px-4 py-2 text-center text-sm leading-normal font-normal">
                     <button className="flex h-8 w-full max-w-[480px] min-w-[84px] items-center justify-center rounded-lg bg-stone-100 px-4 text-sm leading-normal font-medium text-black">
                       <span className="truncate">
                         {train.type
@@ -83,12 +85,12 @@ const TrackerPage = () => {
                       </span>
                     </button>
                   </td>
-                  <td className="h-[72px] w-60 px-4 py-2 text-sm leading-normal font-normal">
+                  <td className="h-[72px] w-60 px-4 py-2 text-center text-sm leading-normal font-normal">
                     <button className="flex h-8 w-full max-w-[480px] min-w-[84px] items-center justify-center rounded-lg bg-stone-100 px-4 text-sm leading-normal font-medium text-black">
                       <span className="truncate">{INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}</span>
                     </button>
                   </td>
-                  <td className="h-[72px] w-60 px-4 py-2 text-sm leading-normal font-normal">
+                  <td className="h-[72px] w-60 px-4 py-2 text-center text-sm leading-normal font-normal">
                     <div className="flex h-8 w-full max-w-[480px] min-w-[84px] items-center justify-center rounded-lg bg-stone-100 px-4 text-sm leading-normal font-medium text-black">
                       <span className="truncate">
                         {[1, 2, 3, 4, 5].map(level => (
@@ -99,6 +101,7 @@ const TrackerPage = () => {
                       </span>
                     </div>
                   </td>
+                  <td className="p-2"><button className="p-6 hover:scale-110 active:scale-90"><img src="/del-img.webp" /></button></td>
                 </tr>
               ))}
           </tbody>

@@ -6,7 +6,7 @@ import { Slider } from './ui/slider';
 const MIN_BPM = 40;
 const MAX_BPM = 280;
 
-export const RHYTHM_PRESETS = [
+const RHYTHM_PRESETS = [
   { name: '1/4', value: 1 },
   { name: '2/4', value: 2 },
   { name: '3/4', value: 3 },
@@ -113,11 +113,11 @@ const Metronome = ({ className }: { className?: string }) => {
   }, []);
 
   return (
-    <div className="absolute right-0 flex items-center">
+    <div className={`absolute right-0 flex items-center ${animate ? 'animate-bounce-left-twice' : ''}`}>
       <Button
         type="button"
         onClick={() => setHiddenMetronome(!hiddenMetronome)}
-        className={`right-0 flex h-[140px] w-4 flex-col gap-6 rounded-tr-none rounded-br-none border-1 border-gray-100 bg-white text-black shadow-2xl duration-300 hover:border-0 hover:bg-yellow-400 hover:text-white ${animate ? 'animate-bounce-left-twice' : ''} ${hiddenMetronome ? 'absolute right-0' : ''} `}>
+        className={`right-0 flex h-[140px] w-4 flex-col gap-6 rounded-tr-none rounded-br-none border-1 border-gray-100 bg-white text-black shadow-2xl duration-300 hover:border-0 hover:bg-yellow-400 hover:text-white ${hiddenMetronome ? 'absolute right-0' : ''} `}>
         <span className="mb-6 rotate-90 transform pl-12 whitespace-nowrap">Метроном</span>
         {hiddenMetronome ? <span className="text-2xl">&#10563;</span> : <span className="text-2xl">&#10562;</span>}
       </Button>

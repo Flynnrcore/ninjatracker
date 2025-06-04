@@ -1,54 +1,55 @@
-# React + TypeScript + Vite
+# 🎵 Ninja Tracker 🎵
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![GitHub Stars](https://img.shields.io/github/stars/Flynnrcore/ninjatracker?style=social)](https://github.com/Flynnrcore/ninjatracker/stargazers)
+[![React](https://img.shields.io/badge/React-19-%2361DAFB)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.0-%233178C6)](https://www.typescriptlang.org/)
 
-Currently, two official plugins are available:
+**Персональный трекер музыкальных тренировок** для профессиональных музыкантов и любителей.
+Отслеживайте прогресс, планируйте занятия и совершенствуйте мастерство.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## 🌟 Основные возможности
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Функция | Описание |
+|---------|----------|
+| 🎯 **Тренировки** | Создание и отслеживание занятий |
+| ⏱️ **Таймер+Метроном** | Встроенный инструмент для контроля времени |
+| 📊 **Аналитика** | Визуализация прогресса (графики, отчеты) |
+| 🏷️ **Категории** | Гибкая система типов тренировок |
+| 🎸 **Инструменты** | Поддержка различных музыкальных направлений |
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-});
+|🔥 Ближайшие цели|
+|---------|
+| Адаптивный дизайн для мобильных устройств |
+| Личный кабинет пользователя |
+| Интеграция с бэкендом |
+
+## 🛠 Технологический стек
+
+<div align="center">
+  
+| Технология | Применение |
+|------------|------------|
+| <img src="https://cdn.worldvectorlogo.com/logos/react-2.svg" width="40"> **React 19** | Базовый фреймворк |
+| <img src="https://cdn.worldvectorlogo.com/logos/typescript.svg" width="40"> **TypeScript** | Типизация кода |
+| <img src="https://cdn.worldvectorlogo.com/logos/vitejs.svg" width="40"> **Vite** | Сборка проекта |
+| <img src="https://cdn.worldvectorlogo.com/logos/tailwindcss.svg" width="40"> **Tailwind CSS** | Стилизация |
+| <img src="https://shadcn.com/favicon.ico" width="40"> **Shadcn UI** | UI компоненты |
+
+</div>
+
+## 🚀 Быстрый старт
+# 1. Клонируйте репозиторий
+```bash
+git clone git@github.com:Flynnrcore/ninjatracker.git
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# 2. Установите зависимости
+```bash
+npm install
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-});
+# 3. Запустите приложение
+```bash
+npm run dev
 ```
