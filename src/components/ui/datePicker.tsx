@@ -2,10 +2,10 @@ import * as React from 'react';
 import { format } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
-import { cn } from '../lib/utils';
-import { Button } from './ui/button';
-import { Calendar } from './ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { cn } from '../../lib/utils';
+import { Button } from './button';
+import { Calendar } from './calendar';
+import { Popover, PopoverContent, PopoverTrigger } from './popover';
 const DatePickerDemo = ({ id }: { id: string }) => {
   const [date, setDate] = React.useState<Date>();
   return (

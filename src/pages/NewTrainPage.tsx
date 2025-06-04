@@ -1,13 +1,15 @@
-import DatePickerDemo from '@/components/DatePicker';
+import DatePickerDemo from '@/components/ui/datePicker';
 import Metronome from '../components/Metronome';
 import Timer from '../components/Timer';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { RadioGroup } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useState } from 'react';
 import StarRating from '@/components/StarRaiting';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
+import { Checkbox } from '@/components/ui/checkbox';
 
 const NewTrainPage = () => {
   const [difficulty, setDifficulty] = useState(0);
@@ -26,14 +28,14 @@ const NewTrainPage = () => {
         </h1>
       </div>
       <form className="rounded-2xl border-1 border-gray-100 bg-white p-8 shadow-sm" onSubmit={handleSubmit}>
-        <div className="flex items-start gap-4">
+        <div className="flex w-auto flex-nowrap items-start gap-4 overflow-auto">
           <div className="w-1/2">
             <label htmlFor="trainName">Название тренировки:</label>
             <Input id="trainName" type="text" className="h-9" placeholder="Название тренировки" />
             <label htmlFor="trainDescription" className="mt-3">
               Описание:
             </label>
-            <Textarea id="trainDescription" placeholder="Описание тренировки" className="h-25" />
+            <Textarea maxLength={250} id="trainDescription" placeholder="Описание тренировки" className="h-20" />
           </div>
           <div className="w-1/2">
             <label htmlFor="trainDate">Дата тренировки:</label>
@@ -41,25 +43,41 @@ const NewTrainPage = () => {
             <label htmlFor="exerciseType" className="mt-4">
               Тип тренировки:
             </label>
-            <RadioGroup className="flex" defaultValue="exercises">
-              <div className="flex space-x-2">
-                <RadioGroupItem value="exercises" id="exercises" />
-                <Label htmlFor="exercises">Упражения</Label>
-              </div>
-              <div className="flex space-x-2">
-                <RadioGroupItem value="songs" id="songs" />
-                <Label htmlFor="songs">Песни</Label>
-              </div>
-              <div className="flex space-x-2">
-                <RadioGroupItem value="rhythm" id="rhythm" />
-                <Label htmlFor="rhythm">Ритмика</Label>
+            <RadioGroup defaultValue="improvisation" id="exerciseType">
+              <div className="flex flex-wrap gap-2 rounded-lg border-1 border-gray-200 p-3">
+                <div className="flex space-x-2">
+                  <Checkbox value="improvisation" id="improvisation" />
+                  <Label htmlFor="improvisation">Импровизация</Label>
+                </div>
+                <div className="flex space-x-2">
+                  <Checkbox value="rhythm" id="rhythm" />
+                  <Label htmlFor="rhythm">Ритмика</Label>
+                </div>
+                <div className="flex space-x-2">
+                  <Checkbox value="exercises" id="exercises" />
+                  <Label htmlFor="exercises">Упражения</Label>
+                </div>
+                <div className="flex space-x-2">
+                  <Checkbox value="theory" id="theory" />
+                  <Label htmlFor="theory">Теория/Анализ</Label>
+                </div>
+                <div className="flex space-x-2 pr-[15px]">
+                  <Checkbox value="songs" id="songs" />
+                  <Label htmlFor="songs">Песни</Label>
+                </div>
+                <div className="flex space-x-2">
+                  <Checkbox value="recording" id="recording" />
+                  <Label htmlFor="recording">Запись</Label>
+                </div>
               </div>
             </RadioGroup>
-            <label htmlFor="trainDifficulty" className="mt-3">
-              Сложность:
-            </label>
-            <StarRating id="trainDifficulty" value={difficulty} onChange={setDifficulty} name="difficulty" />
           </div>
+        </div>
+        <div className="flex flex-col items-center">
+          <label htmlFor="trainDifficulty" className="mt-3">
+            Сложность:
+          </label>
+          <StarRating id="trainDifficulty" value={difficulty} onChange={setDifficulty} name="difficulty" />
         </div>
         <div className="flex flex-col items-center justify-center">
           <label htmlFor="trainInstrument" className="mt-3 text-center">
@@ -67,25 +85,60 @@ const NewTrainPage = () => {
           </label>
           <ToggleGroup variant="outline" defaultValue="eguitar" id="trainInstrument" type="single">
             <ToggleGroupItem className="h-[100px]" value="piano">
-              <img className="max-h-[100px]" src="/icons/piano.webp" alt="piano" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <img className="max-h-[100px]" src="/icons/piano.webp" alt="piano" />
+                </TooltipTrigger>
+                <TooltipContent>Клавишные</TooltipContent>
+              </Tooltip>
             </ToggleGroupItem>
             <ToggleGroupItem className="h-[100px]" value="drums">
-              <img className="max-h-[100px]" src="/icons/drums.webp" alt="drums" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <img className="max-h-[100px]" src="/icons/drums.webp" alt="drums" />
+                </TooltipTrigger>
+                <TooltipContent>Барабаны</TooltipContent>
+              </Tooltip>
             </ToggleGroupItem>
             <ToggleGroupItem className="h-[100px]" value="bass">
-              <img className="max-h-[100px]" src="/icons/bass.webp" alt="bass" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <img className="max-h-[100px]" src="/icons/bass.webp" alt="bass" />
+                </TooltipTrigger>
+                <TooltipContent>Бас</TooltipContent>
+              </Tooltip>
             </ToggleGroupItem>
             <ToggleGroupItem className="h-[100px]" value="eguitar">
-              <img className="max-h-[80px]" src="/icons/eguitar.webp" alt="electric-guitar" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <img className="max-h-[80px]" src="/icons/eguitar.webp" alt="electric-guitar" />
+                </TooltipTrigger>
+                <TooltipContent>Электрогитара</TooltipContent>
+              </Tooltip>
             </ToggleGroupItem>
             <ToggleGroupItem className="h-[100px]" value="acguitar">
-              <img className="max-h-[80px]" src="/icons/aguitar.webp" alt="acoustic-guitar" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <img className="max-h-[80px]" src="/icons/aguitar.webp" alt="acoustic-guitar" />
+                </TooltipTrigger>
+                <TooltipContent>Акустическая гитара</TooltipContent>
+              </Tooltip>
             </ToggleGroupItem>
             <ToggleGroupItem className="h-[100px]" value="vocal">
-              <img className="max-h-[90px]" src="/icons/microphone.webp" alt="vocal" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <img className="max-h-[90px]" src="/icons/microphone.webp" alt="vocal" />
+                </TooltipTrigger>
+                <TooltipContent>Вокал</TooltipContent>
+              </Tooltip>
             </ToggleGroupItem>
             <ToggleGroupItem className="h-[100px]" value="other">
-              <img className="max-h-[100px]" src="/icons/other.webp" alt="other" />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <img className="max-h-[100px]" src="/icons/other.webp" alt="other" />
+                </TooltipTrigger>
+                <TooltipContent>Другие инструменты</TooltipContent>
+              </Tooltip>
             </ToggleGroupItem>
           </ToggleGroup>
         </div>

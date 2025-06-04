@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
 import { Input } from './ui/input';
 import { Button } from './ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
 
 type TTimerButton = {
   label: string;
@@ -123,9 +124,19 @@ const Timer = () => {
         <label htmlFor="timer">Таймер тренировки:</label>
         <div className="flex w-full items-start justify-center gap-6">
           {isRunning ? (
-            <TimerButton label="⏸︎" onClick={handleStartPause} variant="danger" />
+            <Tooltip>
+              <TooltipTrigger>
+                <TimerButton label="⏸︎" onClick={handleStartPause} variant="danger" />
+              </TooltipTrigger>
+              <TooltipContent>Остановить таймер</TooltipContent>
+            </Tooltip>
           ) : (
-            <TimerButton label="●" onClick={handleStartPause} variant="primary" />
+            <Tooltip>
+              <TooltipTrigger>
+                <TimerButton label="●" onClick={handleStartPause} variant="primary" />
+              </TooltipTrigger>
+              <TooltipContent>Включить таймер</TooltipContent>
+            </Tooltip>
           )}
           <div className="flex w-1/2 items-center justify-between gap-4">
             <TimeInput
@@ -153,7 +164,12 @@ const Timer = () => {
               onChange={value => handleTimeChange('seconds', value)}
             />
           </div>
-          <TimerButton label="■" onClick={handleReset} variant="secondary" />
+          <Tooltip>
+            <TooltipTrigger>
+              <TimerButton label="■" onClick={handleReset} variant="secondary" />
+            </TooltipTrigger>
+            <TooltipContent>Сбросить таймер</TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </div>

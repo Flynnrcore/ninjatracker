@@ -19,7 +19,7 @@ const StarRating = ({
         <button
           key={star}
           type="button"
-          className={`difficulty-star text-2xl transition-colors ${
+          className={`difficulty-star text-4xl transition-colors ${
             (hovered ?? value) >= star ? 'text-yellow-400' : 'text-gray-300'
           }`}
           onMouseEnter={() => setHovered(star)}

@@ -6,7 +6,7 @@ import { Slider } from './ui/slider';
 const MIN_BPM = 40;
 const MAX_BPM = 280;
 
-const RHYTHM_PRESETS = [
+export const RHYTHM_PRESETS = [
   { name: '1/4', value: 1 },
   { name: '2/4', value: 2 },
   { name: '3/4', value: 3 },
@@ -19,7 +19,7 @@ const Metronome = ({ className }: { className?: string }) => {
   const [isRunning, setIsRunning] = useState(false);
   const [beatCount, setBeatCount] = useState(0);
   const [beatsPerMeasure, setBeatsPerMeasure] = useState(4);
-  const [hiddenMetronome, setHiddenMetronome] = useState(true);
+  const [hiddenMetronome, setHiddenMetronome] = useState(false);
   const [animate, setAnimate] = useState(false);
 
   const audioContextRef = useRef<AudioContext | null>(null);
@@ -117,36 +117,26 @@ const Metronome = ({ className }: { className?: string }) => {
       <Button
         type="button"
         onClick={() => setHiddenMetronome(!hiddenMetronome)}
-        className={`h-[140px] right-0 w-4 flex flex-col gap-6 shadow-2xl rounded-tr-none rounded-br-none border-1 border-gray-100 bg-white text-black hover:bg-yellow-400 hover:text-white duration-300 hover:border-0
-          ${animate ? 'animate-bounce-left-twice' : ''}
-          ${hiddenMetronome ? 'absolute right-0' : ''}
-        `}
-      >
-        <span className="pl-12 mb-6 rotate-90 transform whitespace-nowrap">Метроном</span>
-        {hiddenMetronome ? <span className='text-2xl'>&#10563;</span> : <span className='text-2xl'>&#10562;</span>}
+        className={`right-0 flex h-[140px] w-4 flex-col gap-6 rounded-tr-none rounded-br-none border-1 border-gray-100 bg-white text-black shadow-2xl duration-300 hover:border-0 hover:bg-yellow-400 hover:text-white ${animate ? 'animate-bounce-left-twice' : ''} ${hiddenMetronome ? 'absolute right-0' : ''} `}>
+        <span className="mb-6 rotate-90 transform pl-12 whitespace-nowrap">Метроном</span>
+        {hiddenMetronome ? <span className="text-2xl">&#10563;</span> : <span className="text-2xl">&#10562;</span>}
       </Button>
       <div
-        className={`right-full mr-4 top-0 z-10 mb-4 flex flex-col items-center gap-2 rounded-lg border border-gray-100 bg-white p-2 shadow-md
-      transition-all duration-300 ease-in-out
-      ${hiddenMetronome ? 'opacity-0 translate-x-4 pointer-events-none' : 'opacity-100 translate-x-0'}
-      ${className}
-    `}>
+        className={`top-0 right-full z-10 mr-4 mb-4 flex flex-col items-center gap-2 rounded-lg border border-gray-100 bg-white p-2 shadow-md transition-all duration-300 ease-in-out ${hiddenMetronome ? 'pointer-events-none translate-x-4 opacity-0' : 'translate-x-0 opacity-100'} ${className} `}>
         <img className="h-25" src="/metronome-img.webp" alt="Metronome Icon" />
         <div className="flex flex-col items-center justify-center gap-4 text-center">
           <div className="flex items-center justify-center gap-2">
             <Button
               type="button"
               onClick={() => handleBpmChange(bpm - 1)}
-              className="bg-white-600 flex h-8 w-8 items-center justify-center rounded-full border-1 border-black text-black duration-300 hover:bg-black hover:text-white hover:shadow-xl"
-            >
+              className="bg-white-600 flex h-8 w-8 items-center justify-center rounded-full border-1 border-black text-black duration-300 hover:bg-black hover:text-white hover:shadow-xl">
               -
             </Button>
             <p className="font-mono text-xl">{bpm} BPM</p>
             <Button
               type="button"
               onClick={() => handleBpmChange(bpm + 1)}
-              className="bg-white-600 flex h-8 w-8 items-center justify-center rounded-full border-1 border-black text-black duration-300 hover:bg-black hover:text-white hover:shadow-xl"
-            >
+              className="bg-white-600 flex h-8 w-8 items-center justify-center rounded-full border-1 border-black text-black duration-300 hover:bg-black hover:text-white hover:shadow-xl">
               +
             </Button>
           </div>
@@ -161,10 +151,7 @@ const Metronome = ({ className }: { className?: string }) => {
         </div>
         <div className="w-full">
           <label>Тактовый размер</label>
-          <Select
-            onValueChange={value => setBeatsPerMeasure(parseInt(value))}
-            defaultValue={String(beatsPerMeasure)}
-          >
+          <Select onValueChange={value => setBeatsPerMeasure(parseInt(value))} defaultValue={String(beatsPerMeasure)}>
             <SelectTrigger className="w-full">
               <SelectValue placeholder="Размер" />
             </SelectTrigger>
@@ -182,8 +169,7 @@ const Metronome = ({ className }: { className?: string }) => {
           onClick={toggleMetronome}
           className={`w-full rounded-lg px-6 py-6 text-4xl text-white ${
             isRunning ? 'bg-red-600 hover:bg-red-700' : 'bg-yellow-500 hover:bg-yellow-400'
-          }`}
-        >
+          }`}>
           {isRunning ? '■' : '▶'}
         </Button>
       </div>
