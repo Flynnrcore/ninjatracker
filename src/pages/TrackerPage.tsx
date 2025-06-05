@@ -1,5 +1,4 @@
 import { EXERCISE_TYPES, INSTRUMENTS, mockData } from '@/assets/mockData';
-import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
 import { SelectTrigger } from '@radix-ui/react-select';
 
