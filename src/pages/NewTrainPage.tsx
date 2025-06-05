@@ -1,4 +1,3 @@
-import DatePickerDemo from '@/components/ui/datePicker';
 import Metronome from '../components/Metronome';
 import Timer from '../components/Timer';
 import { Input } from '@/components/ui/input';
@@ -39,7 +38,7 @@ const NewTrainPage = () => {
           </div>
           <div className="w-1/2">
             <label htmlFor="trainDate">Дата тренировки:</label>
-            <DatePickerDemo id="trainDate" />
+            <Input id="trainDate" type="date" className="h-9" />
             <label htmlFor="exerciseType" className="mt-4">
               Тип тренировки:
             </label>
