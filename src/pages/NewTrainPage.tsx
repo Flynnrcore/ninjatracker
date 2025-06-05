@@ -9,6 +9,7 @@ import StarRating from '@/components/StarRaiting';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { Checkbox } from '@/components/ui/checkbox';
+import { PATH } from '@/constants/paths';
 
 const NewTrainPage = () => {
   const [difficulty, setDifficulty] = useState(0);
@@ -86,7 +87,7 @@ const NewTrainPage = () => {
             <ToggleGroupItem className="h-[100px]" value="piano">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <img className="max-h-[100px]" src="/icons/piano.webp" alt="piano" />
+                  <img className="max-h-[100px]" src={PATH.INSTRUMENT.PIANO} alt="piano" />
                 </TooltipTrigger>
                 <TooltipContent>Клавишные</TooltipContent>
               </Tooltip>
@@ -94,7 +95,7 @@ const NewTrainPage = () => {
             <ToggleGroupItem className="h-[100px]" value="drums">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <img className="max-h-[100px]" src="/icons/drums.webp" alt="drums" />
+                  <img className="max-h-[100px]" src={PATH.INSTRUMENT.DRUMS} alt="drums" />
                 </TooltipTrigger>
                 <TooltipContent>Барабаны</TooltipContent>
               </Tooltip>
@@ -102,7 +103,7 @@ const NewTrainPage = () => {
             <ToggleGroupItem className="h-[100px]" value="bass">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <img className="max-h-[100px]" src="/icons/bass.webp" alt="bass" />
+                  <img className="max-h-[100px]" src={PATH.INSTRUMENT.BASS} alt="bass" />
                 </TooltipTrigger>
                 <TooltipContent>Бас</TooltipContent>
               </Tooltip>
@@ -110,7 +111,7 @@ const NewTrainPage = () => {
             <ToggleGroupItem className="h-[100px]" value="eguitar">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <img className="max-h-[80px]" src="/icons/eguitar.webp" alt="electric-guitar" />
+                  <img className="max-h-[80px]" src={PATH.INSTRUMENT.EGUITAR} alt="electric-guitar" />
                 </TooltipTrigger>
                 <TooltipContent>Электрогитара</TooltipContent>
               </Tooltip>
@@ -118,7 +119,7 @@ const NewTrainPage = () => {
             <ToggleGroupItem className="h-[100px]" value="acguitar">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <img className="max-h-[80px]" src="/icons/aguitar.webp" alt="acoustic-guitar" />
+                  <img className="max-h-[80px]" src={PATH.INSTRUMENT.AGUITAR} alt="acoustic-guitar" />
                 </TooltipTrigger>
                 <TooltipContent>Акустическая гитара</TooltipContent>
               </Tooltip>
@@ -126,7 +127,7 @@ const NewTrainPage = () => {
             <ToggleGroupItem className="h-[100px]" value="vocal">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <img className="max-h-[90px]" src="/icons/microphone.webp" alt="vocal" />
+                  <img className="max-h-[90px]" src={PATH.INSTRUMENT.MICROPHONE} alt="vocal" />
                 </TooltipTrigger>
                 <TooltipContent>Вокал</TooltipContent>
               </Tooltip>
@@ -134,7 +135,7 @@ const NewTrainPage = () => {
             <ToggleGroupItem className="h-[100px]" value="other">
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <img className="max-h-[100px]" src="/icons/other.webp" alt="other" />
+                  <img className="max-h-[100px]" src={PATH.INSTRUMENT.OTHER} alt="other" />
                 </TooltipTrigger>
                 <TooltipContent>Другие инструменты</TooltipContent>
               </Tooltip>

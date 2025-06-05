@@ -1,5 +1,6 @@
 import { EXERCISE_TYPES, INSTRUMENTS, mockData } from '@/assets/mockData';
 import { Select, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
+import { PATH, withBaseUrl } from '@/constants/paths';
 import { SelectTrigger } from '@radix-ui/react-select';
 
 const TrackerPage = () => {
@@ -7,7 +8,7 @@ const TrackerPage = () => {
     <div className="flex size-full min-h-screen flex-col gap-6 bg-stone-50 p-18 pt-6">
       <div className="flex items-center justify-between">
         <h2>Журнал тренировок</h2>
-        <a href="/newtrain">
+        <a href={withBaseUrl("/newtrain")}>
           <button className="rounded-lg bg-yellow-500 px-6 py-3 text-xl text-white transition-colors hover:scale-101 hover:bg-yellow-400">
             Начать новую тренировку
           </button>
@@ -100,7 +101,7 @@ const TrackerPage = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="p-2"><button className="p-6 hover:scale-110 active:scale-90"><img src="/del-img.webp" /></button></td>
+                  <td className="p-2"><button className="p-6 hover:scale-110 active:scale-90"><img src={PATH.REMOVE_BTN_IMG} /></button></td>
                 </tr>
               ))}
           </tbody>

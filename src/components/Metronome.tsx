@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Button } from './ui/button';
 import { Slider } from './ui/slider';
+import { PATH } from '@/constants/paths';
 
 const MIN_BPM = 40;
 const MAX_BPM = 280;
@@ -123,7 +124,7 @@ const Metronome = ({ className }: { className?: string }) => {
       </Button>
       <div
         className={`top-0 right-full z-10 mr-4 mb-4 flex flex-col items-center gap-2 rounded-lg border border-gray-100 bg-white p-2 shadow-md transition-all duration-300 ease-in-out ${hiddenMetronome ? 'pointer-events-none translate-x-4 opacity-0' : 'translate-x-0 opacity-100'} ${className} `}>
-        <img className="h-25" src="/metronome-img.webp" alt="Metronome Icon" />
+        <img className="h-25" src={PATH.METRONOME_IMG} alt="Metronome Icon" />
         <div className="flex flex-col items-center justify-center gap-4 text-center">
           <div className="flex items-center justify-center gap-2">
             <Button

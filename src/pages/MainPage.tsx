@@ -1,3 +1,4 @@
+import { PATH, withBaseUrl } from '@/constants/paths';
 import BackgroundAnimation from '../components/BackgroundAnimation';
 
 const MainPage = () => {
@@ -10,7 +11,7 @@ const MainPage = () => {
       <section className="relative flex items-center justify-center overflow-hidden">
         <BackgroundAnimation countNotes={50} />
         <div className="z-1 m-10 flex items-center gap-12 rounded-2xl border-1 bg-white">
-          <img className="w-1/3 rounded-2xl" src="/main-img.svg" alt="Ninja practicing with music" />
+          <img className="w-1/3 rounded-2xl" src={PATH.MAIN_PAGE_LOGO} alt="Ninja practicing with music" />
           <div className="p className={textStyle}-10 text-center">
             <h1 className="font-[LogoFont] text-8xl">NinjaTracker</h1>
             <h3 className="text-5xl font-bold"> Ваш личный музыкальный трекер</h3>
@@ -19,7 +20,7 @@ const MainPage = () => {
               Ставьте цели, ведите записи и достигайте новых высот вместе с{' '}
               <span className="font-[LogoFont] text-4xl">NinjaTracker!</span>
             </p>
-            <a href="/newtrain">
+            <a href={withBaseUrl("/newtrain")}>
               <button className="mt-6 w-md rounded-lg bg-yellow-500 px-6 py-3 text-2xl text-white transition-colors hover:scale-105 hover:bg-yellow-400 active:scale-95">
                 Начать тренировку
               </button>
@@ -85,7 +86,7 @@ const MainPage = () => {
             </div>
           </article>
         </div>
-        <img className="h-full w-1/2 rounded-2xl object-cover" src="/shedule-ninja.webp" alt="ninja with schedule" />
+        <img className="h-full w-1/2 rounded-2xl object-cover" src={PATH.MAIN_PAGE_SHEDULE_IMG} alt="ninja with schedule" />
       </section>
       <section className={`${sectionStyle} mb-10`}>
         <h2>Управление заметками и идеями</h2>
