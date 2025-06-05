@@ -8,7 +8,7 @@ const TrackerPage = () => {
     <div className="flex size-full min-h-screen flex-col gap-6 bg-stone-50 p-18 pt-6">
       <div className="flex items-center justify-between">
         <h2>Журнал тренировок</h2>
-        <a href={withBaseUrl("/newtrain")}>
+        <a href={withBaseUrl('/newtrain')}>
           <button className="rounded-lg bg-yellow-500 px-6 py-3 text-xl text-white transition-colors hover:scale-101 hover:bg-yellow-400">
             Начать новую тренировку
           </button>
@@ -54,13 +54,13 @@ const TrackerPage = () => {
         <table className="radius mt-2 flex-1 rounded-xl border border-gray-200 bg-white">
           <thead>
             <tr className="bg-white">
-              <th className="w-[400px] px-4 py-3  text-sm leading-normal font-medium text-black">Дата</th>
-              <th className="w-[400px] px-4 py-3  text-sm leading-normal font-medium text-black">Название</th>
-              <th className="w-[400px] px-4 py-3  text-sm leading-normal font-medium text-black">Описание</th>
-              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Тип</th>
-              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Инструмент</th>
-              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Сложность</th>
-              <th className="w-60 px-4 py-3  text-sm leading-normal font-medium text-black">Удалить</th>
+              <th className="w-[400px] px-4 py-3 text-sm leading-normal font-medium text-black">Дата</th>
+              <th className="w-[400px] px-4 py-3 text-sm leading-normal font-medium text-black">Название</th>
+              <th className="w-[400px] px-4 py-3 text-sm leading-normal font-medium text-black">Описание</th>
+              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Тип</th>
+              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Инструмент</th>
+              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Сложность</th>
+              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Удалить</th>
             </tr>
           </thead>
           <tbody>
@@ -101,7 +101,11 @@ const TrackerPage = () => {
                       </span>
                     </div>
                   </td>
-                  <td className="p-2"><button className="p-6 hover:scale-110 active:scale-90"><img src={PATH.REMOVE_BTN_IMG} /></button></td>
+                  <td className="p-2">
+                    <button className="p-6 hover:scale-110 active:scale-90">
+                      <img src={PATH.REMOVE_BTN_IMG} />
+                    </button>
+                  </td>
                 </tr>
               ))}
           </tbody>

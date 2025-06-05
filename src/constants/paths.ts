@@ -17,5 +17,5 @@ export const PATH = {
     OTHER: withBaseUrl('/icons/other.webp'),
   },
   REMOVE_BTN_IMG: withBaseUrl('/del-img.webp'),
-  METRONOME_IMG: withBaseUrl('/metronome-img.webp')
+  METRONOME_IMG: withBaseUrl('/metronome-img.webp'),
 };
