@@ -24,7 +24,7 @@ const router = createBrowserRouter(
           element: <TrackerPage />,
         },
         {
-          path: '/newtrain',
+          path: '/new',
           element: <NewTrainPage />,
         },
         {

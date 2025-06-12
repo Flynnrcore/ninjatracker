@@ -1,25 +1,38 @@
 import { EXERCISE_TYPES, INSTRUMENTS, mockData } from '@/assets/mockData';
-import { Select, SelectContent, SelectItem, SelectValue } from '@/components/ui/select';
-import { PATH, withBaseUrl } from '@/constants/paths';
-import { SelectTrigger } from '@radix-ui/react-select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Link } from 'react-router-dom';
+import { cn } from '@/lib/utils';
+import { Trash2, Star } from 'lucide-react';
+import { useState } from 'react';
 
 const TrackerPage = () => {
+  const [viewMode, setViewMode] = useState<'table' | 'cards'>('table');
+  const [selectedInstrument, setSelectedInstrument] = useState<string>('');
+  const [selectedType, setSelectedType] = useState<string>('');
+
+  const filteredData = mockData.tableData.filter(train => {
+    const instrumentMatch = !selectedInstrument || train.instrument === selectedInstrument;
+    const typeMatch = !selectedType || train.type.includes(selectedType);
+    return instrumentMatch && typeMatch;
+  });
+
   return (
-    <div className="flex size-full min-h-screen flex-col gap-6 bg-stone-50 p-18 pt-6">
-      <div className="flex items-center justify-between">
-        <h2>Журнал тренировок</h2>
-        <a href={withBaseUrl('/newtrain')}>
-          <button className="rounded-lg bg-yellow-500 px-6 py-3 text-xl text-white transition-colors hover:scale-101 hover:bg-yellow-400">
-            Начать новую тренировку
-          </button>
-        </a>
-      </div>
-      <div>
-        <div className="flex items-center justify-between border-b border-stone-200">
-          <div className="flex space-x-4">
-            <Select>
-              <SelectTrigger className="w-[250px] rounded-md bg-stone-100 p-2 px-6 shadow-md">
-                <SelectValue placeholder="Инструмент" />
+    <div className="mt-15 min-h-screen bg-stone-50 p-4 sm:p-6 md:p-8">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center sm:gap-6">
+          <h2 className="text-2xl font-bold sm:text-3xl">Журнал тренировок</h2>
+          <Link to="/new" className="w-full sm:w-auto">
+            <button className="w-full rounded-lg bg-yellow-500 px-4 py-2 text-lg font-medium text-white transition-all hover:bg-yellow-400 hover:shadow-md focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-6 sm:py-3 sm:text-xl">
+              Начать новую тренировку
+            </button>
+          </Link>
+        </div>
+
+        <div className="mt-6 flex flex-col justify-between gap-4 border-b border-stone-200 pb-4 sm:flex-row sm:items-center sm:gap-6">
+          <div className="flex flex-wrap gap-3 sm:flex-nowrap sm:gap-4">
+            <Select value={selectedInstrument} onValueChange={setSelectedInstrument}>
+              <SelectTrigger className="w-full min-w-[180px] rounded-md bg-stone-100 px-4 py-2 shadow-sm sm:w-[250px]">
+                <SelectValue placeholder="Все инструменты" />
               </SelectTrigger>
               <SelectContent>
                 {Object.entries(INSTRUMENTS).map(([key, value]) => (
@@ -29,9 +42,10 @@ const TrackerPage = () => {
                 ))}
               </SelectContent>
             </Select>
-            <Select>
-              <SelectTrigger className="w-[250px] rounded-md bg-stone-100 p-2 px-6 shadow-md">
-                <SelectValue placeholder="Тип" />
+
+            <Select value={selectedType} onValueChange={setSelectedType}>
+              <SelectTrigger className="w-full min-w-[180px] rounded-md bg-stone-100 px-4 py-2 shadow-sm sm:w-[250px]">
+                <SelectValue placeholder="Все типы" />
               </SelectTrigger>
               <SelectContent>
                 {Object.entries(EXERCISE_TYPES).map(([key, value]) => (
@@ -42,74 +56,157 @@ const TrackerPage = () => {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex space-x-4">
-            <button className="flex flex-col items-center justify-center gap-1 border-b-[3px] border-b-yellow-400 pt-2.5 pb-[7px] text-black">
+
+          <div className="flex gap-2">
+            <button
+              onClick={() => setViewMode('table')}
+              className={cn(
+                'px-3 py-1.5 text-sm font-medium transition-colors',
+                viewMode === 'table' ? 'border-b-2 border-yellow-400 text-black' : 'text-stone-500 hover:text-black',
+              )}>
               Таблица
             </button>
-            <button className="flex flex-col items-center justify-center gap-1 border-b-[3px] pt-2.5 pb-[7px] text-black">
+            <button
+              onClick={() => setViewMode('cards')}
+              className={cn(
+                'px-3 py-1.5 text-sm font-medium transition-colors',
+                viewMode === 'cards' ? 'border-b-2 border-yellow-400 text-black' : 'text-stone-500 hover:text-black',
+              )}>
               Карточки
             </button>
           </div>
         </div>
-        <table className="radius mt-2 flex-1 rounded-xl border border-gray-200 bg-white">
-          <thead>
-            <tr className="bg-white">
-              <th className="w-[400px] px-4 py-3 text-sm leading-normal font-medium text-black">Дата</th>
-              <th className="w-[400px] px-4 py-3 text-sm leading-normal font-medium text-black">Название</th>
-              <th className="w-[400px] px-4 py-3 text-sm leading-normal font-medium text-black">Описание</th>
-              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Тип</th>
-              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Инструмент</th>
-              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Сложность</th>
-              <th className="w-60 px-4 py-3 text-sm leading-normal font-medium text-black">Удалить</th>
-            </tr>
-          </thead>
-          <tbody>
-            {mockData.tableData.length !== 0 &&
-              mockData.tableData.map((train, index) => (
-                <tr key={index} className="border-t border-t-gray-200">
-                  <td className="h-[72px] w-[400px] px-4 py-2 text-center text-sm leading-normal font-normal text-black">
-                    {train.date}
-                  </td>
-                  <td className="h-[72px] w-[400px] px-4 py-2 text-center text-sm leading-normal font-normal text-yellow-600">
-                    {train.name}
-                  </td>
-                  <td className="h-[72px] w-[400px] px-4 py-2 text-center text-sm leading-normal font-normal text-black">
-                    {train.description}
-                  </td>
-                  <td className="h-[72px] w-60 px-4 py-2 text-center text-sm leading-normal font-normal">
-                    <button className="flex h-8 w-full max-w-[480px] min-w-[84px] items-center justify-center rounded-lg bg-stone-100 px-4 text-sm leading-normal font-medium text-black">
-                      <span className="truncate">
-                        {train.type
-                          .map(trainType => EXERCISE_TYPES[trainType as keyof typeof EXERCISE_TYPES])
-                          .join(', ')}
-                      </span>
-                    </button>
-                  </td>
-                  <td className="h-[72px] w-60 px-4 py-2 text-center text-sm leading-normal font-normal">
-                    <button className="flex h-8 w-full max-w-[480px] min-w-[84px] items-center justify-center rounded-lg bg-stone-100 px-4 text-sm leading-normal font-medium text-black">
-                      <span className="truncate">{INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}</span>
-                    </button>
-                  </td>
-                  <td className="h-[72px] w-60 px-4 py-2 text-center text-sm leading-normal font-normal">
-                    <div className="flex h-8 w-full max-w-[480px] min-w-[84px] items-center justify-center rounded-lg bg-stone-100 px-4 text-sm leading-normal font-medium text-black">
-                      <span className="truncate">
-                        {[1, 2, 3, 4, 5].map(level => (
-                          <span key={level} className={level <= train.difficulty ? 'text-yellow-500' : 'text-gray-400'}>
-                            ★
-                          </span>
-                        ))}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="p-2">
-                    <button className="p-6 hover:scale-110 active:scale-90">
-                      <img src={PATH.REMOVE_BTN_IMG} />
-                    </button>
-                  </td>
+
+        {viewMode === 'table' ? (
+          <div className="mt-4 overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
+            <table className="w-full">
+              <thead className="bg-gray-50">
+                <tr>
+                  {[
+                    { label: 'Дата', className: 'min-w-[120px]' },
+                    { label: 'Название', className: 'min-w-[180px]' },
+                    { label: 'Описание', className: 'min-w-[240px]' },
+                    { label: 'Тип', className: 'min-w-[120px]' },
+                    { label: 'Инструмент', className: 'min-w-[120px]' },
+                    { label: 'Сложность', className: 'min-w-[120px]' },
+                    { label: '', className: 'w-16' },
+                  ].map((header, index) => (
+                    <th
+                      key={index}
+                      className={cn('px-4 py-3 text-left text-sm font-medium text-gray-700', header.className)}>
+                      {header.label}
+                    </th>
+                  ))}
                 </tr>
-              ))}
-          </tbody>
-        </table>
+              </thead>
+              <tbody className="divide-y divide-gray-200">
+                {filteredData.length > 0 ? (
+                  filteredData.map((train, index) => (
+                    <tr key={index} className="hover:bg-gray-50">
+                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">{train.date}</td>
+                      <td className="px-4 py-3 text-sm font-medium text-yellow-600">
+                        <Link to={`/train/${train.id}`} className="hover:underline">
+                          {train.name}
+                        </Link>
+                      </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">
+                        <div className="line-clamp-2">{train.description}</div>
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex flex-wrap gap-1">
+                          {train.type.map(type => (
+                            <span key={type} className="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium">
+                              {EXERCISE_TYPES[type as keyof typeof EXERCISE_TYPES]}
+                            </span>
+                          ))}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
+                        {INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
+                      </td>
+                      <td className="px-4 py-3">
+                        <div className="flex items-center">
+                          {[1, 2, 3, 4, 5].map(level => (
+                            <Star
+                              key={level}
+                              size={16}
+                              className={cn(
+                                'fill-current',
+                                level <= train.difficulty ? 'text-yellow-500' : 'text-gray-300',
+                              )}
+                            />
+                          ))}
+                        </div>
+                      </td>
+                      <td className="px-4 py-3 text-right">
+                        <button
+                          className="rounded-full p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
+                          aria-label="Удалить тренировку">
+                          <Trash2 size={18} />
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan={7} className="px-4 py-6 text-center text-sm text-gray-500">
+                      Нет данных для отображения
+                    </td>
+                  </tr>
+                )}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {filteredData.length > 0 ? (
+              filteredData.map(train => (
+                <div key={train.id} className="rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                  <div className="flex justify-between">
+                    <span className="text-sm text-gray-500">{train.date}</span>
+                    <button className="text-gray-400 hover:text-red-500" aria-label="Удалить тренировку">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                  <Link to={`/train/${train.id}`}>
+                    <h3 className="mt-1 text-lg font-medium text-yellow-600 hover:underline">{train.name}</h3>
+                  </Link>
+                  <p className="mt-2 line-clamp-3 text-sm text-gray-600">{train.description}</p>
+                  <div className="mt-3 flex flex-wrap gap-1">
+                    {train.type.map(type => (
+                      <span
+                        key={type}
+                        className="rounded-full bg-stone-100 px-2 py-1 text-xs font-medium text-gray-700">
+                        {EXERCISE_TYPES[type as keyof typeof EXERCISE_TYPES]}
+                      </span>
+                    ))}
+                  </div>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-sm font-medium text-gray-700">
+                      {INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
+                    </span>
+                    <div className="flex">
+                      {[1, 2, 3, 4, 5].map(level => (
+                        <Star
+                          key={level}
+                          size={16}
+                          className={cn(
+                            'fill-current',
+                            level <= train.difficulty ? 'text-yellow-500' : 'text-gray-300',
+                          )}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-span-full rounded-lg border-2 border-dashed border-gray-300 py-12 text-center">
+                <p className="text-gray-500">Нет данных для отображения</p>
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

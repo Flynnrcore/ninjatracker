@@ -20,6 +20,7 @@ export const EXERCISE_TYPES = {
 export const mockData = {
   tableData: [
     {
+      id: 1,
       name: 'Импро и упражнения',
       description: 'Закрепил упражения на гаммы и импровизацию в стиле блюз',
       date: '01.12.2025',
@@ -29,6 +30,7 @@ export const mockData = {
       timer: '00:00:30',
     },
     {
+      id: 2,
       name: 'Теория и анализ',
       description: 'Изучил теорию аккордов и их применение в импровизации',
       date: '02.11.2025',
@@ -38,6 +40,7 @@ export const mockData = {
       timer: '00:01:00',
     },
     {
+      id: 3,
       name: 'Песня "Sweet Child O\' Mine"',
       description: "Отработал соло и ритм-гитару для песни Guns N' Roses",
       date: '03.09.2025',
@@ -47,6 +50,7 @@ export const mockData = {
       timer: '00:02:00',
     },
     {
+      id: 4,
       name: 'Запись и сведение',
       description: 'Записал и свел трек с использованием эффектов и панорамирования',
       date: '04.05.2025',
@@ -56,6 +60,7 @@ export const mockData = {
       timer: '00:03:00',
     },
     {
+      id: 5,
       name: 'Ритмика и метр',
       description: 'Отработал ритмические паттерны и метр для барабанов',
       date: '05.12.2024',
@@ -65,6 +70,7 @@ export const mockData = {
       timer: '00:01:30',
     },
     {
+      id: 6,
       name: 'Импровизация на блюзовой основе',
       description: 'Импровизировал на блюзовой основе с использованием различных ликов',
       date: '06.10.2024',
@@ -74,6 +80,7 @@ export const mockData = {
       timer: '00:02:30',
     },
     {
+      id: 7,
       name: 'Вокализы и песни',
       description: 'Отработал вокализы и песни с использованием различных техник',
       date: '07.04.2024',
@@ -83,6 +90,7 @@ export const mockData = {
       timer: '00:01:15',
     },
     {
+      id: 8,
       name: 'Анализ песни "Hotel California"',
       description: 'Проанализировал структуру и гармонию песни Eagles',
       date: '08.03.2024',
@@ -92,6 +100,7 @@ export const mockData = {
       timer: '00:02:00',
     },
     {
+      id: 9,
       name: 'Запись демо-трека',
       description: 'Записал демо-трек с использованием нескольких инструментов',
       date: '09.01.2024',

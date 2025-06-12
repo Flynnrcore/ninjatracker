@@ -1,12 +1,13 @@
 import { PATH, withBaseUrl } from '@/constants/paths';
 import BackgroundAnimation from '../components/BackgroundAnimation';
+import { Link } from 'react-router-dom';
 
 const MainPage = () => {
   const sectionStyle = 'w-full flex flex-col items-center gap-8 px-4 py-8 md:px-6 lg:px-0 lg:py-6';
   const articleStyle = 'rounded-2xl p-6 shadow-lg bg-white hover:shadow-xl transition-shadow duration-300';
 
   return (
-    <div className="flex flex-col items-center justify-center pb-12">
+    <div className="flex flex-col items-center justify-center pt-12 pb-12">
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
         <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 md:mx-8 lg:flex-row lg:gap-12">
@@ -23,11 +24,11 @@ const MainPage = () => {
               Ставьте цели, ведите записи и достигайте новых высот вместе с{' '}
               <span className="font-[LogoFont] text-2xl md:text-3xl lg:text-4xl">NinjaTracker!</span>
             </p>
-            <a href={withBaseUrl('/newtrain/')}>
+            <Link to="/new">
               <button className="mt-4 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">
                 Начать тренировку
               </button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>

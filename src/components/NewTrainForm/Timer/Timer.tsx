@@ -9,6 +9,7 @@ const Timer = () => {
   const [isRunning, setIsRunning] = useState(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Разбиваем время на часы, минуты, секунды
   const { hours, minutes, seconds } = useMemo(
     () => ({
       hours: Math.floor(totalSeconds / 3600),
@@ -18,6 +19,13 @@ const Timer = () => {
     [totalSeconds],
   );
 
+  // Форматированное время для скрытого инпута
+  const formattedTime = useMemo(
+    () => `${formatTimeUnit(hours)}:${formatTimeUnit(minutes)}:${formatTimeUnit(seconds)}`,
+    [hours, minutes, seconds],
+  );
+
+  // Очистка таймера
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
       clearInterval(timerRef.current);
@@ -25,16 +33,20 @@ const Timer = () => {
     }
   }, []);
 
+  // Сброс таймера
   const handleReset = useCallback(() => {
     setTotalSeconds(0);
   }, []);
 
+  // Старт/пауза
   const handleStartPause = useCallback(() => {
     setIsRunning(prev => !prev);
   }, []);
 
+  // Обработка изменения времени
   const handleTimeChange = useCallback((type: 'hours' | 'minutes' | 'seconds', value: number) => {
-    const clampedValue = Math.max(0, Math.min(type === 'hours' ? 24 : 59, value));
+    const max = type === 'hours' ? 24 : 59;
+    const clampedValue = Math.max(0, Math.min(max, value));
 
     setTotalSeconds(prev => {
       const current = {
@@ -43,19 +55,15 @@ const Timer = () => {
         seconds: prev % 60,
       };
 
-      switch (type) {
-        case 'hours':
-          return clampedValue * 3600 + current.minutes * 60 + current.seconds;
-        case 'minutes':
-          return current.hours * 3600 + clampedValue * 60 + current.seconds;
-        case 'seconds':
-          return current.hours * 3600 + current.minutes * 60 + clampedValue;
-        default:
-          return prev;
-      }
+      return type === 'hours'
+        ? clampedValue * 3600 + current.minutes * 60 + current.seconds
+        : type === 'minutes'
+          ? current.hours * 3600 + clampedValue * 60 + current.seconds
+          : current.hours * 3600 + current.minutes * 60 + clampedValue;
     });
   }, []);
 
+  // Эффект для запуска/остановки таймера
   useEffect(() => {
     if (isRunning) {
       timerRef.current = setInterval(() => {
@@ -69,32 +77,27 @@ const Timer = () => {
   }, [isRunning, clearTimer]);
 
   return (
-    <div className="w-full">
-      <fieldset className="flex flex-col items-center space-y-2">
-        <legend className="text-center">Таймер тренировки:</legend>
-        <input
-          type="hidden"
-          name="time"
-          id="timer"
-          value={`${formatTimeUnit(hours)}:${formatTimeUnit(minutes)}:${formatTimeUnit(seconds)}`}
-        />
-        <div className="flex w-full items-start justify-center gap-6">
-          {isRunning ? (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <TimerButton label="⏸︎" onClick={handleStartPause} variant="danger" />
-              </TooltipTrigger>
-              <TooltipContent>Остановить таймер</TooltipContent>
-            </Tooltip>
-          ) : (
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <TimerButton label="●" onClick={handleStartPause} variant="primary" />
-              </TooltipTrigger>
-              <TooltipContent>Включить таймер</TooltipContent>
-            </Tooltip>
-          )}
-          <div className="flex w-1/2 items-center justify-between gap-4">
+    <div className="w-full px-2 sm:px-4">
+      <fieldset className="flex flex-col items-center space-y-4">
+        <legend className="sr-only">Таймер тренировки</legend>
+
+        <input type="hidden" name="time" id="timer" value={formattedTime} />
+
+        <div className="flex w-full flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <TimerButton
+                label={isRunning ? '⏸︎' : '▶'}
+                onClick={handleStartPause}
+                variant={isRunning ? 'danger' : 'primary'}
+                size="lg"
+                aria-label={isRunning ? 'Пауза' : 'Старт'}
+              />
+            </TooltipTrigger>
+            <TooltipContent>{isRunning ? 'Остановить таймер' : 'Запустить таймер'}</TooltipContent>
+          </Tooltip>
+
+          <div className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row sm:gap-6">
             <TimeInput
               id="timerHours"
               value={hours}
@@ -102,6 +105,7 @@ const Timer = () => {
               max={24}
               label="Часы"
               onChange={value => handleTimeChange('hours', value)}
+              //disabled={isRunning}
             />
             <TimeInput
               id="timerMinutes"
@@ -110,6 +114,7 @@ const Timer = () => {
               max={59}
               label="Минуты"
               onChange={value => handleTimeChange('minutes', value)}
+              //disabled={isRunning}
             />
             <TimeInput
               id="timerSeconds"
@@ -118,11 +123,13 @@ const Timer = () => {
               max={59}
               label="Секунды"
               onChange={value => handleTimeChange('seconds', value)}
+              //disabled={isRunning}
             />
           </div>
+
           <Tooltip>
             <TooltipTrigger asChild>
-              <TimerButton label="■" onClick={handleReset} variant="secondary" />
+              <TimerButton label="↻" onClick={handleReset} variant="secondary" size="lg" aria-label="Сбросить" />
             </TooltipTrigger>
             <TooltipContent>Сбросить таймер</TooltipContent>
           </Tooltip>
