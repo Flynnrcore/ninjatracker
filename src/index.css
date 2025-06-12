@@ -13,18 +13,21 @@
 
 @layer base {
   h2 {
-    @apply pb-2 text-3xl md:text-4xl font-bold text-center mb-6 text-gray-800 border-b-6 border-yellow-400;
+    @apply mb-6 border-b-6 border-yellow-400 pb-2 text-center text-3xl font-bold text-gray-800 md:text-4xl;
   }
   h3 {
-    @apply text-xl md:text-2xl font-semibold mb-3 text-gray-800;
+    @apply mb-3 text-xl font-semibold text-gray-800 md:text-2xl;
   }
   p {
-    @apply text-base md:text-lg text-gray-700 leading-relaxed;
+    @apply text-base leading-relaxed text-gray-700 md:text-lg;
   }
-  label {
+  label,
+  legend {
     @apply block pb-2 text-sm font-medium;
   }
-  main { @apply bg-stone-50 }
+  main {
+    @apply bg-stone-50;
+  }
 }
 
 @keyframes falling-notes {

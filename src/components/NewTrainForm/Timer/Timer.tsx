@@ -1,58 +1,8 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
-
-type TTimerButton = {
-  label: string;
-  onClick: () => void;
-  variant: 'primary' | 'secondary' | 'danger';
-};
-
-const TimerButton = ({ label, onClick, variant }: TTimerButton) => {
-  const variantStyles = {
-    primary: 'bg-yellow-500 hover:bg-yellow-400 focus:ring-yellow-400 text-white',
-    secondary: 'bg-gray-600 hover:bg-gray-700 focus:ring-gray-500 text-white',
-    danger: 'bg-red-600 hover:bg-red-700 focus:ring-red-500 text-white',
-  };
-
-  return (
-    <Button
-      type="button"
-      onClick={onClick}
-      className={`h-12 rounded-md px-6 py-2 focus:ring-2 focus:ring-offset-2 focus:outline-none ${variantStyles[variant]}`}>
-      {label}
-    </Button>
-  );
-};
-
-const formatTimeUnit = (num: number) => num.toString().padStart(2, '0');
-
-type TTimeInput = {
-  id: string;
-  value: number;
-  min: number;
-  max: number;
-  label: string;
-  onChange: (value: number) => void;
-};
-
-const TimeInput = ({ id, value, min, max, label, onChange }: TTimeInput) => (
-  <div className="w-1/3">
-    <Input
-      id={id}
-      type="number"
-      min={min}
-      max={max}
-      value={formatTimeUnit(value)}
-      onChange={e => onChange(Number(e.target.value))}
-      className="h-12 w-full bg-white text-center text-2xl"
-    />
-    <label htmlFor={id} className="block text-center font-medium text-gray-600">
-      {label}
-    </label>
-  </div>
-);
+import { Tooltip, TooltipContent, TooltipTrigger } from '../../ui/tooltip';
+import { formatTimeUnit } from '@/utils/TimeFn';
+import TimerButton from './TimerButton';
+import TimeInput from './TimeInput';
 
 const Timer = () => {
   const [totalSeconds, setTotalSeconds] = useState(0);
@@ -120,19 +70,25 @@ const Timer = () => {
 
   return (
     <div className="w-full">
-      <div className="flex flex-col items-center space-y-2">
-        <label htmlFor="timer">Таймер тренировки:</label>
+      <fieldset className="flex flex-col items-center space-y-2">
+        <legend className="text-center">Таймер тренировки:</legend>
+        <input
+          type="hidden"
+          name="time"
+          id="timer"
+          value={`${formatTimeUnit(hours)}:${formatTimeUnit(minutes)}:${formatTimeUnit(seconds)}`}
+        />
         <div className="flex w-full items-start justify-center gap-6">
           {isRunning ? (
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <TimerButton label="⏸︎" onClick={handleStartPause} variant="danger" />
               </TooltipTrigger>
               <TooltipContent>Остановить таймер</TooltipContent>
             </Tooltip>
           ) : (
             <Tooltip>
-              <TooltipTrigger>
+              <TooltipTrigger asChild>
                 <TimerButton label="●" onClick={handleStartPause} variant="primary" />
               </TooltipTrigger>
               <TooltipContent>Включить таймер</TooltipContent>
@@ -165,13 +121,13 @@ const Timer = () => {
             />
           </div>
           <Tooltip>
-            <TooltipTrigger>
+            <TooltipTrigger asChild>
               <TimerButton label="■" onClick={handleReset} variant="secondary" />
             </TooltipTrigger>
             <TooltipContent>Сбросить таймер</TooltipContent>
           </Tooltip>
         </div>
-      </div>
+      </fieldset>
     </div>
   );
 };

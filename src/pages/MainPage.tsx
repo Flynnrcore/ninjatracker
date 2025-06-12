@@ -7,24 +7,24 @@ const MainPage = () => {
 
   return (
     <div className="flex flex-col items-center justify-center pb-12">
-      <section className="relative w-full flex items-center justify-center overflow-hidden py-8 md:py-12">
+      <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
-        <div className="z-10 flex flex-col lg:flex-row items-center gap-6 lg:gap-12 rounded-2xl border border-gray-200 bg-white p-6 mx-4 md:mx-8 max-w-6xl">
-          <img 
-            className="w-full lg:w-1/3 rounded-2xl object-cover" 
-            src={PATH.MAIN_PAGE_LOGO} 
-            alt="Ninja practicing with music" 
+        <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 md:mx-8 lg:flex-row lg:gap-12">
+          <img
+            className="w-full rounded-2xl object-cover lg:w-1/3"
+            src={PATH.MAIN_PAGE_LOGO}
+            alt="Ninja practicing with music"
           />
-          <div className="text-center lg:text-left space-y-4">
+          <div className="space-y-4 text-center lg:text-left">
             <h1 className="font-[LogoFont] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold">Ваш личный музыкальный трекер</h3>
+            <h3 className="text-2xl font-bold sm:text-3xl md:text-4xl">Ваш личный музыкальный трекер</h3>
             <p className="text-lg md:text-xl lg:text-2xl">Легко отслеживайте прогресс в занятиях музыкой.</p>
             <p className="text-lg md:text-xl lg:text-2xl">
               Ставьте цели, ведите записи и достигайте новых высот вместе с{' '}
               <span className="font-[LogoFont] text-2xl md:text-3xl lg:text-4xl">NinjaTracker!</span>
             </p>
-            <a href={withBaseUrl('/newtrain')}>
-              <button className="mt-4 md:mt-6 w-full sm:w-auto rounded-lg bg-yellow-500 px-6 py-3 text-lg md:text-xl text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95">
+            <a href={withBaseUrl('/newtrain/')}>
+              <button className="mt-4 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">
                 Начать тренировку
               </button>
             </a>
@@ -34,24 +34,28 @@ const MainPage = () => {
 
       <section className={sectionStyle}>
         <h2>Отслеживание прогресса занятий</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 w-full max-w-6xl">
+        <div className="grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {[
             {
-              title: "Детальный учет времени",
-              description: "Записывайте время, потраченное на каждое упражнение и песню, чтобы точно знать, куда уходит ваше время."
+              title: 'Детальный учет времени',
+              description:
+                'Записывайте время, потраченное на каждое упражнение и песню, чтобы точно знать, куда уходит ваше время.',
             },
             {
-              title: "Визуализация данных",
-              description: "Преобразуйте свои данные в наглядные графики и статистику для быстрого понимания прогресса."
+              title: 'Визуализация данных',
+              description:
+                'Преобразуйте свои данные в наглядные графики и статистику для быстрого понимания прогресса.',
             },
             {
-              title: "Персонализация",
-              description: "Настраивайте параметры отслеживания под свои уникальные нужды, будь то жанр или инструмент."
+              title: 'Персонализация',
+              description:
+                'Настраивайте параметры отслеживания под свои уникальные нужды, будь то жанр или инструмент.',
             },
             {
-              title: "Сравнение периодов",
-              description: "Сравните текущий прогресс с предыдущими периодами, чтобы сохранять мотивацию и видеть свой рост."
-            }
+              title: 'Сравнение периодов',
+              description:
+                'Сравните текущий прогресс с предыдущими периодами, чтобы сохранять мотивацию и видеть свой рост.',
+            },
           ].map((item, index) => (
             <article key={index} className={articleStyle}>
               <h3>{item.title}</h3>
@@ -62,25 +66,30 @@ const MainPage = () => {
       </section>
 
       <section className={`${sectionStyle} max-w-6xl`}>
-        <div className="flex flex-col lg:flex-row gap-8 w-full">
-          <div className="flex flex-col gap-8 rounded-2xl bg-white p-6 md:p-8 shadow-lg w-full lg:w-1/2">
+        <div className="flex w-full flex-col gap-8 lg:flex-row">
+          <div className="flex w-full flex-col gap-8 rounded-2xl bg-white p-6 shadow-lg md:p-8 lg:w-1/2">
             <h2>Планирование тренировок и репертуара</h2>
             {[
               {
-                title: "Создание расписаний",
-                description: "Составляйте гибкие расписания тренировок и репертуаров, чтобы ничего не забыть."
+                title: 'Создание расписаний',
+                description: 'Составляйте гибкие расписания тренировок и репертуаров, чтобы ничего не забыть.',
               },
               {
-                title: "Отслеживание выполнения",
-                description: "Отмечайте выполненные упражнения и песни, чтобы видеть свой прогресс."
+                title: 'Отслеживание выполнения',
+                description: 'Отмечайте выполненные упражнения и песни, чтобы видеть свой прогресс.',
               },
               {
-                title: "Анализ результатов",
-                description: "Регулярно анализируйте свои достижения и корректируйте планы для достижения лучших результатов."
-              }
+                title: 'Анализ результатов',
+                description:
+                  'Регулярно анализируйте свои достижения и корректируйте планы для достижения лучших результатов.',
+              },
             ].map((item, index) => (
               <article key={index} className="flex items-start gap-4">
-                <img className="h-10 w-10 md:h-12 md:w-12 object-cover mt-1" src={withBaseUrl('/shuriken.webp')} alt="marker list" />
+                <img
+                  className="mt-1 h-10 w-10 object-cover md:h-12 md:w-12"
+                  src={withBaseUrl('/shuriken.webp')}
+                  alt="marker list"
+                />
                 <div>
                   <h3>{item.title}</h3>
                   <p>{item.description}</p>
@@ -89,7 +98,7 @@ const MainPage = () => {
             ))}
           </div>
           <img
-            className="hidden lg:block w-full lg:w-1/2 object-contain"
+            className="hidden w-full object-contain lg:block lg:w-1/2"
             src={PATH.MAIN_PAGE_SHEDULE_IMG}
             alt="ninja with schedule"
           />
@@ -98,24 +107,24 @@ const MainPage = () => {
 
       <section className={`${sectionStyle} max-w-6xl`}>
         <h2>Управление заметками и идеями</h2>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 w-full">
+        <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
           {[
             {
-              title: "Заметки о тренировках",
-              description: "Создавайте заметки о каждой тренировке, чтобы не забыть важные моменты и идеи."
+              title: 'Заметки о тренировках',
+              description: 'Создавайте заметки о каждой тренировке, чтобы не забыть важные моменты и идеи.',
             },
             {
-              title: "Сохранение идей",
-              description: "Фиксируйте все свои музыкальные идеи и вдохновения для будущих проектов."
+              title: 'Сохранение идей',
+              description: 'Фиксируйте все свои музыкальные идеи и вдохновения для будущих проектов.',
             },
             {
-              title: "Организация",
-              description: "Организуйте заметки по категориям и тегам для быстрого поиска и удобства."
+              title: 'Организация',
+              description: 'Организуйте заметки по категориям и тегам для быстрого поиска и удобства.',
             },
             {
-              title: "Интеграция ресурсов",
-              description: "Добавляйте ссылки на полезные ресурсы, видеоуроки и музыкальные примеры."
-            }
+              title: 'Интеграция ресурсов',
+              description: 'Добавляйте ссылки на полезные ресурсы, видеоуроки и музыкальные примеры.',
+            },
           ].map((item, index) => (
             <article key={index} className={articleStyle}>
               <h3>{item.title}</h3>

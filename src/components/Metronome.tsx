@@ -151,9 +151,9 @@ const Metronome = ({ className }: { className?: string }) => {
           />
         </div>
         <div className="w-full">
-          <label>Тактовый размер</label>
+          <label htmlFor="tsize">Тактовый размер</label>
           <Select onValueChange={value => setBeatsPerMeasure(parseInt(value))} defaultValue={String(beatsPerMeasure)}>
-            <SelectTrigger className="w-full">
+            <SelectTrigger id="tsize" className="w-full">
               <SelectValue placeholder="Размер" />
             </SelectTrigger>
             <SelectContent>
