@@ -1,6 +1,6 @@
 export const INSTRUMENTS = {
   eguitar: 'Электрогитара',
-  aguitar: 'Акустическая гитара',
+  acguitar: 'Акустическая гитара',
   bass: 'Бас-гитара',
   piano: 'Пианино',
   drums: 'Барабаны',
@@ -96,7 +96,7 @@ export const mockData = {
       date: '08.03.2024',
       type: ['theory'],
       difficulty: 3,
-      instrument: 'aguitar',
+      instrument: 'acguitar',
       timer: '00:02:00',
     },
     {
