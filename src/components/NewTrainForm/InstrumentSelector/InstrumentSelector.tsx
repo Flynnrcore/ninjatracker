@@ -31,7 +31,7 @@ const InstrumentSelector = () => {
           </ToggleGroupItem>
         ))}
       </ToggleGroup>
-      <input type="hidden" name="type" value={instrument} />
+      <input type="hidden" name="instrument" value={instrument} />
     </fieldset>
   );
 };

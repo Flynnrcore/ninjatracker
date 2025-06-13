@@ -6,12 +6,29 @@ import { useState } from 'react';
 import StarRating from '@/components/NewTrainForm/StarRating/StarRaiting';
 import InstrumentSelector from './InstrumentSelector/InstrumentSelector';
 import TrainType from './TrainType/TrainType';
+import { useTrainings } from '@/context/TrainingContext';
+import { useNavigate } from 'react-router-dom';
 
 const NewTrainForm = () => {
+  const { addTraining } = useTrainings();
+  const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(0);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    const newTrain = {
+      id: crypto.randomUUID(),
+      name: String(formData.get('name') || ''),
+      description: String(formData.get('description') || ''),
+      date: String(formData.get('date') || new Date().toString()),
+      difficulty: Number(formData.get('difficulty') || 0),
+      instrument: String(formData.get('instrument') || ''),
+      timer: String(formData.get('time') || '00:00:00'),
+      type: String(formData.get('type') || '').split(','),
+    };
+    addTraining(newTrain);
+    navigate('/tracker');
   };
 
   const buttonStyle =
@@ -35,17 +52,26 @@ const NewTrainForm = () => {
                   <label htmlFor="trainName" className="block text-sm font-medium text-gray-700 sm:text-base">
                     Название тренировки:
                   </label>
-                  <Input id="trainName" type="text" className="h-10 w-full sm:h-9" placeholder="Название тренировки" />
+                  <Input
+                    required
+                    maxLength={50}
+                    id="trainName"
+                    name="name"
+                    type="text"
+                    className="h-10 w-full sm:h-9"
+                    placeholder="Название тренировки"
+                  />
                 </div>
                 <div>
                   <label htmlFor="trainDescription" className="block text-sm font-medium text-gray-700 sm:text-base">
                     Описание:
                   </label>
                   <Textarea
-                    maxLength={250}
+                    maxLength={100}
                     id="trainDescription"
                     placeholder="Описание тренировки"
                     className="h-24 w-full sm:h-20"
+                    name="description"
                   />
                 </div>
               </div>
@@ -56,7 +82,13 @@ const NewTrainForm = () => {
                   <label htmlFor="trainDate" className="block text-sm font-medium text-gray-700 sm:text-base">
                     Дата тренировки:
                   </label>
-                  <Input id="trainDate" type="date" className="h-10 w-full sm:h-9" />
+                  <Input
+                    defaultValue={new Date().toISOString().slice(0, 10)}
+                    name="date"
+                    id="trainDate"
+                    type="date"
+                    className="h-10 w-full sm:h-9"
+                  />
                 </div>
                 <TrainType />
               </div>

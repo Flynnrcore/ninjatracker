@@ -1,15 +1,18 @@
-import { EXERCISE_TYPES, INSTRUMENTS, mockData } from '@/assets/mockData';
+import { EXERCISE_TYPES, INSTRUMENTS } from '@/assets/mockData';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Trash2, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { withBaseUrl } from '@/constants/paths';
+import { useTrainings } from '@/context/TrainingContext';
 
 const TrackerPage = () => {
+  const { trainings, removeTraining } = useTrainings();
+
   const [viewMode, setViewMode] = useState<'table' | 'cards'>(() => (window.innerWidth >= 1024 ? 'table' : 'cards'));
-  const [selectedInstrument, setSelectedInstrument] = useState<string>('');
-  const [selectedType, setSelectedType] = useState<string>('');
+  const [selectedInstrument, setSelectedInstrument] = useState<string>('all');
+  const [selectedType, setSelectedType] = useState<string>('all');
 
   // Определение начального режима просмотра по размеру экрана
   useEffect(() => {
@@ -25,9 +28,10 @@ const TrackerPage = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const filteredData = mockData.tableData.filter(train => {
-    const instrumentMatch = !selectedInstrument || train.instrument === selectedInstrument;
-    const typeMatch = !selectedType || train.type.includes(selectedType);
+  const filteredData = trainings.filter(train => {
+    const instrumentMatch =
+      selectedInstrument === 'all' || !selectedInstrument || train.instrument === selectedInstrument;
+    const typeMatch = selectedType === 'all' || !selectedType || train.type.includes(selectedType);
     return instrumentMatch && typeMatch;
   });
 
@@ -52,6 +56,7 @@ const TrackerPage = () => {
                 <SelectValue placeholder="Все инструменты" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="all">Все инструменты</SelectItem>
                 {Object.entries(INSTRUMENTS).map(([key, value]) => (
                   <SelectItem key={key} value={key}>
                     {value}
@@ -65,6 +70,7 @@ const TrackerPage = () => {
                 <SelectValue placeholder="Все типы" />
               </SelectTrigger>
               <SelectContent>
+                <SelectItem value="all">Все типы</SelectItem>
                 {Object.entries(EXERCISE_TYPES).map(([key, value]) => (
                   <SelectItem key={key} value={key}>
                     {value}
@@ -81,8 +87,7 @@ const TrackerPage = () => {
                 'px-3 py-1.5 text-sm font-medium transition-colors',
                 viewMode === 'table' ? 'border-b-2 border-yellow-400 text-black' : 'text-stone-500 hover:text-black',
               )}
-              aria-label="Табличный вид"
-            >
+              aria-label="Табличный вид">
               Таблица
             </button>
             <button
@@ -91,8 +96,7 @@ const TrackerPage = () => {
                 'px-3 py-1.5 text-sm font-medium transition-colors',
                 viewMode === 'cards' ? 'border-b-2 border-yellow-400 text-black' : 'text-stone-500 hover:text-black',
               )}
-              aria-label="Вид карточек"
-            >
+              aria-label="Вид карточек">
               Карточки
             </button>
           </div>
@@ -111,12 +115,12 @@ const TrackerPage = () => {
                     { label: 'Тип', className: 'min-w-[120px]' },
                     { label: 'Инструмент', className: 'min-w-[120px]' },
                     { label: 'Сложность', className: 'min-w-[120px]' },
+                    { label: 'Время', className: 'min-w-[100px]' },
                     { label: '', className: 'w-16' },
                   ].map((header, index) => (
                     <th
                       key={index}
-                      className={cn('px-4 py-3 text-left text-sm font-medium text-gray-700', header.className)}
-                    >
+                      className={cn('px-4 py-3 text-left text-sm font-medium text-gray-700', header.className)}>
                       {header.label}
                     </th>
                   ))}
@@ -126,7 +130,7 @@ const TrackerPage = () => {
                 {filteredData.length > 0 ? (
                   filteredData.map((train, index) => (
                     <tr key={index} className="hover:bg-gray-50">
-                      <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700">{train.date}</td>
+                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">{train.date}</td>
                       <td className="px-4 py-3 text-sm font-medium text-yellow-600">
                         <Link to={`/train/${train.id}`} className="hover:underline">
                           {train.name}
@@ -137,14 +141,17 @@ const TrackerPage = () => {
                       </td>
                       <td className="px-4 py-3">
                         <div className="flex flex-wrap gap-1">
-                          {train.type.map(type => (
-                            <span key={type} className="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium">
-                              {EXERCISE_TYPES[type as keyof typeof EXERCISE_TYPES]}
-                            </span>
-                          ))}
+                          {train.type.map(
+                            type =>
+                              type && (
+                                <span key={type} className="rounded-full bg-stone-100 px-2.5 py-1 text-xs font-medium">
+                                  {EXERCISE_TYPES[type as keyof typeof EXERCISE_TYPES]}
+                                </span>
+                              ),
+                          )}
                         </div>
                       </td>
-                      <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700">
+                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
                         {INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
                       </td>
                       <td className="px-4 py-3">
@@ -161,11 +168,12 @@ const TrackerPage = () => {
                           ))}
                         </div>
                       </td>
+                      <td className="px-4 py-3 text-sm text-gray-700">{train.timer || '-'}</td>
                       <td className="px-4 py-3 text-right">
                         <button
                           className="rounded-full p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
                           aria-label={`Удалить тренировку ${train.name}`}
-                        >
+                          onClick={() => removeTraining(train.id)}>
                           <Trash2 size={18} />
                         </button>
                       </td>
@@ -187,8 +195,7 @@ const TrackerPage = () => {
               filteredData.map(train => (
                 <div
                   key={train.id}
-                  className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md"
-                >
+                  className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">
                   {/* Верхняя часть - изображение инструмента */}
                   <div className="flex h-40 items-center justify-center bg-gray-50 p-4">
                     <img
@@ -205,7 +212,7 @@ const TrackerPage = () => {
                       <button
                         className="text-gray-400 hover:text-red-500"
                         aria-label={`Удалить тренировку ${train.name}`}
-                      >
+                        onClick={() => removeTraining(train.id)}>
                         <Trash2 size={16} />
                       </button>
                     </div>
@@ -214,20 +221,22 @@ const TrackerPage = () => {
                       <h3 className="text-lg font-medium text-yellow-600 hover:underline">{train.name}</h3>
                     </Link>
 
-                    <p className="mt-2 line-clamp-3 text-sm text-gray-600">{train.description}</p>
+                    <p className="line-clamp-3 text-sm text-gray-600">{train.description}</p>
 
-                    <div className="mt-3 flex flex-wrap gap-1">
-                      {train.type.map(type => (
-                        <span
-                          key={type}
-                          className="rounded-full bg-stone-100 px-2 py-1 text-xs font-medium text-gray-700"
-                        >
-                          {EXERCISE_TYPES[type as keyof typeof EXERCISE_TYPES]}
-                        </span>
-                      ))}
+                    <div className="mt-3 flex flex-wrap gap-1 pb-2">
+                      {train.type.map(
+                        type =>
+                          type && (
+                            <span
+                              key={type}
+                              className="rounded-full bg-stone-100 px-2 py-1 text-xs font-medium text-gray-700">
+                              {EXERCISE_TYPES[type as keyof typeof EXERCISE_TYPES]}
+                            </span>
+                          ),
+                      )}
                     </div>
 
-                    <div className="mt-4 flex items-center justify-between">
+                    <div className="mt-auto flex items-center justify-between">
                       <span className="text-sm font-medium text-gray-700">
                         {INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
                       </span>
@@ -244,6 +253,7 @@ const TrackerPage = () => {
                         ))}
                       </div>
                     </div>
+                    <div className="mt-2 text-sm text-gray-500">Время тренировки: {train.timer || '-'}</div>
                   </div>
                 </div>
               ))

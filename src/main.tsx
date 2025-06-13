@@ -7,6 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import { ErrorPage, MainPage, TrackerPage, NewTrainPage } from './pages';
 import { BASE_URL, PATH } from './constants/paths';
+import { TrainingsProvider } from './context/TrainingContext';
 
 const router = createBrowserRouter(
   [
@@ -39,6 +40,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <TrainingsProvider>
+      <RouterProvider router={router} />
+    </TrainingsProvider>
   </StrictMode>,
 );

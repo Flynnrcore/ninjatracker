@@ -35,7 +35,7 @@ const TrainType = () => {
             <Label htmlFor={id}>{label}</Label>
           </div>
         ))}
-        <textarea name="trainTypes" value={trainTypes.join(',')} readOnly hidden />
+        <textarea name="type" value={trainTypes.join(',')} readOnly hidden />
       </div>
     </fieldset>
   );
