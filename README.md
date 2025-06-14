@@ -1,5 +1,6 @@
 # 🎵 Ninja Tracker 🎵
 
+[![Maintainability](https://qlty.sh/badges/b6125dc0-85ac-41f3-8270-ae761025c432/maintainability.svg)](https://qlty.sh/gh/Flynnrcore/projects/ninjatracker)
 [![GitHub Stars](https://img.shields.io/github/stars/Flynnrcore/ninjatracker?style=social)](https://github.com/Flynnrcore/ninjatracker/stargazers)
 [![React](https://img.shields.io/badge/React-19-%2361DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-%233178C6)](https://www.typescriptlang.org/)
