@@ -4,15 +4,12 @@
 [![React](https://img.shields.io/badge/React-19-%2361DAFB)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-%233178C6)](https://www.typescriptlang.org/)
 
-
 **Персональный трекер музыкальных тренировок** для профессиональных музыкантов и любителей.
 Отслеживайте прогресс, планируйте занятия и совершенствуйте мастерство.
 
 <br/>
 <a href='https://flynnrcore.github.io/ninjatracker/' target='_blank'><img src='https://i.postimg.cc/hjjqMV1z/temp-Image-QClbe-S.avif' border='0' alt='site view'/></a>
 <br/>
-
-
 
 ## 🌟 Основные возможности
 
