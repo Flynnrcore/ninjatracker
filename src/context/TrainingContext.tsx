@@ -17,8 +17,6 @@ export type TTraining = {
 
 type TStatistic = {
   alltime: number;
-  timeTrainings: { date: string; time: number }[];
-  difficulty: Record<TDifficulty, number>;
   trainTypes: Record<TTrainingType, number>;
 };
 
@@ -39,29 +37,11 @@ export const TrainingsProvider = ({ children }: { children: ReactNode }) => {
     (prevStats: TStatistic, training: TTraining, operation: 'add' | 'remove'): TStatistic => {
       const diff = operation === 'add' ? 1 : -1;
 
-      const newDifficulty = { ...prevStats.difficulty };
-      const key = training.difficulty as keyof typeof newDifficulty;
-      newDifficulty[key] = Math.max((newDifficulty[key] || 0) + diff, 0);
-
       const newTrainTypes = { ...prevStats.trainTypes };
       training.type.forEach(t => {
         const typeKey = t as keyof typeof newTrainTypes;
         newTrainTypes[typeKey] = Math.max((newTrainTypes[typeKey] || 0) + diff, 0);
       });
-
-      let newTimeTrainings;
-      if (operation === 'add') {
-        newTimeTrainings = [...prevStats.timeTrainings, { date: training.date, time: training.timer }];
-      } else {
-        let removed = false;
-        newTimeTrainings = prevStats.timeTrainings.filter(t => {
-          if (!removed && t.date === training.date && t.time === training.timer) {
-            removed = true;
-            return false;
-          }
-          return true;
-        });
-      }
 
       const newAllTime =
         operation === 'add'
@@ -70,8 +50,6 @@ export const TrainingsProvider = ({ children }: { children: ReactNode }) => {
 
       return {
         alltime: newAllTime,
-        timeTrainings: newTimeTrainings,
-        difficulty: newDifficulty,
         trainTypes: newTrainTypes,
       };
     },

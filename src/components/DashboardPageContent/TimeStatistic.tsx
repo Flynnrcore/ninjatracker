@@ -7,32 +7,40 @@ import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } f
 import { getFormattedTime } from '@/utils/TimeFn';
 
 const chartConfig = {
-  time: {
+  timer: {
     label: 'время тренировки',
     color: 'orange',
   },
 } satisfies ChartConfig;
 
-export const TimeStatistic = ({ stats }: { stats: any }) => {
+export const TimeStatistic = ({ stats, trainings }: { stats: any; trainings: any }) => {
+  const data = [...trainings].reverse().slice(-10);
+
   return (
-    <Card className="w-full max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-2xl xl:max-w-3xl">
+    <Card className="w-full flex-ba max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Время тренировок</CardTitle>
         <CardDescription>
-          <h3 className="text-3xl font-bold md:text-4xl">{getFormattedTime(stats.alltime)}</h3>
+          <h3 className="text-3xl font-bold md:text-4xl text-yellow-500">{getFormattedTime(stats.alltime)}</h3>
           <span className="text-xs text-gray-500 md:text-sm">за все время</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-0">
         <ChartContainer config={chartConfig}>
-          <LineChart accessibilityLayer data={stats.timeTrainings.slice(-10)}>
+          <LineChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
               dataKey="date"
               tickLine={false}
               axisLine={false}
               tickMargin={8}
-              tickFormatter={val => val.slice(0, -5)}
+              tickFormatter={value => {
+                const date = new Date(value);
+                return date.toLocaleDateString('ru-Ru', {
+                  month: 'short',
+                  day: 'numeric',
+                });
+              }}
             />
             <ChartTooltip
               cursor={true}
@@ -40,7 +48,7 @@ export const TimeStatistic = ({ stats }: { stats: any }) => {
               formatter={value => ['Время тренировки', ` ${getFormattedTime(Number(value))}`]}
             />
             <Line
-              dataKey="time"
+              dataKey="timer"
               type="natural"
               stroke="orange"
               strokeWidth={2}

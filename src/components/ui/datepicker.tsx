@@ -11,6 +11,7 @@ import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover
 
 export function DatePicker() {
   const [date, setDate] = React.useState<Date>(new Date());
+  console.log(date.toISOString());
 
   return (
     <Popover>
@@ -18,7 +19,7 @@ export function DatePicker() {
         <Button id="trainDate" variant="outline" data-empty={!date} className="input justify-between text-start">
           {date ? format(date, 'dd.MM.yyy') : <span>Выберите дату</span>}
           <CalendarIcon />
-          <input type="hidden" name="date" value={format(date, 'dd.MM.yyy')} />
+          <input type="hidden" name="date" value={date.toISOString()} />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0">

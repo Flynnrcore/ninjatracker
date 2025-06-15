@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { withBaseUrl } from '@/constants/paths';
 import { useTrainings } from '@/context/TrainingContext';
 import { getFormattedTime } from '@/utils/TimeFn';
+import { format } from 'date-fns';
 
 const TrackerPageContent = () => {
   const { trainings, removeTraining } = useTrainings();
@@ -40,7 +41,7 @@ const TrackerPageContent = () => {
     <div className="mt-15 min-h-screen bg-stone-50 p-4 sm:p-6 md:p-8">
       <div className="mx-auto max-w-7xl">
         {/* Заголовок и кнопка */}
-        <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center sm:gap-6">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center sm:gap-6">
           <h2 className="text-2xl font-bold sm:text-3xl">Журнал тренировок</h2>
           <Link to="/new" className="w-full sm:w-auto">
             <button className="w-full rounded-lg bg-yellow-500 px-4 py-2 text-lg font-medium text-white transition-all hover:bg-yellow-400 hover:shadow-md focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-6 sm:py-3 sm:text-xl">
@@ -131,7 +132,9 @@ const TrackerPageContent = () => {
                 {filteredData.length > 0 ? (
                   filteredData.map((train, index) => (
                     <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">{train.date}</td>
+                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
+                        {format(new Date(train.date), 'dd.MM.yyy')}
+                      </td>
                       <td className="px-4 py-3 text-sm font-medium text-yellow-600">
                         <Link to={`/train/${train.id}`} className="hover:underline">
                           {train.name}
@@ -209,7 +212,7 @@ const TrackerPageContent = () => {
                   {/* Нижняя часть - информация о тренировке */}
                   <div className="flex flex-1 flex-col p-4">
                     <div className="flex justify-between">
-                      <span className="text-sm text-gray-500">{train.date}</span>
+                      <span className="text-sm text-gray-500">{format(new Date(train.date), 'dd.MM.yyy')}</span>
                       <button
                         className="text-gray-400 hover:text-red-500"
                         aria-label={`Удалить тренировку ${train.name}`}
