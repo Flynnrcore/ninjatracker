@@ -1,8 +1,8 @@
 import { mockData } from '@/assets/mockData';
 import { createContext, useCallback, useContext, useMemo, useState, type ReactNode } from 'react';
 
-type TTrainingType = 'exercises' | 'rhythm' | 'theory' | 'recording' | 'improvisation' | 'songs';
-type TDifficulty = 1 | 2 | 3 | 4 | 5;
+export type TTrainingType = 'exercises' | 'rhythm' | 'theory' | 'recording' | 'improvisation' | 'songs';
+export type TDifficulty = 0 | 1 | 2 | 3 | 4 | 5;
 
 export type TTraining = {
   id: string;

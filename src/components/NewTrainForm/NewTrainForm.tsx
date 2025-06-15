@@ -6,7 +6,7 @@ import { useState } from 'react';
 import StarRating from '@/components/NewTrainForm/StarRating/StarRaiting';
 import InstrumentSelector from './InstrumentSelector/InstrumentSelector';
 import TrainType from './TrainType/TrainType';
-import { useTrainings } from '@/context/TrainingContext';
+import { useTrainings, type TDifficulty, type TTrainingType } from '@/context/TrainingContext';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../ui/datepicker';
 
@@ -23,10 +23,10 @@ const NewTrainForm = () => {
       name: String(formData.get('name') || ''),
       description: String(formData.get('description') || ''),
       date: String(formData.get('date') || new Date().toString()),
-      difficulty: Number(formData.get('difficulty') || 0),
+      difficulty: Number(formData.get('difficulty') || 0) as TDifficulty,
       instrument: String(formData.get('instrument') || ''),
       timer: Number(formData.get('time') || 0),
-      type: String(formData.get('type') || '').split(','),
+      type: String(formData.get('type') || '').split(',') as TTrainingType[],
     };
     addTraining(newTrain);
     navigate('/tracker');
