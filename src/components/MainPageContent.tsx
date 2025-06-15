@@ -16,13 +16,20 @@ const MainPageContent = () => {
             src={PATH.MAIN_PAGE_LOGO}
             alt="Ninja practicing with music"
           />
-          <div className="space-y-4 text-center lg:text-left">
-            <h1 className="font-[LogoFont] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
-            <h3 className="text-2xl font-bold sm:text-3xl md:text-4xl">Ваш личный музыкальный трекер</h3>
-            <p className="text-lg md:text-xl lg:text-2xl">Легко отслеживайте прогресс в занятиях музыкой.</p>
-            <p className="text-lg md:text-xl lg:text-2xl">
-              Ставьте цели, ведите записи и достигайте новых высот вместе с{' '}
-              <span className="font-[LogoFont] text-2xl md:text-3xl lg:text-4xl">NinjaTracker!</span>
+          <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-8 text-center">
+            <h1 className="mb-2 font-[LogoFont] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
+            <h3 className="mb-1 text-2xl font-bold text-yellow-500 sm:text-3xl md:text-4xl">
+              Ваш личный музыкальный трекер
+            </h3>
+            <p className="mb-1 text-lg text-gray-700 md:text-xl lg:text-2xl">
+              Легко отслеживайте прогресс в занятиях музыкой.
+            </p>
+            <p className="text-lg text-gray-700 md:text-xl lg:text-2xl">
+              Ставьте цели, ведите записи и достигайте новых высот <br />
+              вместе с{' '}
+              <span className="font-[LogoFont] text-2xl text-yellow-500 sm:relative sm:top-2 md:text-3xl lg:text-4xl">
+                NinjaTracker!
+              </span>
             </p>
             <Link to="/new">
               <button className="mt-4 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">

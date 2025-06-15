@@ -1,3 +1,5 @@
+import type { TTraining } from '@/context/TrainingContext';
+
 export const INSTRUMENTS = {
   eguitar: 'Электрогитара',
   acguitar: 'Акустическая гитара',
@@ -17,7 +19,7 @@ export const EXERCISE_TYPES = {
   rhythm: 'Ритм',
 };
 
-export const mockData = {
+export const mockData: { tableData: TTraining[]; stats: any } = {
   tableData: [
     {
       id: '1',
@@ -27,7 +29,7 @@ export const mockData = {
       type: ['improvisation', 'exercises'],
       difficulty: 3,
       instrument: 'eguitar',
-      timer: '00:00:30',
+      timer: 30,
     },
     {
       id: '2',
@@ -37,7 +39,7 @@ export const mockData = {
       type: ['theory'],
       difficulty: 2,
       instrument: 'piano',
-      timer: '00:01:00',
+      timer: 900,
     },
     {
       id: '3',
@@ -47,7 +49,7 @@ export const mockData = {
       type: ['songs'],
       difficulty: 4,
       instrument: 'eguitar',
-      timer: '00:02:00',
+      timer: 12600,
     },
     {
       id: '4',
@@ -57,7 +59,7 @@ export const mockData = {
       type: ['recording'],
       difficulty: 5,
       instrument: 'other',
-      timer: '00:03:00',
+      timer: 7800,
     },
     {
       id: '5',
@@ -67,7 +69,7 @@ export const mockData = {
       type: ['rhythm'],
       difficulty: 3,
       instrument: 'drums',
-      timer: '00:01:30',
+      timer: 300,
     },
     {
       id: '6',
@@ -77,7 +79,7 @@ export const mockData = {
       type: ['improvisation'],
       difficulty: 4,
       instrument: 'eguitar',
-      timer: '00:02:30',
+      timer: 769,
     },
     {
       id: '7',
@@ -87,7 +89,7 @@ export const mockData = {
       type: ['songs', 'exercises'],
       difficulty: 2,
       instrument: 'vocal',
-      timer: '00:01:15',
+      timer: 100000,
     },
     {
       id: '8',
@@ -97,7 +99,7 @@ export const mockData = {
       type: ['theory'],
       difficulty: 3,
       instrument: 'acguitar',
-      timer: '00:02:00',
+      timer: 7,
     },
     {
       id: '9',
@@ -107,7 +109,30 @@ export const mockData = {
       type: ['recording'],
       difficulty: 5,
       instrument: 'other',
-      timer: '00:04:00',
+      timer: 14,
     },
   ],
+  stats: {
+    alltime: 121820, // сумма timer
+    timeTrainings: [
+      { date: '01.12.2025', time: 7800 },
+      { date: '02.11.2025', time: 900 },
+      { date: '03.09.2025', time: 12600 },
+      { date: '04.05.2025', time: 7800 },
+      { date: '05.12.2024', time: 300 },
+      { date: '06.10.2024', time: 769 },
+      { date: '07.04.2024', time: 2000 },
+      { date: '08.03.2024', time: 7 },
+      { date: '09.01.2024', time: 14 },
+    ],
+    difficulty: { 1: 0, 2: 2, 3: 3, 4: 2, 5: 2 },
+    trainTypes: {
+      improvisation: 5,
+      exercises: 2,
+      theory: 0,
+      songs: 4,
+      recording: 3,
+      rhythm: 1,
+    },
+  },
 };

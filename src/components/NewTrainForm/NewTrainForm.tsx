@@ -8,6 +8,7 @@ import InstrumentSelector from './InstrumentSelector/InstrumentSelector';
 import TrainType from './TrainType/TrainType';
 import { useTrainings } from '@/context/TrainingContext';
 import { useNavigate } from 'react-router-dom';
+import { DatePicker } from '../ui/datepicker';
 
 const NewTrainForm = () => {
   const { addTraining } = useTrainings();
@@ -24,7 +25,7 @@ const NewTrainForm = () => {
       date: String(formData.get('date') || new Date().toString()),
       difficulty: Number(formData.get('difficulty') || 0),
       instrument: String(formData.get('instrument') || ''),
-      timer: String(formData.get('time') || '00:00:00'),
+      timer: Number(formData.get('time') || 0),
       type: String(formData.get('type') || '').split(','),
     };
     addTraining(newTrain);
@@ -49,9 +50,7 @@ const NewTrainForm = () => {
             <div className="w-full md:w-1/2">
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="trainName" className="block text-sm font-medium text-gray-700 sm:text-base">
-                    Название тренировки:
-                  </label>
+                  <label htmlFor="trainName">Название тренировки:</label>
                   <Input
                     required
                     maxLength={50}
@@ -60,12 +59,11 @@ const NewTrainForm = () => {
                     type="text"
                     className="h-10 w-full sm:h-9"
                     placeholder="Название тренировки"
+                    autoComplete="off"
                   />
                 </div>
                 <div>
-                  <label htmlFor="trainDescription" className="block text-sm font-medium text-gray-700 sm:text-base">
-                    Описание:
-                  </label>
+                  <label htmlFor="trainDescription">Описание:</label>
                   <Textarea
                     maxLength={100}
                     id="trainDescription"
@@ -79,16 +77,8 @@ const NewTrainForm = () => {
             <div className="w-full md:w-1/2">
               <div className="space-y-4">
                 <div>
-                  <label htmlFor="trainDate" className="block text-sm font-medium text-gray-700 sm:text-base">
-                    Дата тренировки:
-                  </label>
-                  <Input
-                    defaultValue={new Date().toISOString().slice(0, 10)}
-                    name="date"
-                    id="trainDate"
-                    type="date"
-                    className="h-10 w-full sm:h-9"
-                  />
+                  <label htmlFor="trainDate">Дата тренировки:</label>
+                  <DatePicker />
                 </div>
                 <TrainType />
               </div>

@@ -5,7 +5,7 @@ import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import App from './App';
-import { ErrorPage, MainPage, TrackerPage, NewTrainPage } from './pages';
+import { ErrorPage, MainPage, TrackerPage, NewTrainPage, DashboardPage } from './pages';
 import { BASE_URL, PATH } from './constants/paths';
 import { TrainingsProvider } from './context/TrainingContext';
 
@@ -27,6 +27,10 @@ const router = createBrowserRouter(
         {
           path: '/new',
           element: <NewTrainPage />,
+        },
+        {
+          path: '/dashboard',
+          element: <DashboardPage />,
         },
         {
           path: '*',

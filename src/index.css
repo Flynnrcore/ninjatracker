@@ -13,7 +13,7 @@
 
 @layer base {
   h2 {
-    @apply mb-6 border-b-6 border-yellow-400 pb-2 text-center text-3xl font-bold text-gray-800 md:text-4xl;
+    @apply border-b-6 border-yellow-400 pb-2 text-center text-3xl font-bold text-gray-800 md:mb-6 md:text-4xl;
   }
   h3 {
     @apply mb-3 text-xl font-semibold text-gray-800 md:text-2xl;
@@ -23,11 +23,26 @@
   }
   label,
   legend {
-    @apply block pb-2 text-sm font-medium;
+    @apply mb-2 block text-sm font-medium text-gray-700 sm:text-base;
   }
+
   main {
     @apply bg-stone-50;
   }
+}
+
+.input {
+  @apply file:text-foreground placeholder:text-muted-foreground selection:bg-primary selection:text-primary-foreground dark:bg-input/30 border-input flex h-9 w-full min-w-0 rounded-md border bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;
+  @apply focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px];
+  @apply aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
+}
+
+.timer {
+  @apply h-full bg-white text-center text-xl sm:text-2xl;
+  @apply [appearance:textfield] px-2 py-1;
+  @apply [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none;
+  @apply [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none;
+  @apply focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2;
 }
 
 @keyframes falling-notes {
@@ -59,6 +74,7 @@
     transform: translateX(0);
   }
 }
+
 .animate-bounce-left-twice {
   animation: bounce-left-twice 2.7s cubic-bezier(0.68, -0.55, 0.27, 1.55) 1;
 }

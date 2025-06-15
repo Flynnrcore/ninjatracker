@@ -19,12 +19,6 @@ const Timer = () => {
     [totalSeconds],
   );
 
-  // Форматированное время для скрытого инпута
-  const formattedTime = useMemo(
-    () => `${formatTimeUnit(hours)}:${formatTimeUnit(minutes)}:${formatTimeUnit(seconds)}`,
-    [hours, minutes, seconds],
-  );
-
   // Очистка таймера
   const clearTimer = useCallback(() => {
     if (timerRef.current) {
@@ -81,9 +75,9 @@ const Timer = () => {
       <fieldset className="flex flex-col items-center space-y-4">
         <legend className="sr-only">Таймер тренировки</legend>
 
-        <input type="hidden" name="time" id="timer" value={formattedTime} />
+        <input type="hidden" name="time" id="timer" value={totalSeconds} />
 
-        <div className="flex w-full flex-col gap-4 sm:flex-row sm:justify-center sm:gap-6">
+        <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
           <Tooltip>
             <TooltipTrigger asChild>
               <TimerButton

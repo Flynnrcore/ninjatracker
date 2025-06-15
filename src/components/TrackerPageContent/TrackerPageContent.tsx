@@ -6,6 +6,7 @@ import { Trash2, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { withBaseUrl } from '@/constants/paths';
 import { useTrainings } from '@/context/TrainingContext';
+import { getFormattedTime } from '@/utils/TimeFn';
 
 const TrackerPageContent = () => {
   const { trainings, removeTraining } = useTrainings();
@@ -31,7 +32,7 @@ const TrackerPageContent = () => {
   const filteredData = trainings.filter(train => {
     const instrumentMatch =
       selectedInstrument === 'all' || !selectedInstrument || train.instrument === selectedInstrument;
-    const typeMatch = selectedType === 'all' || !selectedType || train.type.includes(selectedType);
+    const typeMatch = selectedType === 'all' || !selectedType || train.type.includes(selectedType as any);
     return instrumentMatch && typeMatch;
   });
 
@@ -43,7 +44,7 @@ const TrackerPageContent = () => {
           <h2 className="text-2xl font-bold sm:text-3xl">Журнал тренировок</h2>
           <Link to="/new" className="w-full sm:w-auto">
             <button className="w-full rounded-lg bg-yellow-500 px-4 py-2 text-lg font-medium text-white transition-all hover:bg-yellow-400 hover:shadow-md focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-6 sm:py-3 sm:text-xl">
-              Начать новую тренировку
+              + новая тренировка
             </button>
           </Link>
         </div>
@@ -168,7 +169,7 @@ const TrackerPageContent = () => {
                           ))}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-700">{train.timer || '-'}</td>
+                      <td className="px-4 py-3 text-sm text-gray-700">{getFormattedTime(train.timer) || '-'}</td>
                       <td className="px-4 py-3 text-right">
                         <button
                           className="rounded-full p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
@@ -253,7 +254,9 @@ const TrackerPageContent = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="mt-2 text-sm text-gray-500">Время тренировки: {train.timer || '-'}</div>
+                    <div className="mt-2 text-sm text-gray-500">
+                      Время тренировки: {getFormattedTime(train.timer) || '-'}
+                    </div>
                   </div>
                 </div>
               ))
