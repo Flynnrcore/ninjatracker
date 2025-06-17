@@ -224,4 +224,3 @@ export const mockData: { tableData: TTraining[]; stats: any } = {
     },
   },
 };
-

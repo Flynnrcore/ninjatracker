@@ -17,11 +17,11 @@ export const TimeStatistic = ({ stats, trainings }: { stats: any; trainings: any
   const data = [...trainings].reverse().slice(-10);
 
   return (
-    <Card className="w-full flex-ba max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
+    <Card className="flex-ba w-full max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Время тренировок</CardTitle>
         <CardDescription>
-          <h3 className="text-3xl font-bold md:text-4xl text-yellow-500">{getFormattedTime(stats.alltime)}</h3>
+          <h3 className="text-3xl font-bold text-yellow-500 md:text-4xl">{getFormattedTime(stats.alltime)}</h3>
           <span className="text-xs text-gray-500 md:text-sm">за все время</span>
         </CardDescription>
       </CardHeader>

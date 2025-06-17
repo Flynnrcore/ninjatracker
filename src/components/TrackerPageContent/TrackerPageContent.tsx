@@ -18,16 +18,11 @@ const TrackerPageContent = () => {
 
   // Определение начального режима просмотра по размеру экрана
   useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setViewMode('table');
-      } else {
-        setViewMode('cards');
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    if (window.innerWidth >= 1024) {
+      setViewMode('table');
+    } else {
+      setViewMode('cards');
+    }
   }, []);
 
   const filteredData = trainings.filter(train => {

@@ -10,13 +10,13 @@ const DashboardPageContent = () => {
       <div className="flex w-full max-w-7xl items-start">
         <h2 className="text-2xl font-bold sm:text-3xl">Дашборд</h2>
       </div>
-    <div className='flex flex-col gap-8'>
-  <div className="flex h-max w-full flex-col gap-4 sm:flex-row">
-    <TimeStatistic stats={stats} trainings={trainings} />
-    <TrainTypeStatistic stats={stats} />
-  </div>
+      <div className="flex flex-col gap-8">
+        <div className="flex h-max w-full flex-col gap-4 sm:flex-row">
+          <TimeStatistic stats={stats} trainings={trainings} />
+          <TrainTypeStatistic stats={stats} />
+        </div>
         <DifficultyStatistic trainings={trainings} />
-    </div>
+      </div>
     </div>
   );
 };
