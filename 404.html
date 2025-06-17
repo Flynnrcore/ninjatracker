@@ -11,9 +11,11 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
   <script>
+    var base = '/ninjatracker';
     var pathname = window.location.pathname;
-    if (pathname !== '/' && !pathname.match(/^\/(index\.html)?$/)) {
-      window.location.replace('/?' + pathname.slice(1) + window.location.search + window.location.hash);
+    if (pathname.startsWith(base) && pathname !== base + '/' && !pathname.match(new RegExp('^' + base + '/(index\\.html)?$'))) {
+      var newUrl = base + '/?' + pathname.slice(base.length + 1) + window.location.search + window.location.hash;
+      window.location.replace(newUrl);
     }
   </script>
 </html>
