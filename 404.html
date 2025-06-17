@@ -10,4 +10,10 @@
     <div id="root" class="h-full w-full"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
+  <script>
+    var pathname = window.location.pathname;
+    if (pathname !== '/' && !pathname.match(/^\/(index\.html)?$/)) {
+      window.location.replace('/?' + pathname.slice(1) + window.location.search + window.location.hash);
+    }
+  </script>
 </html>
