@@ -1,4 +1,5 @@
-export const BASE_URL = '/ninjatracker';
+export const BASE_URL =
+  import.meta.env.VITE_BASE_URL || '/';
 export const withBaseUrl = (path: string) => `${BASE_URL}${path}`;
 
 export const PATH = {

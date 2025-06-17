@@ -13,5 +13,5 @@ export default defineConfig({
   server: {
     open: true,
   },
-  base: '/ninjatracker/',
+  base: process.env.VITE_BASE_URL || '/',
 });
