@@ -19,27 +19,35 @@ export const DifficultyStatistic = ({ trainings }: { trainings: any }) => {
 
   return (
     <Card className="border-none py-4 sm:py-0">
-      <CardHeader className="flex flex-col items-stretch border-b border-stone-200 !p-0 sm:flex-row">
-        <div className="flex flex-1 flex-col justify-center gap-1 px-6 pb-3 sm:pb-0">
-          <CardTitle className="text-lg md:text-xl lg:text-2xl">Сложность тренировок</CardTitle>
-          <CardDescription>изменение сложности тренировок по шкале от 0 до 5</CardDescription>
-        </div>
-        <div className="flex">
-          {[7, 30, 90, 120].map(key => {
-            return (
-              <button
-                key={key}
-                data-active={activeChart === key}
-                className="data-[active=true]:bg-muted/50 cursor-pointer flex flex-1 flex-col justify-center gap-1 border-t border-stone-200 px-6 py-4 text-left even:border-l sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
-                onClick={() => setActiveChart(key)}>
-                <span className="text-muted-foreground text-xs">за последние</span>
-                <span className="text-lg text-center leading-none font-bold sm:text-3xl">{key}</span>
-                <span className="text-muted-foreground text-xs">тренировок</span>
-              </button>
-            );
-          })}
-        </div>
-      </CardHeader>
+<CardHeader className="flex flex-col items-stretch border-b border-stone-200 !p-0 sm:flex-row">
+  <div className="flex flex-1 flex-col justify-center gap-1 px-6 pb-3 sm:pb-0">
+    <CardTitle className="text-lg md:text-xl lg:text-2xl">Сложность тренировок</CardTitle>
+    <CardDescription>изменение сложности тренировок по шкале от 0 до 5</CardDescription>
+  </div>
+  <div className="grid grid-cols-2 sm:flex">
+    {[7, 30, 90, 120].map((key, idx) => (
+      <button
+        key={key}
+        data-active={activeChart === key}
+        className={
+          "data-[active=true]:bg-muted/50 cursor-pointer flex flex-1 flex-col justify-center gap-1 border-t border-stone-200 px-6 py-4 text-left " +
+          "even:border-l " +
+          "sm:basis-1/2 sm:border-t-0 sm:border-l sm:px-8 sm:py-6"
+        }
+        style={
+          idx % 2 === 1 && idx < 2
+            ? { borderLeftWidth: 1 }
+            : undefined
+        }
+        onClick={() => setActiveChart(key)}
+      >
+        <span className="text-muted-foreground text-center text-xs">за последние</span>
+        <span className="text-lg text-center leading-none font-bold sm:text-3xl">{key}</span>
+        <span className="text-muted-foreground text-center text-xs">тренировок</span>
+      </button>
+    ))}
+  </div>
+</CardHeader>
       <CardContent className="px-2 sm:p-6">
         <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
           <AreaChart
