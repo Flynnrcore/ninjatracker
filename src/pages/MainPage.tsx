@@ -10,7 +10,7 @@ const MainPage = () => {
     <>
       <MainPageContent />
       <img
-        src={withBaseUrl('/loader.webp')}
+        src={withBaseUrl('loader.webp')}
         alt=""
         style={{ display: 'none', width: 0, height: 0 }}
         aria-hidden="true"
