@@ -114,7 +114,7 @@ const Metronome = ({ className }: { className?: string }) => {
   }, []);
 
   return (
-    <div className={`absolute right-0 flex items-center top-1/2 ${animate ? 'animate-bounce-left-twice' : ''}`}>
+    <div className={`absolute top-1/2 right-0 flex items-center ${animate ? 'animate-bounce-left-twice' : ''}`}>
       <Button
         type="button"
         onClick={() => setHiddenMetronome(!hiddenMetronome)}

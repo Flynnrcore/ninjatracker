@@ -67,6 +67,7 @@ npm run dev
 ### Переменная окружения
 
 Проект использует переменную `VITE_BASE_URL` для корректной работы роутинга и путей:
+
 - Для **Vercel**: `VITE_BASE_URL=/`
 - Для **GitHub Pages**: `VITE_BASE_URL=/ninjatracker/`
 
@@ -77,6 +78,7 @@ npm run dev
 - `npm run deploy:gh` — билд и деплой на GitHub Pages (использует пакет `gh-pages`)
 
 ### Деплой на Vercel
+
 1. Подключите репозиторий к Vercel.
 2. В настройках проекта добавьте переменную окружения:
    - `VITE_BASE_URL` = `/`
@@ -84,11 +86,13 @@ npm run dev
 4. Output Directory: `dist`
 
 ### Деплой на GitHub Pages
+
 1. Убедитесь, что установлен пакет `gh-pages` (`npm i -D gh-pages`).
 2. Выполните команду:
    - `npm run deploy:gh`
 3. Проект будет доступен по адресу: `https://<ваш-логин>.github.io/ninjatracker/`
 
 ### Важно
+
 - Для GitHub Pages в проекте настроен файл `404.html` с редиректом для SPA.
 - Для Vercel никаких дополнительных настроек не требуется.
