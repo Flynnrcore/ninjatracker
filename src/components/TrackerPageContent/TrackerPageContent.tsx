@@ -33,20 +33,20 @@ const TrackerPageContent = () => {
   });
 
   return (
-    <div className="min-h-screen p-4 mt-15 bg-stone-50 sm:p-6 md:p-8">
+    <div className="mt-15 min-h-screen bg-stone-50 p-4 sm:p-6 md:p-8">
       <div className="mx-auto max-w-7xl">
         {/* Заголовок и кнопка */}
         <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-center sm:gap-6">
           <h2 className="text-2xl font-bold sm:text-3xl">Журнал тренировок</h2>
           <Link to="/new" className="w-full sm:w-auto">
-            <button className="w-full px-4 py-2 text-lg font-medium text-white transition-all bg-yellow-500 rounded-lg hover:bg-yellow-400 hover:shadow-md focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-6 sm:py-3 sm:text-xl">
+            <button className="w-full rounded-lg bg-yellow-500 px-4 py-2 text-lg font-medium text-white transition-all hover:bg-yellow-400 hover:shadow-md focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2 focus-visible:outline-none sm:px-6 sm:py-3 sm:text-xl">
               + новая тренировка
             </button>
           </Link>
         </div>
 
         {/* Фильтры и переключение вида */}
-        <div className="flex flex-col justify-between gap-4 pb-4 mt-6 border-b border-stone-200 sm:flex-row sm:items-center sm:gap-6">
+        <div className="mt-6 flex flex-col justify-between gap-4 border-b border-stone-200 pb-4 sm:flex-row sm:items-center sm:gap-6">
           <div className="flex flex-wrap gap-3 sm:flex-nowrap sm:gap-4">
             <Select value={selectedInstrument} onValueChange={setSelectedInstrument}>
               <SelectTrigger className="w-full min-w-[180px] rounded-md bg-stone-100 px-4 py-2 shadow-sm sm:w-[250px]">
@@ -101,7 +101,7 @@ const TrackerPageContent = () => {
 
         {/* Контент */}
         {viewMode === 'table' ? (
-          <div className="mt-4 overflow-x-auto bg-white border border-gray-200 rounded-lg shadow-sm">
+          <div className="mt-4 overflow-x-auto rounded-lg border border-gray-200 bg-white shadow-sm">
             <table className="w-full">
               <thead className="bg-gray-50">
                 <tr>
@@ -127,7 +127,7 @@ const TrackerPageContent = () => {
                 {filteredData.length > 0 ? (
                   filteredData.map((train, index) => (
                     <tr key={index} className="hover:bg-gray-50">
-                      <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
                         {format(new Date(train.date), 'dd.MM.yyy')}
                       </td>
                       <td className="px-4 py-3 text-sm font-medium text-yellow-600">
@@ -150,7 +150,7 @@ const TrackerPageContent = () => {
                           )}
                         </div>
                       </td>
-                      <td className="px-4 py-3 text-sm text-gray-700 whitespace-nowrap">
+                      <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
                         {INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
                       </td>
                       <td className="px-4 py-3">
@@ -170,7 +170,7 @@ const TrackerPageContent = () => {
                       <td className="px-4 py-3 text-sm text-gray-700">{getFormattedTime(train.timer) || '-'}</td>
                       <td className="px-4 py-3 text-right">
                         <button
-                          className="p-1 text-gray-400 rounded-full hover:bg-red-50 hover:text-red-500"
+                          className="rounded-full p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
                           aria-label={`Удалить тренировку ${train.name}`}
                           onClick={() => removeTraining(train.id)}>
                           <Trash2 size={18} />
@@ -180,7 +180,7 @@ const TrackerPageContent = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan={7} className="px-4 py-6 text-sm text-center text-gray-500">
+                    <td colSpan={7} className="px-4 py-6 text-center text-sm text-gray-500">
                       Нет данных для отображения
                     </td>
                   </tr>
@@ -189,23 +189,23 @@ const TrackerPageContent = () => {
             </table>
           </div>
         ) : (
-          <div className="grid gap-4 mt-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {filteredData.length > 0 ? (
               filteredData.map(train => (
                 <div
                   key={train.id}
-                  className="flex flex-col overflow-hidden transition-all bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md">
+                  className="flex flex-col overflow-hidden rounded-lg border border-gray-200 bg-white shadow-sm transition-all hover:shadow-md">
                   {/* Верхняя часть - изображение инструмента */}
-                  <div className="flex items-center justify-center h-40 p-4 bg-gray-50">
+                  <div className="flex h-40 items-center justify-center bg-gray-50 p-4">
                     <img
                       src={withBaseUrl(`trainType/${train.instrument}.webp`)}
                       alt={INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
-                      className="object-contain w-full h-full"
+                      className="h-full w-full object-contain"
                     />
                   </div>
 
                   {/* Нижняя часть - информация о тренировке */}
-                  <div className="flex flex-col flex-1 p-4">
+                  <div className="flex flex-1 flex-col p-4">
                     <div className="flex justify-between">
                       <span className="text-sm text-gray-500">{format(new Date(train.date), 'dd.MM.yyy')}</span>
                       <button
@@ -216,26 +216,26 @@ const TrackerPageContent = () => {
                       </button>
                     </div>
 
-                    <Link to={`/train/${train.id}`} className="block mt-2">
+                    <Link to={`/train/${train.id}`} className="mt-2 block">
                       <h3 className="text-lg font-medium text-yellow-600 hover:underline">{train.name}</h3>
                     </Link>
 
-                    <p className="text-sm text-gray-600 line-clamp-3">{train.description}</p>
+                    <p className="line-clamp-3 text-sm text-gray-600">{train.description}</p>
 
-                    <div className="flex flex-wrap gap-1 pb-2 mt-3">
+                    <div className="mt-3 flex flex-wrap gap-1 pb-2">
                       {train.type.map(
                         type =>
                           type && (
                             <span
                               key={type}
-                              className="px-2 py-1 text-xs font-medium text-gray-700 rounded-full bg-stone-100">
+                              className="rounded-full bg-stone-100 px-2 py-1 text-xs font-medium text-gray-700">
                               {EXERCISE_TYPES[type as keyof typeof EXERCISE_TYPES]}
                             </span>
                           ),
                       )}
                     </div>
 
-                    <div className="flex items-center justify-between mt-auto">
+                    <div className="mt-auto flex items-center justify-between">
                       <span className="text-sm font-medium text-gray-700">
                         {INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
                       </span>
@@ -259,7 +259,7 @@ const TrackerPageContent = () => {
                 </div>
               ))
             ) : (
-              <div className="py-12 text-center border-2 border-gray-300 border-dashed rounded-lg col-span-full">
+              <div className="col-span-full rounded-lg border-2 border-dashed border-gray-300 py-12 text-center">
                 <p className="text-gray-500">Нет данных для отображения</p>
               </div>
             )}

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
+//import { AuthForm } from './AuthForm';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -17,7 +18,6 @@ const Header = () => {
   }, []);
 
   const menuItems = [
-    { path: '/', label: 'Главная' },
     { path: '/dashboard', label: 'Дашборд' },
     { path: '/tracker', label: 'Тренировки' },
   ];
@@ -44,8 +44,9 @@ const Header = () => {
           <h1 className="font-[LogoFont] text-2xl font-bold md:text-3xl">NinjaTracker</h1>
         </Link>
 
-        <nav className="hidden md:block">
-          <ul className="flex space-x-4 lg:space-x-6">
+        <nav className="hidden md:flex">
+          <ul className="flex items-center space-x-4 lg:space-x-6">
+            {/*<li className="list-none"><AuthForm mode="login" className={menuItemStyle} /></li>*/}
             {menuItems.map(item => (
               <li key={item.path}>
                 <Link to={item.path} className={menuItemStyle} onClick={() => setIsMobileMenuOpen(false)}>
@@ -77,6 +78,7 @@ const Header = () => {
                     </Link>
                   </li>
                 ))}
+                {/*<li className="list-none"><AuthForm mode="login" className={menuItemStyle} /></li>*/}
               </ul>
             </nav>
           </div>

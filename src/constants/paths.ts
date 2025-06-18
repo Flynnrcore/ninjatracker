@@ -18,4 +18,5 @@ export const PATH = {
   },
   REMOVE_BTN_IMG: withBaseUrl('del-img.webp'),
   METRONOME_IMG: withBaseUrl('metronome-img.webp'),
+  AUTH_IMG: withBaseUrl('auth.webp'),
 };

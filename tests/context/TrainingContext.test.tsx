@@ -2,7 +2,6 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { useTrainings, TrainingsProvider } from '../../src/context/TrainingContext';
 
-
 const TestComponent = () => {
   const { trainings, addTraining } = useTrainings();
 
@@ -21,20 +20,19 @@ const TestComponent = () => {
             timer: 120,
             type: ['exercises'],
           })
-        }
-      >
+        }>
         Добавить
       </button>
     </div>
   );
-}
+};
 
 describe('TrainingsProvider', () => {
   it('testing add trainData', () => {
     render(
       <TrainingsProvider>
         <TestComponent />
-      </TrainingsProvider>
+      </TrainingsProvider>,
     );
 
     // Проверка начального состояния (в начальном состоянии 19 тренировок)

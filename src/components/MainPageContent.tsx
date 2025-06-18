@@ -8,11 +8,11 @@ const MainPageContent = () => {
 
   return (
     <div className="flex flex-col items-center justify-center pt-12 pb-12">
-      <section className="relative flex items-center justify-center w-full py-8 overflow-hidden md:py-12">
+      <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
-        <div className="z-10 flex flex-col items-center max-w-6xl gap-6 p-6 mx-4 bg-white border border-gray-200 rounded-2xl md:mx-8 lg:flex-row lg:gap-12">
+        <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 md:mx-8 lg:flex-row lg:gap-12">
           <img
-            className="object-cover w-full rounded-2xl lg:w-1/3"
+            className="w-full rounded-2xl object-cover lg:w-1/3"
             src={PATH.MAIN_PAGE_LOGO}
             alt="Ninja practicing with music"
           />
@@ -32,7 +32,7 @@ const MainPageContent = () => {
               </span>
             </p>
             <Link to="/new">
-              <button className="w-full px-6 py-3 mt-4 text-lg text-white transition-all bg-yellow-500 rounded-lg hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">
+              <button className="mt-4 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">
                 Начать тренировку
               </button>
             </Link>
@@ -74,8 +74,8 @@ const MainPageContent = () => {
       </section>
 
       <section className={`${sectionStyle} max-w-6xl`}>
-        <div className="flex flex-col w-full gap-8 lg:flex-row">
-          <div className="flex flex-col w-full gap-8 p-6 bg-white shadow-lg rounded-2xl md:p-8 lg:w-1/2">
+        <div className="flex w-full flex-col gap-8 lg:flex-row">
+          <div className="flex w-full flex-col gap-8 rounded-2xl bg-white p-6 shadow-lg md:p-8 lg:w-1/2">
             <h2>Планирование тренировок и репертуара</h2>
             {[
               {
@@ -94,7 +94,7 @@ const MainPageContent = () => {
             ].map((item, index) => (
               <article key={index} className="flex items-start gap-4">
                 <img
-                  className="object-cover w-10 h-10 mt-1 md:h-12 md:w-12"
+                  className="mt-1 h-10 w-10 object-cover md:h-12 md:w-12"
                   src={withBaseUrl('shuriken.webp')}
                   alt="marker list"
                 />
@@ -106,7 +106,7 @@ const MainPageContent = () => {
             ))}
           </div>
           <img
-            className="hidden object-contain w-full lg:block lg:w-1/2"
+            className="hidden w-full object-contain lg:block lg:w-1/2"
             src={PATH.MAIN_PAGE_SHEDULE_IMG}
             alt="ninja with schedule"
           />
