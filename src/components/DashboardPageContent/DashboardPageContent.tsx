@@ -1,10 +1,18 @@
-import { useTrainings } from '@/context/TrainingContext';
 import { TimeStatistic } from './TimeStatistic';
 import { TrainTypeStatistic } from './TrainTypeStatistic';
 import { DifficultyStatistic } from './DifficultyStatistic';
+import { useAuth } from '@/hooks/useAuth';
+import { useUserData } from '@/hooks/useUserData';
+import LoaderFallback from '../LoaderFallback';
+import ErrorPageContent from '../ErrorPageContent';
+import { PATH } from '@/constants/paths';
 
 const DashboardPageContent = () => {
-  const { stats, trainings } = useTrainings();
+  const { user, isLoading: authLoading } = useAuth();
+  const { statistics, trainings, loading: dataLoading } = useUserData();
+
+  if (authLoading || dataLoading) return <LoaderFallback />;
+  if (!user) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
   return (
     <div className="flex min-h-screen flex-col gap-4 bg-stone-50 px-4 py-6 pt-25 sm:gap-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32">
       <div className="flex w-full max-w-7xl items-start">
@@ -12,8 +20,8 @@ const DashboardPageContent = () => {
       </div>
       <div className="flex flex-col gap-8">
         <div className="flex h-max w-full flex-col gap-4 sm:flex-row">
-          <TimeStatistic stats={stats} trainings={trainings} />
-          <TrainTypeStatistic stats={stats} />
+          <TimeStatistic stats={statistics} trainings={trainings} />
+          <TrainTypeStatistic stats={statistics} />
         </div>
         <DifficultyStatistic trainings={trainings} />
       </div>

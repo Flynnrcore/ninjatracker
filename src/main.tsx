@@ -8,6 +8,7 @@ import App from './App';
 import { ErrorPage, MainPage, TrackerPage, NewTrainPage, DashboardPage } from './pages';
 import { BASE_URL, PATH } from './constants/paths';
 import { TrainingsProvider } from './context/TrainingContext';
+import { AuthProvider } from './context/AuthContext';
 
 const router = createBrowserRouter(
   [
@@ -44,8 +45,10 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <TrainingsProvider>
-      <RouterProvider router={router} />
-    </TrainingsProvider>
+    <AuthProvider>
+      <TrainingsProvider>
+        <RouterProvider router={router} />
+      </TrainingsProvider>
+    </AuthProvider>
   </StrictMode>,
 );

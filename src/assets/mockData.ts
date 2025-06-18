@@ -1,4 +1,4 @@
-import type { TTraining } from '@/context/TrainingContext';
+import type { TStatistic, TTraining } from '@/context/TrainingContext';
 
 export const INSTRUMENTS = {
   eguitar: 'Электрогитара',
@@ -19,7 +19,7 @@ export const EXERCISE_TYPES = {
   rhythm: 'Ритм',
 };
 
-export const mockData: { tableData: TTraining[]; stats: any } = {
+export const mockData: { tableData: TTraining[]; stats: TStatistic } = {
   tableData: [
     {
       id: '1',

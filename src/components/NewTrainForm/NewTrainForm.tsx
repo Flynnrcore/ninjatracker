@@ -6,34 +6,60 @@ import { useState } from 'react';
 import StarRating from '@/components/NewTrainForm/StarRating/StarRaiting';
 import InstrumentSelector from './InstrumentSelector/InstrumentSelector';
 import TrainType from './TrainType/TrainType';
-import { useTrainings, type TDifficulty, type TTrainingType } from '@/context/TrainingContext';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../ui/datepicker';
+import { toast } from 'sonner';
+import { useAuth } from '@/hooks/useAuth';
+import ErrorPageContent from '../ErrorPageContent';
+import { PATH } from '@/constants/paths';
 
 const NewTrainForm = () => {
-  const { addTraining } = useTrainings();
+  const { token, user } = useAuth();
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(0);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
     const newTrain = {
-      id: crypto.randomUUID(),
       name: String(formData.get('name') || ''),
       description: String(formData.get('description') || ''),
-      date: String(formData.get('date') || new Date().toString()),
-      difficulty: Number(formData.get('difficulty') || 0) as TDifficulty,
+      date: String(formData.get('date') || new Date().toISOString()),
+      difficulty: Number(formData.get('difficulty') || 0),
       instrument: String(formData.get('instrument') || ''),
       timer: Number(formData.get('time') || 0),
-      type: String(formData.get('type') || '').split(',') as TTrainingType[],
+      type: String(formData.get('type') || '')
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean),
     };
-    addTraining(newTrain);
-    navigate('/tracker');
+
+    try {
+      const response = await fetch('https://ninjatracker-backend.onrender.com/api/trainings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(newTrain),
+      });
+
+      if (!response.ok) {
+        toast.error('Ошибка при добавлении тренировки');
+        return;
+      }
+
+      toast.success('Тренировка успешно добавлена');
+      navigate('/tracker');
+    } catch {
+      toast.error('Ошибка сети');
+    }
   };
 
   const buttonStyle =
     'mt-6 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg md:text-2xl text-white transition-all hover:scale-[1.01] hover:bg-yellow-400 active:scale-95';
+
+  if (!user) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
 
   return (
     <div className="mt-15 flex min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:justify-center lg:px-8">

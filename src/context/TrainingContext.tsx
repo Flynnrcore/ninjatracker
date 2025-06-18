@@ -15,7 +15,7 @@ export type TTraining = {
   type: TTrainingType[];
 };
 
-type TStatistic = {
+export type TStatistic = {
   alltime: number;
   trainTypes: Record<TTrainingType, number>;
 };

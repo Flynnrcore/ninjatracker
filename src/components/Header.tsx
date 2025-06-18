@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
-//import { AuthForm } from './AuthForm';
+import { AuthForm } from './AuthForm';
+import { useAuth } from '@/hooks/useAuth';
+import { Button } from './ui/button';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { token, logout, isLoading } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,7 +49,6 @@ const Header = () => {
 
         <nav className="hidden md:flex">
           <ul className="flex items-center space-x-4 lg:space-x-6">
-            {/*<li className="list-none"><AuthForm mode="login" className={menuItemStyle} /></li>*/}
             {menuItems.map(item => (
               <li key={item.path}>
                 <Link to={item.path} className={menuItemStyle} onClick={() => setIsMobileMenuOpen(false)}>
@@ -54,6 +56,15 @@ const Header = () => {
                 </Link>
               </li>
             ))}
+            <li className="list-none">
+              {isLoading ? null : token ? (
+                <Button className="bg-yellow-500 text-white hover:bg-yellow-600" onClick={logout}>
+                  Выйти
+                </Button>
+              ) : (
+                <AuthForm mode="login" className={menuItemStyle} />
+              )}
+            </li>
           </ul>
         </nav>
 
@@ -78,7 +89,15 @@ const Header = () => {
                     </Link>
                   </li>
                 ))}
-                {/*<li className="list-none"><AuthForm mode="login" className={menuItemStyle} /></li>*/}
+                <li className="list-none">
+                  {isLoading ? null : token ? (
+                    <Button variant="outline" onClick={logout} className={menuItemStyle}>
+                      Выйти
+                    </Button>
+                  ) : (
+                    <AuthForm mode="login" className={menuItemStyle} />
+                  )}
+                </li>
               </ul>
             </nav>
           </div>

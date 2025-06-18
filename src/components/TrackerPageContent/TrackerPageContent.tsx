@@ -5,16 +5,34 @@ import { cn } from '@/lib/utils';
 import { Trash2, Star } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { withBaseUrl } from '@/constants/paths';
-import { useTrainings } from '@/context/TrainingContext';
 import { getFormattedTime } from '@/utils/TimeFn';
 import { format } from 'date-fns';
+import { useRemoteTrainings } from '@/hooks/useRemoteTraining';
+import { useAuth } from '@/hooks/useAuth';
+import LoaderFallback from '../LoaderFallback';
+import { toast } from 'sonner';
 
 const TrackerPageContent = () => {
-  const { trainings, removeTraining } = useTrainings();
+  const { token } = useAuth();
+  const { trainings, loading, setTrainings } = useRemoteTrainings();
 
   const [viewMode, setViewMode] = useState<'table' | 'cards'>(() => (window.innerWidth >= 1024 ? 'table' : 'cards'));
   const [selectedInstrument, setSelectedInstrument] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
+
+  const handleRemoveTraining = async (id: number | string) => {
+    const response = await fetch(`https://ninjatracker-backend.onrender.com/api/trainings/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    if (!response.ok) {
+      toast.error('Ошибка при удалении тренировки');
+      return;
+    } else {
+      setTrainings(prev => prev.filter(train => train.id !== id));
+      toast.success('Тренировка удалена');
+    }
+  };
 
   // Определение начального режима просмотра по размеру экрана
   useEffect(() => {
@@ -28,9 +46,12 @@ const TrackerPageContent = () => {
   const filteredData = trainings.filter(train => {
     const instrumentMatch =
       selectedInstrument === 'all' || !selectedInstrument || train.instrument === selectedInstrument;
-    const typeMatch = selectedType === 'all' || !selectedType || train.type.includes(selectedType as any);
+    const typeMatch =
+      selectedType === 'all' || !selectedType || train.type.includes(selectedType as keyof typeof EXERCISE_TYPES);
     return instrumentMatch && typeMatch;
   });
+
+  if (loading) return <LoaderFallback />;
 
   return (
     <div className="mt-15 min-h-screen bg-stone-50 p-4 sm:p-6 md:p-8">
@@ -172,7 +193,7 @@ const TrackerPageContent = () => {
                         <button
                           className="rounded-full p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
                           aria-label={`Удалить тренировку ${train.name}`}
-                          onClick={() => removeTraining(train.id)}>
+                          onClick={() => handleRemoveTraining(train.id)}>
                           <Trash2 size={18} />
                         </button>
                       </td>
@@ -211,7 +232,7 @@ const TrackerPageContent = () => {
                       <button
                         className="text-gray-400 hover:text-red-500"
                         aria-label={`Удалить тренировку ${train.name}`}
-                        onClick={() => removeTraining(train.id)}>
+                        onClick={() => handleRemoveTraining(train.id)}>
                         <Trash2 size={16} />
                       </button>
                     </div>

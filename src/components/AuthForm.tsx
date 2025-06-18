@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -6,6 +6,8 @@ import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { PATH } from '@/constants/paths';
+import { useAuth } from '@/hooks/useAuth';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 type AuthMode = 'login' | 'register';
 
@@ -19,7 +21,10 @@ const API_URLS = {
   register: 'https://ninjatracker-backend.onrender.com/api/register',
 };
 
+const SITE_KEY = import.meta.env.VITE_RECAPTCHA_SITE_KEY;
+
 export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
+  const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -27,6 +32,40 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   const [success, setSuccess] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isRegister, setIsRegister] = useState(mode === 'register');
+  const recaptchaRef = useRef<ReCAPTCHA>(null);
+
+  const { login } = useAuth();
+
+  const handleRegister = async (token: string | null) => {
+    if (!token) {
+      setError('Подтвердите, что вы не робот');
+      setIsLoading(false);
+      return;
+    }
+    try {
+      const response = await fetch(API_URLS.register, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, name, recaptchaToken: token }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError(data.error || 'Ошибка');
+        setIsLoading(false);
+        return;
+      }
+      setSuccess(true);
+      setEmail('');
+      setName('');
+      setPassword('');
+      setIsLoading(false);
+      setOpen(false);
+      recaptchaRef.current?.reset();
+    } catch {
+      setError('Ошибка сети');
+      setIsLoading(false);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,30 +73,33 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
     setSuccess(false);
     setIsLoading(true);
 
+    if (isRegister) {
+      await recaptchaRef.current?.executeAsync();
+      setIsLoading(false);
+      return;
+    }
+
     try {
-      const response = await fetch(API_URLS[isRegister ? 'register' : 'login'], {
+      const response = await fetch(API_URLS.login, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(isRegister ? { email, password, name } : { email, password }),
+        body: JSON.stringify({ email, password }),
       });
-
       const data = await response.json();
-
       if (!response.ok) {
         setError(data.error || 'Ошибка');
         setIsLoading(false);
         return;
       }
-
       setSuccess(true);
       setEmail('');
       setName('');
       setPassword('');
       setIsLoading(false);
-
-      /*if (mode === 'login' && data.token) {
-        localStorage.setItem('token', data.token);
-      }*/
+      setOpen(false);
+      if (data.token) {
+        login(data.token);
+      }
     } catch {
       setError('Ошибка сети');
       setIsLoading(false);
@@ -70,7 +112,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   }, [error, success]);
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" className={className}>
           Вход/Регистрация
@@ -123,6 +165,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
                 autoComplete={isRegister ? 'new-password' : 'current-password'}
               />
             </div>
+            {isRegister && (
+              <ReCAPTCHA ref={recaptchaRef} sitekey={SITE_KEY} size="invisible" onChange={handleRegister} />
+            )}
             <div className="flex flex-col gap-3">
               <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? <Loader2 className="animate-spin" /> : isRegister ? 'Зарегистрироваться' : 'Войти'}
