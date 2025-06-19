@@ -13,13 +13,10 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { token, logout } = useAuth();
 
-  const menuItems = useMemo(
-    () => [
-      { path: '/dashboard', label: 'Дашборд' },
-      { path: '/tracker', label: 'Тренировки' },
-    ],
-    [],
-  );
+  const menuItems = useMemo(() => [
+    { path: '/dashboard', label: 'Дашборд' },
+    { path: '/tracker', label: 'Тренировки' },
+  ],[]);
 
   const menuItemStyle = cn(
     'text-lg font-medium transition-colors hover:text-yellow-600',
@@ -28,8 +25,8 @@ const Header = () => {
   );
 
   const handleLogout = useCallback(() => {
-    logout();
     toast.success('Вы вышли из аккаунта');
+    logout();
     setIsMobileMenuOpen(false);
   }, [logout]);
 
@@ -68,7 +65,7 @@ const Header = () => {
             ))}
             <li className="list-none">
               {token ? (
-                <Button className="bg-yellow-500 text-white hover:bg-yellow-600" onClick={logout}>
+                <Button className="text-lg bg-yellow-500 text-white hover:bg-yellow-600" onClick={handleLogout}>
                   Выйти
                 </Button>
               ) : (
@@ -101,7 +98,7 @@ const Header = () => {
                 ))}
                 <li className="list-none">
                   {token ? (
-                    <Button variant="outline" onClick={handleLogout} className={menuItemStyle}>
+                    <Button variant="outline" onClick={handleLogout} className={`${menuItemStyle} ml-4 px-4`}>
                       Выйти
                     </Button>
                   ) : (
