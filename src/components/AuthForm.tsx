@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
@@ -20,8 +20,7 @@ interface AuthFormProps {
 export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ email: '', name: '', password: '' });
-  const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const [isRegister, setIsRegister] = useState(mode === 'register');
 
@@ -39,8 +38,6 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   // Сброс формы
   const resetForm = useCallback(() => {
     setForm({ email: '', name: '', password: '' });
-    setError(null);
-    setSuccess(false);
     setIsLoading(false);
   }, []);
 
@@ -55,9 +52,13 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
       const data = await response.json();
       if (response.ok && data.token) {
         login(data.token);
+        toast.success('Вход выполнен!');
+        setOpen(false);
+      } else {
+        toast.error(data.error || 'Ошибка входа');
       }
     } catch {
-      setError('Ошибка входа');
+      toast.error('Ошибка входа');
       setIsLoading(false);
     }
   }, [login]);
@@ -72,16 +73,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
       });
       const data = await response.json();
       if (!response.ok) {
-        setError(data.error || 'Ошибка');
+        toast.error(data.error || 'Ошибка регистрации');
         setIsLoading(false);
         return;
       }
-      setSuccess(true);
-      setOpen(false);
       await doLogin(form.email, form.password, recaptchaToken); // Автоматический вход
       resetForm();
     } catch {
-      setError('Ошибка сети');
+      toast.error('Ошибка сети');
       setIsLoading(false);
     }
   }, [form, doLogin, resetForm]);
@@ -89,20 +88,18 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   // Отправка формы
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(false);
     setIsLoading(true);
 
     if (!executeRecaptcha) {
-      setError('Ошибка инициализации reCAPTCHA');
       setIsLoading(false);
+      toast.error('Ошибка инициализации reCAPTCHA');
       return;
     }
     const action = isRegister ? 'register' : 'login';
     const recaptchaToken = await executeRecaptcha(action);
     if (!recaptchaToken) {
-      setError('Подтвердите, что вы не робот');
       setIsLoading(false);
+      toast.error('Подтвердите, что вы не робот');
       return;
     }
 
@@ -113,15 +110,8 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
 
     // Логин с reCAPTCHA
     await doLogin(form.email, form.password, recaptchaToken);
-    setSuccess(true);
-    setOpen(false);
     resetForm();
   }, [isRegister, handleRegister, doLogin, form, executeRecaptcha, resetForm]);
-
-  useEffect(() => {
-    if (error) toast.error(error);
-    if (success) toast.success(isRegister ? 'Регистрация успешна!' : 'Вход выполнен!');
-  }, [error, success, isRegister]);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -130,14 +120,14 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
           Вход/Регистрация
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-md">
+      <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
         <DialogHeader>
           <DialogTitle>{isRegister ? 'Регистрация' : 'Вход'}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="max-w-md">
           <img src={PATH.AUTH_IMG} alt="auth" className="mx-auto h-auto w-1/2" />
-          <div className="flex flex-col gap-6">
-            <div className="grid gap-3">
+          <div className="flex flex-col gap-4">
+            <div className="grid gap-1">
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
@@ -151,7 +141,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
               />
             </div>
             {isRegister && (
-              <div className="grid gap-3">
+              <div className="grid gap-1">
                 <Label htmlFor="name">Никнейм</Label>
                 <Input
                   id="name"
@@ -165,7 +155,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
                 />
               </div>
             )}
-            <div className="grid gap-3">
+            <div className="grid gap-1">
               <div className="flex items-center">
                 <Label htmlFor="password">Пароль</Label>
               </div>
@@ -187,7 +177,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
             </div>
           </div>
         </form>
-        <DialogFooter className="flex items-center justify-center text-sm">
+        <DialogFooter className="flex flex-row mt-2 items-center justify-center text-sm md:mt-0">
           {isRegister ? 'Уже есть аккаунт? ' : 'Нет аккаунта? '}
           <button onClick={() => setIsRegister(!isRegister)} className="underline underline-offset-4">
             {isRegister ? 'Войти' : 'Зарегистрироваться'}
