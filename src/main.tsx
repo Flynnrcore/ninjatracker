@@ -9,7 +9,7 @@ import { ErrorPage, MainPage, TrackerPage, NewTrainPage, DashboardPage } from '.
 import { BASE_URL, PATH } from './constants/paths';
 import { TrainingsProvider } from './context/TrainingContext';
 import { AuthProvider } from './context/AuthContext';
-import { RecaptchaProvider } from './context/reCaptchaProvider';
+import { RecaptchaProvider } from './context/RecaptchaProvider';
 
 
 const router = createBrowserRouter(
