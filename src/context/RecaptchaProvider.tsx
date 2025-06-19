@@ -9,6 +9,6 @@ export function RecaptchaProvider({ children }: RecaptchaProviderWrapperProps) {
   return React.createElement(
     GoogleReCaptchaProvider as React.ComponentType<{ reCaptchaKey: string }>,
     { reCaptchaKey: import.meta.env.VITE_RECAPTCHA_SITE_KEY! },
-    children
+    children,
   );
 }

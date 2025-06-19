@@ -11,7 +11,6 @@ import { TrainingsProvider } from './context/TrainingContext';
 import { AuthProvider } from './context/AuthContext';
 import { RecaptchaProvider } from './context/RecaptchaProvider';
 
-
 const router = createBrowserRouter(
   [
     {

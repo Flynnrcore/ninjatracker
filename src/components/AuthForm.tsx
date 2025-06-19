@@ -28,12 +28,9 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
 
   // Универсальный обработчик изменения полей
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    },
-    []
-  );
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+  }, []);
 
   // Сброс формы
   const resetForm = useCallback(() => {
@@ -42,76 +39,85 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   }, []);
 
   // Логин
-  const doLogin = useCallback(async (email: string, password: string, recaptchaToken: string) => {
-    try {
-      const response = await fetch(API_URLS.login, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, recaptchaToken }),
-      });
-      const data = await response.json();
-      if (response.ok && data.token) {
-        login(data.token);
-        toast.success('Вход выполнен!');
-        setOpen(false);
-      } else {
-        toast.error(data.error || 'Ошибка входа');
+  const doLogin = useCallback(
+    async (email: string, password: string, recaptchaToken: string) => {
+      try {
+        const response = await fetch(API_URLS.login, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, password, recaptchaToken }),
+        });
+        const data = await response.json();
+        if (response.ok && data.token) {
+          login(data.token);
+          toast.success('Вход выполнен!');
+          setOpen(false);
+        } else {
+          toast.error(data.error || 'Ошибка входа');
+        }
+      } catch {
+        toast.error('Ошибка входа');
+        setIsLoading(false);
       }
-    } catch {
-      toast.error('Ошибка входа');
-      setIsLoading(false);
-    }
-  }, [login]);
+    },
+    [login],
+  );
 
   // Регистрация
-  const handleRegister = useCallback(async (recaptchaToken: string) => {
-    try {
-      const response = await fetch(API_URLS.register, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, recaptchaToken }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        toast.error(data.error || 'Ошибка регистрации');
+  const handleRegister = useCallback(
+    async (recaptchaToken: string) => {
+      try {
+        const response = await fetch(API_URLS.register, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ...form, recaptchaToken }),
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          toast.error(data.error || 'Ошибка регистрации');
+          setIsLoading(false);
+          return;
+        }
+        await doLogin(form.email, form.password, recaptchaToken); // Автоматический вход
+        resetForm();
+      } catch {
+        toast.error('Ошибка сети');
         setIsLoading(false);
-        return;
       }
-      await doLogin(form.email, form.password, recaptchaToken); // Автоматический вход
-      resetForm();
-    } catch {
-      toast.error('Ошибка сети');
-      setIsLoading(false);
-    }
-  }, [form, doLogin, resetForm]);
+    },
+    [form, doLogin, resetForm],
+  );
 
   // Отправка формы
-  const handleSubmit = useCallback(async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      setIsLoading(true);
 
-    if (!executeRecaptcha) {
-      setIsLoading(false);
-      toast.error('Ошибка инициализации reCAPTCHA');
-      return;
-    }
-    const action = isRegister ? 'register' : 'login';
-    const recaptchaToken = await executeRecaptcha(action);
-    if (!recaptchaToken) {
-      setIsLoading(false);
-      toast.error('Подтвердите, что вы не робот');
-      return;
-    }
+      if (!executeRecaptcha) {
+        setIsLoading(false);
+        toast.error('Ошибка инициализации reCAPTCHA');
+        return;
+      }
+      const action = isRegister ? 'register' : 'login';
+      const recaptchaToken = await executeRecaptcha(action);
+      if (!recaptchaToken) {
+        setIsLoading(false);
+        toast.error('Подтвердите, что вы не робот');
+        return;
+      }
 
-    if (isRegister) {
-      await handleRegister(recaptchaToken);
-      return;
-    }
+      if (isRegister) {
+        await handleRegister(recaptchaToken);
+        return;
+      }
 
-    // Логин с reCAPTCHA
-    await doLogin(form.email, form.password, recaptchaToken);
-    resetForm();
-  }, [isRegister, handleRegister, doLogin, form, executeRecaptcha, resetForm]);
+      // Логин с reCAPTCHA
+      await doLogin(form.email, form.password, recaptchaToken);
+      resetForm();
+    },
+    [isRegister, handleRegister, doLogin, form, executeRecaptcha, resetForm],
+  );
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -177,7 +183,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
             </div>
           </div>
         </form>
-        <DialogFooter className="flex flex-row mt-2 items-center justify-center text-sm md:mt-0">
+        <DialogFooter className="mt-2 flex flex-row items-center justify-center text-sm md:mt-0">
           {isRegister ? 'Уже есть аккаунт? ' : 'Нет аккаунта? '}
           <button onClick={() => setIsRegister(!isRegister)} className="underline underline-offset-4">
             {isRegister ? 'Войти' : 'Зарегистрироваться'}

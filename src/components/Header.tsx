@@ -13,10 +13,13 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const { token, logout } = useAuth();
 
-  const menuItems = useMemo(() => [
+  const menuItems = useMemo(
+    () => [
       { path: '/dashboard', label: 'Дашборд' },
       { path: '/tracker', label: 'Тренировки' },
-    ],[]);
+    ],
+    [],
+  );
 
   const menuItemStyle = cn(
     'text-lg font-medium transition-colors hover:text-yellow-600',
