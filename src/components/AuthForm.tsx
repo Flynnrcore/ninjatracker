@@ -45,12 +45,12 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   }, []);
 
   // Логин
-  const doLogin = useCallback(async (email: string, password: string) => {
+  const doLogin = useCallback(async (email: string, password: string, recaptchaToken: string) => {
     try {
       const response = await fetch(API_URLS.login, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, recaptchaToken }),
       });
       const data = await response.json();
       if (response.ok && data.token) {
@@ -63,23 +63,12 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   }, [login]);
 
   // Регистрация
-  const handleRegister = useCallback(async () => {
-    if (!executeRecaptcha) {
-      setError('Ошибка инициализации reCAPTCHA');
-      setIsLoading(false);
-      return;
-    }
-    const token = await executeRecaptcha('register');
-    if (!token) {
-      setError('Подтвердите, что вы не робот');
-      setIsLoading(false);
-      return;
-    }
+  const handleRegister = useCallback(async (recaptchaToken: string) => {
     try {
       const response = await fetch(API_URLS.register, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...form, recaptchaToken: token }),
+        body: JSON.stringify({ ...form, recaptchaToken }),
       });
       const data = await response.json();
       if (!response.ok) {
@@ -89,13 +78,13 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
       }
       setSuccess(true);
       setOpen(false);
-      await doLogin(form.email, form.password); // Автоматический вход
+      await doLogin(form.email, form.password, recaptchaToken); // Автоматический вход
       resetForm();
     } catch {
       setError('Ошибка сети');
       setIsLoading(false);
     }
-  }, [executeRecaptcha, form, doLogin, resetForm]);
+  }, [form, doLogin, resetForm]);
 
   // Отправка формы
   const handleSubmit = useCallback(async (e: React.FormEvent) => {
@@ -104,34 +93,30 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
     setSuccess(false);
     setIsLoading(true);
 
-    if (isRegister) {
-      await handleRegister();
+    if (!executeRecaptcha) {
+      setError('Ошибка инициализации reCAPTCHA');
+      setIsLoading(false);
+      return;
+    }
+    const action = isRegister ? 'register' : 'login';
+    const recaptchaToken = await executeRecaptcha(action);
+    if (!recaptchaToken) {
+      setError('Подтвердите, что вы не робот');
+      setIsLoading(false);
       return;
     }
 
-    try {
-      const response = await fetch(API_URLS.login, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: form.email, password: form.password }),
-      });
-      const data = await response.json();
-      if (!response.ok) {
-        setError(data.error || 'Ошибка');
-        setIsLoading(false);
-        return;
-      }
-      setSuccess(true);
-      setOpen(false);
-      resetForm();
-      if (data.token) {
-        login(data.token);
-      }
-    } catch {
-      setError('Ошибка сети');
-      setIsLoading(false);
+    if (isRegister) {
+      await handleRegister(recaptchaToken);
+      return;
     }
-  }, [isRegister, handleRegister, form, login, resetForm]);
+
+    // Логин с reCAPTCHA
+    await doLogin(form.email, form.password, recaptchaToken);
+    setSuccess(true);
+    setOpen(false);
+    resetForm();
+  }, [isRegister, handleRegister, doLogin, form, executeRecaptcha, resetForm]);
 
   useEffect(() => {
     if (error) toast.error(error);
@@ -141,7 +126,7 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className={className}>
+        <Button variant="outline" className={`${className} px-4`}>
           Вход/Регистрация
         </Button>
       </DialogTrigger>
