@@ -1,53 +1,47 @@
+import { useAuthContext, type AuthContextType } from '../context/AuthContext';
+import { API_URLS } from '../constants/api';
 import { useEffect, useState } from 'react';
-import { useAuth } from './useAuth';
-import { API_URLS } from '@/constants/api';
-
-type Statistic = {
-  alltime: number;
-  trainTypes: Record<string, number>;
-};
-
-type Training = {
-  id: number;
-  // ... другие поля тренировки
-};
+import { toast } from 'sonner';
 
 export const useUserData = () => {
-  const { token } = useAuth();
-  const [statistics, setStatistics] = useState<Statistic>({ alltime: 0, trainTypes: {} });
-  const [trainings, setTrainings] = useState<Training[]>([]);
+  const { csrfToken } = useAuthContext() as AuthContextType;
+  const [user, setUser] = useState(null);
+  const [trainings, setTrainings] = useState([]);
+  const [statistics, setStatistics] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!token) {
-      setStatistics({ alltime: 0, trainTypes: {} });
-      setTrainings([]);
-      setLoading(false);
-      return;
-    }
     const fetchData = async () => {
       setLoading(true);
       try {
-        const [statsRes, trainingsRes] = await Promise.all([
-          fetch(API_URLS.statistics, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          fetch(API_URLS.trainings, {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-        ]);
-        const stats = statsRes.ok ? await statsRes.json() : [];
-        const trns = trainingsRes.ok ? await trainingsRes.json() : [];
-        setStatistics(stats);
-        setTrainings(trns);
-      } catch {
-        setStatistics({ alltime: 0, trainTypes: {} });
-        setTrainings([]);
+        // fetch user
+        const userRes = await fetch(API_URLS.session, {
+          credentials: 'include',
+          headers: { 'x-csrf-token': csrfToken }
+        });
+        if (userRes.ok) setUser(await userRes.json());
+        // fetch trainings
+        const trainRes = await fetch(API_URLS.trainings, {
+          credentials: 'include',
+          headers: { 'x-csrf-token': csrfToken }
+        });
+        if (trainRes.ok) setTrainings(await trainRes.json());
+        // fetch statistics
+        const statRes = await fetch(API_URLS.statistics, {
+          credentials: 'include',
+          headers: { 'x-csrf-token': csrfToken }
+        });
+        if (statRes.ok) setStatistics(await statRes.json());
+      } catch (e: unknown) {
+        toast.error(e instanceof Error ? e.message : 'Неизвестная ошибка');
+        setError(e instanceof Error ? e.message : 'Неизвестная ошибка');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
-    fetchData();
-  }, [token]);
+    if (csrfToken) fetchData();
+  }, [csrfToken]);
 
-  return { statistics, trainings, loading };
+  return { user, trainings, statistics, loading, error };
 };

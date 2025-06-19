@@ -6,6 +6,13 @@ import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
+type Training = {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+};
+
 const chartConfig = {
   difficulty: {
     label: '',
@@ -13,8 +20,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export const DifficultyStatistic = ({ trainings }: { trainings: any }) => {
-  const data = [...trainings].reverse();
+export const DifficultyStatistic = ({ trainings }: { trainings: Training[] | null }) => {
+  const data = trainings ? [...trainings].reverse() : [];
   const [activeChart, setActiveChart] = React.useState<number>(7);
 
   return (
@@ -44,6 +51,7 @@ export const DifficultyStatistic = ({ trainings }: { trainings: any }) => {
         </div>
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
+        {data.length > 0 ? (
         <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
           <AreaChart
             accessibilityLayer
@@ -97,6 +105,12 @@ export const DifficultyStatistic = ({ trainings }: { trainings: any }) => {
             />
           </AreaChart>
         </ChartContainer>
+        ) : (
+          <div className="flex h-full w-full flex-col items-center justify-center">
+            <p className="text-gray-400 text-sm">Нет данных</p>
+            <p className="text-gray-400 text-sm">Начни новую тренировку чтобы увидеть статистику!</p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

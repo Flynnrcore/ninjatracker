@@ -17,8 +17,8 @@ type TrainTypeStats = {
   trainTypes: Record<string, number>;
 };
 
-export const TrainTypeStatistic = ({ stats }: { stats: TrainTypeStats }) => {
-  let data: { name: string; count: number }[] | [] = [];
+export const TrainTypeStatistic = ({ stats }: { stats: TrainTypeStats | null }) => {
+  let data: { name: string; count: number }[] = [];
   let favouriteType = '';
   if (stats?.trainTypes && Object.keys(stats.trainTypes).length > 0) {
     data = Object.entries(stats.trainTypes).map(([name, count]) => ({
@@ -41,6 +41,7 @@ export const TrainTypeStatistic = ({ stats }: { stats: TrainTypeStats }) => {
       </CardHeader>
       <CardContent className="m-0 h-full pb-0">
         <ChartContainer className="h-[90%] w-full p-0" config={chartConfig}>
+          {data.length > 0 ? (
           <BarChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
@@ -49,6 +50,12 @@ export const TrainTypeStatistic = ({ stats }: { stats: TrainTypeStats }) => {
               <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
             </Bar>
           </BarChart>
+          ) : (
+            <div className="flex h-full w-full flex-col items-center justify-center">
+              <p className="text-gray-400 text-md">Нет данных</p>
+              <p className="text-gray-400 text-sm">Начни новую тренировку чтобы увидеть статистику!</p>
+            </div>
+          )}
         </ChartContainer>
         <CardFooter>
           <CardDescription className="mt-2 flex items-center justify-center text-center">

@@ -3,37 +3,64 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { Trash2, Star } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { withBaseUrl } from '@/constants/paths';
 import { getFormattedTime } from '@/utils/TimeFn';
 import { format } from 'date-fns';
-import { useRemoteTrainings } from '@/hooks/useRemoteTraining';
-import { useAuth } from '@/hooks/useAuth';
+import { useRemoteTraining } from '@/hooks/useRemoteTraining';
 import LoaderFallback from '../LoaderFallback';
 import { toast } from 'sonner';
-import { API_URLS } from '@/constants/api';
+
+type Training = {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+  instrument: string;
+  type: string[];
+  difficulty: number;
+  timer: number;
+};
 
 const TrackerPageContent = () => {
-  const { token } = useAuth();
-  const { trainings, loading, setTrainings } = useRemoteTrainings();
+  const { getTrainings, deleteTraining } = useRemoteTraining();
+
+  const [trainings, setTrainings] = useState<Training[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const [viewMode, setViewMode] = useState<'table' | 'cards'>(() => (window.innerWidth >= 1024 ? 'table' : 'cards'));
   const [selectedInstrument, setSelectedInstrument] = useState<string>('all');
   const [selectedType, setSelectedType] = useState<string>('all');
 
-  const handleRemoveTraining = async (id: number | string) => {
-    const response = await fetch(`${API_URLS.trainings}/${id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    if (!response.ok) {
-      toast.error('Ошибка при удалении тренировки');
-      return;
-    } else {
-      setTrainings(prev => prev.filter(train => train.id !== id));
-      toast.success('Тренировка удалена');
-    }
-  };
+  // Получение тренировок при монтировании
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const data = await getTrainings();
+        setTrainings(data);
+      } catch {
+        toast.error('Ошибка загрузки тренировок');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchData();
+    // eslint-disable-next-line
+  }, []);
+
+  const handleRemoveTraining = useCallback(
+    async (id: number | string) => {
+      try {
+        await deleteTraining(Number(id));
+        setTrainings(prev => prev.filter(train => train.id !== id));
+        toast.success('Тренировка удалена');
+      } catch {
+        toast.error('Ошибка при удалении тренировки');
+      }
+    },
+    [deleteTraining],
+  );
 
   // Определение начального режима просмотра по размеру экрана
   useEffect(() => {

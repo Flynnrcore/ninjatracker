@@ -4,14 +4,15 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
 import { AuthForm } from './AuthForm';
-import { useAuth } from '@/hooks/useAuth';
 import { Button } from './ui/button';
-import { toast } from 'sonner';
+import { useAuth } from '@/hooks/useAuth';
+import { useAuthContext, type  AuthContextType } from '@/context/AuthContext';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { token, logout } = useAuth();
+  const { user } = useAuthContext() as AuthContextType;
+  const { logout } = useAuth();
 
   const menuItems = useMemo(() => [
     { path: '/dashboard', label: 'Дашборд' },
@@ -24,9 +25,8 @@ const Header = () => {
     'py-2 px-1 rounded-md',
   );
 
-  const handleLogout = useCallback(() => {
-    toast.success('Вы вышли из аккаунта');
-    logout();
+  const handleLogout = useCallback(async () => {
+    await logout();
     setIsMobileMenuOpen(false);
   }, [logout]);
 
@@ -64,7 +64,7 @@ const Header = () => {
               </li>
             ))}
             <li className="list-none">
-              {token ? (
+              {user ? (
                 <Button className="text-lg bg-yellow-500 text-white hover:bg-yellow-600" onClick={handleLogout}>
                   Выйти
                 </Button>
@@ -97,7 +97,7 @@ const Header = () => {
                   </li>
                 ))}
                 <li className="list-none">
-                  {token ? (
+                  {user ? (
                     <Button variant="outline" onClick={handleLogout} className={`${menuItemStyle} ml-4 px-4`}>
                       Выйти
                     </Button>

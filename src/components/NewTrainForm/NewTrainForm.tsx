@@ -9,13 +9,14 @@ import TrainType from './TrainType/TrainType';
 import { useNavigate } from 'react-router-dom';
 import { DatePicker } from '../ui/datepicker';
 import { toast } from 'sonner';
-import { useAuth } from '@/hooks/useAuth';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
-import { API_URLS } from '@/constants/api';
+import { useAuthContext, type AuthContextType } from '@/context/AuthContext';
+import { useRemoteTraining } from '@/hooks/useRemoteTraining';
 
 const NewTrainForm = () => {
-  const { token } = useAuth();
+  const { user } = useAuthContext() as AuthContextType;
+  const { addTraining } = useRemoteTraining();
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(0);
 
@@ -26,7 +27,7 @@ const NewTrainForm = () => {
       name: String(formData.get('name') || ''),
       description: String(formData.get('description') || ''),
       date: String(formData.get('date') || new Date().toISOString()),
-      difficulty: Number(formData.get('difficulty') || 0),
+      difficulty: Number(formData.get('difficulty') || difficulty),
       instrument: String(formData.get('instrument') || ''),
       timer: Number(formData.get('time') || 0),
       type: String(formData.get('type') || '')
@@ -36,31 +37,18 @@ const NewTrainForm = () => {
     };
 
     try {
-      const response = await fetch(API_URLS.trainings, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(newTrain),
-      });
-
-      if (!response.ok) {
-        toast.error('Ошибка при добавлении тренировки');
-        return;
-      }
-
+      await addTraining(newTrain);
       toast.success('Тренировка успешно добавлена');
       navigate('/tracker');
     } catch {
-      toast.error('Ошибка сети');
+      toast.error('Ошибка при добавлении тренировки');
     }
   };
 
   const buttonStyle =
     'mt-6 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg md:text-2xl text-white transition-all hover:scale-[1.01] hover:bg-yellow-400 active:scale-95';
 
-  if (token === null) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
+  if (!user) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
 
   return (
     <div className="mt-15 flex min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:justify-center lg:px-8">

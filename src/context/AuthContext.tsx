@@ -1,18 +1,51 @@
-import { AuthContext } from '@/hooks/useAuth';
-import React, { useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { API_URLS } from '../constants/api';
 
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
-
-  const login = (newToken: string) => {
-    setToken(newToken);
-    localStorage.setItem('token', newToken);
-  };
-
-  const logout = () => {
-    setToken(null);
-    localStorage.removeItem('token');
-  };
-
-  return <AuthContext.Provider value={{ token, login, logout }}>{children}</AuthContext.Provider>;
+type User = {
+  id: number;
+  email: string;
+  name: string;
 };
+
+export type AuthContextType = {
+  user: User | null;
+  setUser: React.Dispatch<React.SetStateAction<User | null>>;
+  csrfToken: string;
+  loading: boolean;
+};
+
+const AuthContext = createContext<AuthContextType | null>(null);
+
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [csrfToken, setCsrfToken] = useState('');
+  const [loading, setLoading] = useState(true);
+
+  // Получить CSRF-токен при старте
+  useEffect(() => {
+    fetch(API_URLS.csrf, { credentials: 'include' })
+      .then(res => res.json())
+      .then(data => setCsrfToken(data.csrfToken));
+  }, []);
+
+  // Проверить сессию при старте
+  useEffect(() => {
+    if (!csrfToken) return;
+    fetch(API_URLS.session, {
+      credentials: 'include',
+      headers: { 'x-csrf-token': csrfToken }
+    })
+      .then(res => res.ok ? res.json() : null)
+      .then(data => setUser(data))
+      .finally(() => setLoading(false));
+  }, [csrfToken]);
+
+  const value = { user, setUser, csrfToken, loading };
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
+};
+
+export const useAuthContext = () => useContext(AuthContext);

@@ -1,18 +1,18 @@
 import { TimeStatistic } from './TimeStatistic';
 import { TrainTypeStatistic } from './TrainTypeStatistic';
 import { DifficultyStatistic } from './DifficultyStatistic';
-import { useAuth } from '@/hooks/useAuth';
-import { useUserData } from '@/hooks/useUserData';
 import LoaderFallback from '../LoaderFallback';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
+import { useAuthContext, type AuthContextType } from '@/context/AuthContext';
+import { useUserData } from '@/hooks/useUserData';
 
 const DashboardPageContent = () => {
-  const { token } = useAuth();
+  const { user } = useAuthContext() as AuthContextType;
   const { statistics, trainings, loading: dataLoading } = useUserData();
 
   if (dataLoading) return <LoaderFallback />;
-  if (token === null) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
+  if (!user) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
   return (
     <div className="flex min-h-screen flex-col gap-4 bg-stone-50 px-4 py-6 pt-25 sm:gap-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32">
       <div className="flex w-full max-w-7xl items-start">

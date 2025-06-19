@@ -6,6 +6,17 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { getFormattedTime } from '@/utils/TimeFn';
 
+type Training = {
+  id: number;
+  name: string;
+  description: string;
+  date: string;
+};
+
+type TimeStatistic = {
+  alltime: number;
+};
+
 const chartConfig = {
   timer: {
     label: 'время тренировки',
@@ -13,20 +24,21 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export const TimeStatistic = ({ stats, trainings }: { stats: any; trainings: any }) => {
-  const data = [...trainings].reverse().slice(-10);
+export const TimeStatistic = ({ stats, trainings }: { stats: TimeStatistic | null; trainings: Training[] | null }) => {
+  const data = trainings ? [...trainings].reverse().slice(-10) : [];
 
   return (
     <Card className="flex-ba w-full max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Время тренировок</CardTitle>
         <CardDescription>
-          <h3 className="text-3xl font-bold text-yellow-500 md:text-4xl">{getFormattedTime(stats.alltime)}</h3>
+          <h3 className="text-3xl font-bold text-yellow-500 md:text-4xl">{stats ? getFormattedTime(stats.alltime) : '00:00:00'}</h3>
           <span className="text-xs text-gray-500 md:text-sm">за все время</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-0">
         <ChartContainer config={chartConfig}>
+          {data.length > 0 ? (
           <LineChart accessibilityLayer data={data}>
             <CartesianGrid vertical={false} />
             <XAxis
@@ -60,6 +72,12 @@ export const TimeStatistic = ({ stats, trainings }: { stats: any; trainings: any
               }}
             />
           </LineChart>
+          ) : (
+            <div className="flex h-full w-full h-full flex-col items-center justify-center">
+              <p className="text-gray-400 text-md">Нет данных</p>
+              <p className="text-gray-400 text-sm">Начни новую тренировку чтобы увидеть статистику!</p>
+            </div>
+          )}
         </ChartContainer>
         <CardFooter>
           <CardDescription className="mt-2">Динамика за 10 последних тренировок</CardDescription>

@@ -1,7 +1,10 @@
 export const API_URLS = {
-  login: 'https://ninjatracker-backend.onrender.com/api/login',
-  register: 'https://ninjatracker-backend.onrender.com/api/register',
-  trainings: 'https://ninjatracker-backend.onrender.com/api/trainings',
-  me: 'https://ninjatracker-backend.onrender.com/api/me',
-  statistics: 'https://ninjatracker-backend.onrender.com/api/trainings/stats',
+  login: 'http://ninjatracker-backend.onrender.com/api/login',
+  register: 'http://ninjatracker-backend.onrender.com/api/register',
+  logout: 'http://ninjatracker-backend.onrender.com/api/logout',
+  csrf: 'http://ninjatracker-backend.onrender.com/api/csrf-token',
+  session: 'http://ninjatracker-backend.onrender.com/api/session',
+  refresh: 'http://ninjatracker-backend.onrender.com/api/refresh',
+  trainings: 'http://ninjatracker-backend.onrender.com/api/trainings',
+  statistics: 'http://ninjatracker-backend.onrender.com/api/trainings/stats',
 };
