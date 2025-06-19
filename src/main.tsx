@@ -9,6 +9,8 @@ import { ErrorPage, MainPage, TrackerPage, NewTrainPage, DashboardPage } from '.
 import { BASE_URL, PATH } from './constants/paths';
 import { TrainingsProvider } from './context/TrainingContext';
 import { AuthProvider } from './context/AuthContext';
+import { RecaptchaProvider } from './context/reCaptchaProvider';
+
 
 const router = createBrowserRouter(
   [
@@ -47,7 +49,9 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
       <TrainingsProvider>
-        <RouterProvider router={router} />
+        <RecaptchaProvider>
+          <RouterProvider router={router} />
+        </RecaptchaProvider>
       </TrainingsProvider>
     </AuthProvider>
   </StrictMode>,

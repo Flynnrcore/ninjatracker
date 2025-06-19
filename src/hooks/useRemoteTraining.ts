@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from '@/hooks/useAuth';
+import { API_URLS } from '@/constants/api';
 
 export type Training = {
   id: number | string;
@@ -24,7 +25,7 @@ export const useRemoteTrainings = () => {
       return;
     }
     setLoading(true);
-    fetch('https://ninjatracker-backend.onrender.com/api/trainings', {
+    fetch(API_URLS.trainings, {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then(res => res.json())

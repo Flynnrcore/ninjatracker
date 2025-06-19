@@ -12,6 +12,7 @@ import { toast } from 'sonner';
 import { useAuth } from '@/hooks/useAuth';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
+import { API_URLS } from '@/constants/api';
 
 const NewTrainForm = () => {
   const { token, user } = useAuth();
@@ -35,7 +36,7 @@ const NewTrainForm = () => {
     };
 
     try {
-      const response = await fetch('https://ninjatracker-backend.onrender.com/api/trainings', {
+      const response = await fetch(API_URLS.trainings, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -11,6 +11,7 @@ import { useRemoteTrainings } from '@/hooks/useRemoteTraining';
 import { useAuth } from '@/hooks/useAuth';
 import LoaderFallback from '../LoaderFallback';
 import { toast } from 'sonner';
+import { API_URLS } from '@/constants/api';
 
 const TrackerPageContent = () => {
   const { token } = useAuth();
@@ -21,7 +22,7 @@ const TrackerPageContent = () => {
   const [selectedType, setSelectedType] = useState<string>('all');
 
   const handleRemoveTraining = async (id: number | string) => {
-    const response = await fetch(`https://ninjatracker-backend.onrender.com/api/trainings/${id}`, {
+    const response = await fetch(`${API_URLS.trainings}/${id}`, {
       method: 'DELETE',
       headers: { Authorization: `Bearer ${token}` },
     });

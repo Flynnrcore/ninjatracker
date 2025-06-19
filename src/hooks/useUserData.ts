@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useAuth } from './useAuth';
+import { API_URLS } from '@/constants/api';
 
 type Statistic = {
   alltime: number;
@@ -28,10 +29,10 @@ export const useUserData = () => {
       setLoading(true);
       try {
         const [statsRes, trainingsRes] = await Promise.all([
-          fetch('https://ninjatracker-backend.onrender.com/api/trainings/stats', {
+          fetch(API_URLS.statistics, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          fetch('https://ninjatracker-backend.onrender.com/api/trainings', {
+          fetch(API_URLS.trainings, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

@@ -1,3 +1,4 @@
+import { API_URLS } from '@/constants/api';
 import { AuthContext, type User } from '@/hooks/useAuth';
 import React, { useEffect, useState } from 'react';
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -12,7 +13,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         return;
       }
       try {
-        const res = await fetch('https://ninjatracker-backend.onrender.com/api/me', {
+        const res = await fetch(API_URLS.me, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (res.ok) {
