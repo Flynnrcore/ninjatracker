@@ -1,16 +1,34 @@
 import { PATH } from '@/constants/paths';
 import { Link } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
 import { AuthForm } from './AuthForm';
 import { useAuth } from '@/hooks/useAuth';
 import { Button } from './ui/button';
+import { toast } from 'sonner';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { token, logout, isLoading } = useAuth();
+  const { token, logout } = useAuth();
+
+  const menuItems = useMemo(() => [
+      { path: '/dashboard', label: 'Дашборд' },
+      { path: '/tracker', label: 'Тренировки' },
+    ],[]);
+
+  const menuItemStyle = cn(
+    'text-lg font-medium transition-colors hover:text-yellow-600',
+    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400',
+    'py-2 px-1 rounded-md',
+  );
+
+  const handleLogout = useCallback(() => {
+    logout();
+    toast.success('Вы вышли из аккаунта');
+    setIsMobileMenuOpen(false);
+  }, [logout]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,17 +37,6 @@ const Header = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const menuItems = [
-    { path: '/dashboard', label: 'Дашборд' },
-    { path: '/tracker', label: 'Тренировки' },
-  ];
-
-  const menuItemStyle = cn(
-    'text-lg font-medium transition-colors hover:text-yellow-600',
-    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400',
-    'py-2 px-1 rounded-md',
-  );
 
   return (
     <header
@@ -57,7 +64,7 @@ const Header = () => {
               </li>
             ))}
             <li className="list-none">
-              {isLoading ? null : token ? (
+              {token ? (
                 <Button className="bg-yellow-500 text-white hover:bg-yellow-600" onClick={logout}>
                   Выйти
                 </Button>
@@ -90,8 +97,8 @@ const Header = () => {
                   </li>
                 ))}
                 <li className="list-none">
-                  {isLoading ? null : token ? (
-                    <Button variant="outline" onClick={logout} className={menuItemStyle}>
+                  {token ? (
+                    <Button variant="outline" onClick={handleLogout} className={menuItemStyle}>
                       Выйти
                     </Button>
                   ) : (

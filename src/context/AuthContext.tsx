@@ -1,38 +1,8 @@
-import { API_URLS } from '@/constants/api';
-import { AuthContext, type User } from '@/hooks/useAuth';
-import React, { useEffect, useState } from 'react';
-export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
-  const [isLoading, setIsLoading] = useState(true);
+import { AuthContext } from '@/hooks/useAuth';
+import React, { useState } from 'react';
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      if (!token) {
-        setIsLoading(false);
-        return;
-      }
-      try {
-        const res = await fetch(API_URLS.me, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (res.ok) {
-          const data = await res.json();
-          setUser(data);
-        } else {
-          setUser(null);
-          setToken(null);
-          localStorage.removeItem('token');
-        }
-      } catch {
-        setUser(null);
-        setToken(null);
-        localStorage.removeItem('token');
-      }
-      setIsLoading(false);
-    };
-    fetchUser();
-  }, [token]);
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [token, setToken] = useState<string | null>(() => localStorage.getItem('token'));
 
   const login = (newToken: string) => {
     setToken(newToken);
@@ -40,10 +10,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const logout = () => {
-    setUser(null);
     setToken(null);
     localStorage.removeItem('token');
   };
 
-  return <AuthContext.Provider value={{ user, token, isLoading, login, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ token, login, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };

@@ -11,7 +11,7 @@ const ErrorPageContent = ({ picUrl, message }: TErrorPage) => (
     <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-4">{message}</h1>
     <Link
       to="/"
-      className="mt-6 text-yellow-500 hover:underline px-4 py-2 rounded-md text-base sm:text-lg font-medium bg-yellow-50 hover:bg-yellow-100 transition block text-center w-full max-w-xs"
+      className="mt-6 text-yellow-500 hover:underline px-4 py-2 rounded-md text-base sm:text-lg font-medium transition block text-center w-full max-w-xs"
     >
       Вернуться на главную
     </Link>

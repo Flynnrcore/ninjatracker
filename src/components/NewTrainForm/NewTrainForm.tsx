@@ -15,7 +15,7 @@ import { PATH } from '@/constants/paths';
 import { API_URLS } from '@/constants/api';
 
 const NewTrainForm = () => {
-  const { token, user } = useAuth();
+  const { token } = useAuth();
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(0);
 
@@ -60,7 +60,7 @@ const NewTrainForm = () => {
   const buttonStyle =
     'mt-6 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg md:text-2xl text-white transition-all hover:scale-[1.01] hover:bg-yellow-400 active:scale-95';
 
-  if (!user) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
+  if (token === null) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
 
   return (
     <div className="mt-15 flex min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:justify-center lg:px-8">

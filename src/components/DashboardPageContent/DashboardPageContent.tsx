@@ -8,11 +8,11 @@ import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
 
 const DashboardPageContent = () => {
-  const { user, isLoading: authLoading } = useAuth();
+  const { token } = useAuth();
   const { statistics, trainings, loading: dataLoading } = useUserData();
 
-  if (authLoading || dataLoading) return <LoaderFallback />;
-  if (!user) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
+  if (dataLoading) return <LoaderFallback />;
+  if (token === null) return <ErrorPageContent picUrl={PATH.LOCK_IMG} message="Пожалуйста, войдите в систему" />;
   return (
     <div className="flex min-h-screen flex-col gap-4 bg-stone-50 px-4 py-6 pt-25 sm:gap-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32">
       <div className="flex w-full max-w-7xl items-start">
