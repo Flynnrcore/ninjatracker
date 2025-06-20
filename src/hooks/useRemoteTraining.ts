@@ -1,5 +1,6 @@
 import { useAuthContext, type AuthContextType } from '../context/AuthContext';
 import { API_URLS } from '../constants/api';
+import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
 
 type Training = {
   name: string;
@@ -15,7 +16,7 @@ export const useRemoteTraining = () => {
   const { csrfToken } = useAuthContext() as AuthContextType;
 
   const getTrainings = async () => {
-    const res = await fetch(API_URLS.trainings, {
+    const res = await fetchWithRefresh(API_URLS.trainings, {
       credentials: 'include',
       headers: { 'x-csrf-token': csrfToken },
     });
@@ -24,7 +25,7 @@ export const useRemoteTraining = () => {
   };
 
   const addTraining = async (training: Training) => {
-    const res = await fetch(API_URLS.trainings, {
+    const res = await fetchWithRefresh(API_URLS.trainings, {
       method: 'POST',
       credentials: 'include',
       headers: {
@@ -38,7 +39,7 @@ export const useRemoteTraining = () => {
   };
 
   const deleteTraining = async (id: number) => {
-    const res = await fetch(`${API_URLS.trainings}/${id}`, {
+    const res = await fetchWithRefresh(`${API_URLS.trainings}/${id}`, {
       method: 'DELETE',
       credentials: 'include',
       headers: { 'x-csrf-token': csrfToken },
@@ -48,7 +49,7 @@ export const useRemoteTraining = () => {
   };
 
   const getStatistics = async () => {
-    const res = await fetch(API_URLS.statistics, {
+    const res = await fetchWithRefresh(API_URLS.statistics, {
       credentials: 'include',
       headers: { 'x-csrf-token': csrfToken },
     });

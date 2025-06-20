@@ -2,6 +2,7 @@ import { useAuthContext, type AuthContextType } from '../context/AuthContext';
 import { API_URLS } from '../constants/api';
 import { toast } from 'sonner';
 import { useState } from 'react';
+import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
 
 export const useAuth = () => {
   const { setUser, csrfToken } = useAuthContext() as AuthContextType;
@@ -10,13 +11,12 @@ export const useAuth = () => {
   const login = async (email: string, password: string, recaptchaToken: string) => {
     setLoading(true);
     try {
-      const response = await fetch(API_URLS.login, {
+      const response = await fetchWithRefresh(API_URLS.login, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'x-csrf-token': csrfToken,
         },
-        credentials: 'include',
         body: JSON.stringify({ email, password, recaptchaToken }),
       });
       if (!response.ok) {

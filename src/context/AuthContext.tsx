@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API_URLS } from '../constants/api';
+import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
 
 type User = {
   id: number;
@@ -23,7 +24,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
   // Получить CSRF-токен при старте
   useEffect(() => {
-    fetch(API_URLS.csrf, { credentials: 'include' })
+    fetchWithRefresh(API_URLS.csrf, { credentials: 'include' })
       .then(res => res.json())
       .then(data => setCsrfToken(data.csrfToken));
   }, []);
@@ -31,7 +32,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   // Проверить сессию при старте
   useEffect(() => {
     if (!csrfToken) return;
-    fetch(API_URLS.session, {
+    fetchWithRefresh(API_URLS.session, {
       credentials: 'include',
       headers: { 'x-csrf-token': csrfToken },
     })
