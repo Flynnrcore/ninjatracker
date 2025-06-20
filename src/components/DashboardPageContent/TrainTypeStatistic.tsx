@@ -42,18 +42,18 @@ export const TrainTypeStatistic = ({ stats }: { stats: TrainTypeStats | null }) 
       <CardContent className="m-0 h-full pb-0">
         <ChartContainer className="h-[90%] w-full p-0" config={chartConfig}>
           {data.length > 0 ? (
-          <BarChart accessibilityLayer data={data}>
-            <CartesianGrid vertical={false} />
-            <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
-            <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
-            <Bar dataKey="count" type="natural" fill="orange" radius={8}>
-              <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
-            </Bar>
-          </BarChart>
+            <BarChart accessibilityLayer data={data}>
+              <CartesianGrid vertical={false} />
+              <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
+              <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
+              <Bar dataKey="count" type="natural" fill="orange" radius={8}>
+                <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
+              </Bar>
+            </BarChart>
           ) : (
             <div className="flex h-full w-full flex-col items-center justify-center">
-              <p className="text-gray-400 text-md">Нет данных</p>
-              <p className="text-gray-400 text-sm">Начни новую тренировку чтобы увидеть статистику!</p>
+              <p className="text-md text-gray-400">Нет данных</p>
+              <p className="text-sm text-gray-400">Начни новую тренировку чтобы увидеть статистику!</p>
             </div>
           )}
         </ChartContainer>

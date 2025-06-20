@@ -17,7 +17,7 @@ export const useRemoteTraining = () => {
   const getTrainings = async () => {
     const res = await fetch(API_URLS.trainings, {
       credentials: 'include',
-      headers: { 'x-csrf-token': csrfToken }
+      headers: { 'x-csrf-token': csrfToken },
     });
     if (!res.ok) throw new Error('Ошибка получения тренировок');
     return await res.json();
@@ -29,9 +29,9 @@ export const useRemoteTraining = () => {
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        'x-csrf-token': csrfToken
+        'x-csrf-token': csrfToken,
       },
-      body: JSON.stringify(training)
+      body: JSON.stringify(training),
     });
     if (!res.ok) throw new Error('Ошибка добавления тренировки');
     return await res.json();
@@ -41,7 +41,7 @@ export const useRemoteTraining = () => {
     const res = await fetch(`${API_URLS.trainings}/${id}`, {
       method: 'DELETE',
       credentials: 'include',
-      headers: { 'x-csrf-token': csrfToken }
+      headers: { 'x-csrf-token': csrfToken },
     });
     if (!res.ok) throw new Error('Ошибка удаления тренировки');
     return await res.json();
@@ -50,7 +50,7 @@ export const useRemoteTraining = () => {
   const getStatistics = async () => {
     const res = await fetch(API_URLS.statistics, {
       credentials: 'include',
-      headers: { 'x-csrf-token': csrfToken }
+      headers: { 'x-csrf-token': csrfToken },
     });
     if (!res.ok) throw new Error('Ошибка получения статистики');
     return await res.json();

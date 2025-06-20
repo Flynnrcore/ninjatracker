@@ -6,7 +6,7 @@ import { Menu, X } from 'lucide-react';
 import { AuthForm } from './AuthForm';
 import { Button } from './ui/button';
 import { useAuth } from '@/hooks/useAuth';
-import { useAuthContext, type  AuthContextType } from '@/context/AuthContext';
+import { useAuthContext, type AuthContextType } from '@/context/AuthContext';
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -14,10 +14,13 @@ const Header = () => {
   const { user } = useAuthContext() as AuthContextType;
   const { logout } = useAuth();
 
-  const menuItems = useMemo(() => [
-    { path: '/dashboard', label: 'Дашборд' },
-    { path: '/tracker', label: 'Тренировки' },
-  ],[]);
+  const menuItems = useMemo(
+    () => [
+      { path: '/dashboard', label: 'Дашборд' },
+      { path: '/tracker', label: 'Тренировки' },
+    ],
+    [],
+  );
 
   const menuItemStyle = cn(
     'text-lg font-medium transition-colors hover:text-yellow-600',
@@ -65,7 +68,7 @@ const Header = () => {
             ))}
             <li className="list-none">
               {user ? (
-                <Button className="text-lg bg-yellow-500 text-white hover:bg-yellow-600" onClick={handleLogout}>
+                <Button className="bg-yellow-500 text-lg text-white hover:bg-yellow-600" onClick={handleLogout}>
                   Выйти
                 </Button>
               ) : (

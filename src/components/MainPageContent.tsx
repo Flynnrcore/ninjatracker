@@ -32,7 +32,7 @@ const MainPageContent = () => {
               </span>
             </p>
             <Link to="/new">
-              <button className="mt-4 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">
+              <button className="mt-4 w-full rounded-lg bg-yellow-500 px-20 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">
                 Начать тренировку
               </button>
             </Link>

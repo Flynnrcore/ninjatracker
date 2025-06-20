@@ -32,50 +32,52 @@ export const TimeStatistic = ({ stats, trainings }: { stats: TimeStatistic | nul
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Время тренировок</CardTitle>
         <CardDescription>
-          <h3 className="text-3xl font-bold text-yellow-500 md:text-4xl">{stats ? getFormattedTime(stats.alltime) : '00:00:00'}</h3>
+          <h3 className="text-3xl font-bold text-yellow-500 md:text-4xl">
+            {stats ? getFormattedTime(stats.alltime) : '00:00:00'}
+          </h3>
           <span className="text-xs text-gray-500 md:text-sm">за все время</span>
         </CardDescription>
       </CardHeader>
       <CardContent className="pt-0">
         <ChartContainer config={chartConfig}>
           {data.length > 0 ? (
-          <LineChart accessibilityLayer data={data}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              tickFormatter={value => {
-                const date = new Date(value);
-                return date.toLocaleDateString('ru-Ru', {
-                  month: 'short',
-                  day: 'numeric',
-                });
-              }}
-            />
-            <ChartTooltip
-              cursor={true}
-              content={<ChartTooltipContent hideLabel />}
-              formatter={value => ['Время тренировки', ` ${getFormattedTime(Number(value))}`]}
-            />
-            <Line
-              dataKey="timer"
-              type="natural"
-              stroke="orange"
-              strokeWidth={2}
-              dot={{
-                fill: 'orange',
-              }}
-              activeDot={{
-                r: 6,
-              }}
-            />
-          </LineChart>
+            <LineChart accessibilityLayer data={data}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tickFormatter={value => {
+                  const date = new Date(value);
+                  return date.toLocaleDateString('ru-Ru', {
+                    month: 'short',
+                    day: 'numeric',
+                  });
+                }}
+              />
+              <ChartTooltip
+                cursor={true}
+                content={<ChartTooltipContent hideLabel />}
+                formatter={value => ['Время тренировки', ` ${getFormattedTime(Number(value))}`]}
+              />
+              <Line
+                dataKey="timer"
+                type="natural"
+                stroke="orange"
+                strokeWidth={2}
+                dot={{
+                  fill: 'orange',
+                }}
+                activeDot={{
+                  r: 6,
+                }}
+              />
+            </LineChart>
           ) : (
-            <div className="flex h-full w-full h-full flex-col items-center justify-center">
-              <p className="text-gray-400 text-md">Нет данных</p>
-              <p className="text-gray-400 text-sm">Начни новую тренировку чтобы увидеть статистику!</p>
+            <div className="flex h-full w-full flex-col items-center justify-center">
+              <p className="text-md text-gray-400">Нет данных</p>
+              <p className="text-sm text-gray-400">Начни новую тренировку чтобы увидеть статистику!</p>
             </div>
           )}
         </ChartContainer>

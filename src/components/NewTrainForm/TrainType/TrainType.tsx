@@ -7,7 +7,11 @@ const TrainType = () => {
 
   const handleToggleCheckbox = (trainName: string) => {
     const dataSet = new Set(trainTypes);
-    dataSet.has(trainName) ? dataSet.delete(trainName) : dataSet.add(trainName);
+    if (dataSet.has(trainName)) {
+      dataSet.delete(trainName);
+    } else {
+      dataSet.add(trainName);
+    }
     setTrainTypes([...dataSet]);
   };
 
@@ -31,8 +35,11 @@ const TrainType = () => {
               onCheckedChange={() => handleToggleCheckbox(id)}
               id={id}
               name={id}
+              className="cursor-pointer"
             />
-            <Label htmlFor={id}>{label}</Label>
+            <Label htmlFor={id} className="cursor-pointer">
+              {label}
+            </Label>
           </div>
         ))}
         <textarea name="type" value={trainTypes.join(',')} readOnly hidden />

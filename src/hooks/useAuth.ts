@@ -15,22 +15,21 @@ export const useAuth = () => {
       const response = await fetch(API_URLS.login, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', 
-          'x-csrf-token': csrfToken
+          'Content-Type': 'application/json',
+          'x-csrf-token': csrfToken,
         },
         credentials: 'include',
         body: JSON.stringify({ email, password, recaptchaToken }),
       });
       if (!response.ok) {
-        toast.error('Ошибка входа');
         throw new Error('Ошибка входа');
       }
       const data = await response.json();
       setUser(data.user);
       toast.success('Вы успешно вошли в аккаунт');
     } catch (err: unknown) {
-      toast.error((err as Error).message);
       setError((err as Error).message);
+      throw new Error((err as Error).message);
     } finally {
       setLoading(false);
     }
@@ -44,21 +43,20 @@ export const useAuth = () => {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'x-csrf-token': csrfToken
+          'x-csrf-token': csrfToken,
         },
         credentials: 'include',
         body: JSON.stringify({ email, password, name, recaptchaToken }),
       });
       if (!response.ok) {
-        toast.error('Ошибка регистрации');
         throw new Error('Ошибка регистрации');
       }
       const data = await response.json();
       setUser(data.user);
       toast.success('Вы успешно зарегистрировались');
     } catch (err: unknown) {
-      toast.error((err as Error).message);
       setError((err as Error).message);
+      throw new Error((err as Error).message);
     } finally {
       setLoading(false);
     }
@@ -76,8 +74,8 @@ export const useAuth = () => {
       setUser(null);
       toast.success('Вы успешно вышли из аккаунта');
     } catch (err: unknown) {
-      toast.error((err as Error).message);
       setError((err as Error).message);
+      throw new Error((err as Error).message);
     } finally {
       setLoading(false);
     }

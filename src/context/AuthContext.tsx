@@ -33,19 +33,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     if (!csrfToken) return;
     fetch(API_URLS.session, {
       credentials: 'include',
-      headers: { 'x-csrf-token': csrfToken }
+      headers: { 'x-csrf-token': csrfToken },
     })
-      .then(res => res.ok ? res.json() : null)
+      .then(res => (res.ok ? res.json() : null))
       .then(data => setUser(data))
       .finally(() => setLoading(false));
   }, [csrfToken]);
 
   const value = { user, setUser, csrfToken, loading };
-  return (
-    <AuthContext.Provider value={value}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => useContext(AuthContext);

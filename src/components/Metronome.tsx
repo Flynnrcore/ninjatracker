@@ -58,7 +58,8 @@ const Metronome = ({ className }: { className?: string }) => {
   // Инициализация AudioContext
   const initAudioContext = useCallback(() => {
     if (!audioContextRef.current) {
-      audioContextRef.current = new (window.AudioContext || (window as any).webkitAudioContext)();
+      audioContextRef.current = new (window.AudioContext ||
+        (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
     }
 
     if (audioContextRef.current.state === 'suspended') {
@@ -114,7 +115,8 @@ const Metronome = ({ className }: { className?: string }) => {
   }, []);
 
   return (
-    <div className={`absolute top-1/2 right-0 flex items-center ${animate ? 'animate-bounce-left-twice' : ''}`}>
+    <div
+      className={`absolute top-1/2 right-0 flex items-center ${animate ? 'animate-bounce-left-twice' : ''} ${hiddenMetronome ? 'w-0' : ''}`}>
       <Button
         type="button"
         onClick={() => setHiddenMetronome(!hiddenMetronome)}
@@ -152,11 +154,14 @@ const Metronome = ({ className }: { className?: string }) => {
         </div>
         <div className="w-full">
           <label htmlFor="tsize">Тактовый размер</label>
-          <Select onValueChange={value => setBeatsPerMeasure(parseInt(value))} defaultValue={String(beatsPerMeasure)}>
+          <Select
+            disabled
+            onValueChange={value => setBeatsPerMeasure(parseInt(value))}
+            defaultValue={String(beatsPerMeasure)}>
             <SelectTrigger id="tsize" className="w-full">
               <SelectValue placeholder="Размер" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent side="top" sideOffset={8} align="start">
               {RHYTHM_PRESETS.map(preset => (
                 <SelectItem key={preset.value} value={String(preset.value)}>
                   {preset.name}

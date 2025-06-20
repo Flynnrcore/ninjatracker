@@ -52,63 +52,63 @@ export const DifficultyStatistic = ({ trainings }: { trainings: Training[] | nul
       </CardHeader>
       <CardContent className="px-2 sm:p-6">
         {data.length > 0 ? (
-        <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
-          <AreaChart
-            accessibilityLayer
-            data={data.slice(-activeChart)}
-            margin={{
-              left: 12,
-              right: 12,
-            }}>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={8}
-              minTickGap={32}
-              tickFormatter={value => {
-                const date = new Date(value);
-                return date.toLocaleDateString('ru-Ru', {
-                  month: 'short',
-                  day: 'numeric',
-                });
-              }}
-            />
-            <ChartTooltip
-              content={
-                <ChartTooltipContent
-                  className="w-[150px]"
-                  nameKey="views"
-                  formatter={value => {
-                    const stars = [1, 2, 3, 4, 5].map(t => (t <= Number(value) ? '★' : '☆')).join('');
-                    return ['сложность ', stars];
-                  }}
-                  labelFormatter={value => {
-                    return new Date(value).toLocaleDateString('ru-Ru', {
-                      month: 'short',
-                      day: 'numeric',
-                      year: 'numeric',
-                    });
-                  }}
-                />
-              }
-            />
-            <Area
-              dataKey="difficulty"
-              type="monotone"
-              stroke="orange"
-              fill="orange"
-              fillOpacity={0.4}
-              strokeWidth={2}
-              dot={false}
-            />
-          </AreaChart>
-        </ChartContainer>
+          <ChartContainer config={chartConfig} className="aspect-auto h-[250px] w-full">
+            <AreaChart
+              accessibilityLayer
+              data={data.slice(-activeChart)}
+              margin={{
+                left: 12,
+                right: 12,
+              }}>
+              <CartesianGrid vertical={false} />
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                minTickGap={32}
+                tickFormatter={value => {
+                  const date = new Date(value);
+                  return date.toLocaleDateString('ru-Ru', {
+                    month: 'short',
+                    day: 'numeric',
+                  });
+                }}
+              />
+              <ChartTooltip
+                content={
+                  <ChartTooltipContent
+                    className="w-[150px]"
+                    nameKey="views"
+                    formatter={value => {
+                      const stars = [1, 2, 3, 4, 5].map(t => (t <= Number(value) ? '★' : '☆')).join('');
+                      return ['сложность ', stars];
+                    }}
+                    labelFormatter={value => {
+                      return new Date(value).toLocaleDateString('ru-Ru', {
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                      });
+                    }}
+                  />
+                }
+              />
+              <Area
+                dataKey="difficulty"
+                type="monotone"
+                stroke="orange"
+                fill="orange"
+                fillOpacity={0.4}
+                strokeWidth={2}
+                dot={false}
+              />
+            </AreaChart>
+          </ChartContainer>
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center">
-            <p className="text-gray-400 text-sm">Нет данных</p>
-            <p className="text-gray-400 text-sm">Начни новую тренировку чтобы увидеть статистику!</p>
+            <p className="text-sm text-gray-400">Нет данных</p>
+            <p className="text-sm text-gray-400">Начни новую тренировку чтобы увидеть статистику!</p>
           </div>
         )}
       </CardContent>

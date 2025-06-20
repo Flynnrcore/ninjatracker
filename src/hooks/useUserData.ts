@@ -18,19 +18,19 @@ export const useUserData = () => {
         // fetch user
         const userRes = await fetch(API_URLS.session, {
           credentials: 'include',
-          headers: { 'x-csrf-token': csrfToken }
+          headers: { 'x-csrf-token': csrfToken },
         });
         if (userRes.ok) setUser(await userRes.json());
         // fetch trainings
         const trainRes = await fetch(API_URLS.trainings, {
           credentials: 'include',
-          headers: { 'x-csrf-token': csrfToken }
+          headers: { 'x-csrf-token': csrfToken },
         });
         if (trainRes.ok) setTrainings(await trainRes.json());
         // fetch statistics
         const statRes = await fetch(API_URLS.statistics, {
           credentials: 'include',
-          headers: { 'x-csrf-token': csrfToken }
+          headers: { 'x-csrf-token': csrfToken },
         });
         if (statRes.ok) setStatistics(await statRes.json());
       } catch (e: unknown) {
