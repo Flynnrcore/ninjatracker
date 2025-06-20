@@ -30,7 +30,7 @@ export const TimeStatistic = ({ stats, trainings }: { stats: TimeStatistic | nul
   return (
     <Card className="flex-ba w-full max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
       <CardHeader>
-        <CardTitle className="text-lg md:text-xl lg:text-2xl">Время тренировок</CardTitle>
+        <CardTitle className="text-lg md:text-xl lg:text-2xl">Общее время тренировок</CardTitle>
         <CardDescription>
           <h3 className="text-3xl font-bold text-yellow-500 md:text-4xl">
             {stats ? getFormattedTime(stats.alltime) : '00:00:00'}

@@ -7,6 +7,21 @@ import { PATH } from '@/constants/paths';
 import { useAuthContext, type AuthContextType } from '@/context/AuthContext';
 import { useUserData } from '@/hooks/useUserData';
 import { AuthForm } from '../AuthForm';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import PageWrapper from '../PageWrapper';
+
+const StatsCard = ({ title, value }: { title: string; value?: number | string }) => {
+  return (
+    <Card className="w-full gap-0 border-none">
+      <CardHeader>
+        <CardTitle className="text-center text-lg md:text-xl lg:text-2xl">{title}</CardTitle>
+      </CardHeader>
+      <CardContent className="p-0">
+        <p className="text-center text-2xl font-bold text-yellow-500 sm:text-3xl">{value}</p>
+      </CardContent>
+    </Card>
+  );
+};
 
 const DashboardPageContent = () => {
   const { user } = useAuthContext() as AuthContextType;
@@ -21,19 +36,23 @@ const DashboardPageContent = () => {
         children={<AuthForm mode="login" />}
       />
     );
+
   return (
-    <div className="flex min-h-screen flex-col gap-4 bg-stone-50 px-4 py-6 pt-25 sm:gap-4 sm:px-6 md:px-8 lg:px-12 xl:px-20 2xl:px-32">
-      <div className="flex w-full max-w-7xl items-start">
-        <h2 className="text-2xl font-bold sm:text-3xl">Дашборд</h2>
-      </div>
+    <PageWrapper title="Дашборд">
       <div className="flex flex-col gap-8">
+        <div className="flex w-full flex-col gap-4 md:flex-row">
+          <StatsCard title="Количество тренировок" value={statistics?.totalCount || 0} />
+          <StatsCard title="Среднее время тренировки" value={statistics?.avgDuration || '00:00:00'} />
+          <StatsCard title="Максимальное время тренировки" value={statistics?.maxDuration || '00:00:00'} />
+          <StatsCard title="Серия тренировок подряд" value={statistics?.maxStreak || 0} />
+        </div>
         <div className="flex h-max w-full flex-col gap-4 sm:flex-row">
           <TimeStatistic stats={statistics} trainings={trainings} />
           <TrainTypeStatistic stats={statistics} />
         </div>
         <DifficultyStatistic trainings={trainings} />
       </div>
-    </div>
+    </PageWrapper>
   );
 };
 

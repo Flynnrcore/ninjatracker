@@ -7,7 +7,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import App from './App';
 import { ErrorPage, MainPage, TrackerPage, NewTrainPage, DashboardPage } from './pages';
 import { BASE_URL, PATH } from './constants/paths';
-import { TrainingsProvider } from './context/TrainingContext';
 import { AuthProvider } from './context/AuthContext';
 import { RecaptchaProvider } from './context/RecaptchaProvider';
 
@@ -47,11 +46,9 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <AuthProvider>
-      <TrainingsProvider>
-        <RecaptchaProvider>
-          <RouterProvider router={router} />
-        </RecaptchaProvider>
-      </TrainingsProvider>
+      <RecaptchaProvider>
+        <RouterProvider router={router} />
+      </RecaptchaProvider>
     </AuthProvider>
   </StrictMode>,
 );

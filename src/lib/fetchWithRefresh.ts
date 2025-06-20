@@ -1,8 +1,7 @@
-import { API_URLS } from '@/constants/api'
+import { API_URLS } from '@/constants/api';
 import { toast } from 'sonner';
 
 export const fetchWithRefresh = async (input: RequestInfo, init?: RequestInit) => {
-
   let response = await fetch(input, { ...init, credentials: 'include' });
 
   if (response.status === 401) {
@@ -20,4 +19,4 @@ export const fetchWithRefresh = async (input: RequestInfo, init?: RequestInit) =
   }
 
   return response;
-}
+};
