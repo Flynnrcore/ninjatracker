@@ -9,6 +9,7 @@ import { useUserData } from '@/hooks/useUserData';
 import { AuthForm } from '../AuthForm';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import PageWrapper from '../PageWrapper';
+import { getFormattedTime } from '@/utils/TimeFn';
 
 const StatsCard = ({ title, value }: { title: string; value?: number | string }) => {
   return (
@@ -42,8 +43,8 @@ const DashboardPageContent = () => {
       <div className="flex flex-col gap-8">
         <div className="flex w-full flex-col gap-4 md:flex-row">
           <StatsCard title="Количество тренировок" value={statistics?.totalCount || 0} />
-          <StatsCard title="Среднее время тренировки" value={statistics?.avgDuration || '00:00:00'} />
-          <StatsCard title="Максимальное время тренировки" value={statistics?.maxDuration || '00:00:00'} />
+          <StatsCard title="Среднее время тренировки" value={getFormattedTime(statistics?.avgDuration || 0)} />
+          <StatsCard title="Максимальное время тренировки" value={getFormattedTime(statistics?.maxDuration || 0)} />
           <StatsCard title="Серия тренировок подряд" value={statistics?.maxStreak || 0} />
         </div>
         <div className="flex h-max w-full flex-col gap-4 sm:flex-row">
