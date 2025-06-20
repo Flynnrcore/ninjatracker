@@ -41,7 +41,7 @@ export const TimeStatistic = ({ stats, trainings }: { stats: TimeStatistic | nul
       <CardContent className="pt-0">
         <ChartContainer config={chartConfig}>
           {data.length > 0 ? (
-            <LineChart accessibilityLayer data={data}>
+            <LineChart accessibilityLayer data={data} margin={{ top: 10, left: 5, right: 5, bottom: 5 }}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="date"

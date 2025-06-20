@@ -57,6 +57,7 @@ export const DifficultyStatistic = ({ trainings }: { trainings: Training[] | nul
               accessibilityLayer
               data={data.slice(-activeChart)}
               margin={{
+                top: 10,
                 left: 12,
                 right: 12,
               }}>

@@ -42,7 +42,7 @@ export const TrainTypeStatistic = ({ stats }: { stats: TrainTypeStats | null }) 
       <CardContent className="m-0 h-full pb-0">
         <ChartContainer className="h-[90%] w-full p-0" config={chartConfig}>
           {data.length > 0 ? (
-            <BarChart accessibilityLayer data={data}>
+            <BarChart accessibilityLayer data={data} margin={{ top: 10 }}>
               <CartesianGrid vertical={false} />
               <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
               <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
