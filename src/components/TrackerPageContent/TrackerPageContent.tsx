@@ -39,8 +39,8 @@ const TrackerPageContent = () => {
       try {
         const data = await getTrainings();
         setTrainings(data);
-      } catch {
-        toast.error('Ошибка загрузки тренировок');
+      } catch (err: unknown) {
+        toast.error((err as Error).message);
       } finally {
         setLoading(false);
       }

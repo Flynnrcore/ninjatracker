@@ -6,11 +6,9 @@ import { useState } from 'react';
 export const useAuth = () => {
   const { setUser, csrfToken } = useAuthContext() as AuthContextType;
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
 
   const login = async (email: string, password: string, recaptchaToken: string) => {
     setLoading(true);
-    setError(null);
     try {
       const response = await fetch(API_URLS.login, {
         method: 'POST',
@@ -28,7 +26,6 @@ export const useAuth = () => {
       setUser(data.user);
       toast.success('Вы успешно вошли в аккаунт');
     } catch (err: unknown) {
-      setError((err as Error).message);
       throw new Error((err as Error).message);
     } finally {
       setLoading(false);
@@ -37,7 +34,6 @@ export const useAuth = () => {
 
   const register = async (email: string, password: string, name: string, recaptchaToken: string) => {
     setLoading(true);
-    setError(null);
     try {
       const response = await fetch(API_URLS.register, {
         method: 'POST',
@@ -55,7 +51,6 @@ export const useAuth = () => {
       setUser(data.user);
       toast.success('Вы успешно зарегистрировались');
     } catch (err: unknown) {
-      setError((err as Error).message);
       throw new Error((err as Error).message);
     } finally {
       setLoading(false);
@@ -64,7 +59,6 @@ export const useAuth = () => {
 
   const logout = async () => {
     setLoading(true);
-    setError(null);
     try {
       await fetch(API_URLS.logout, {
         method: 'POST',
@@ -74,12 +68,11 @@ export const useAuth = () => {
       setUser(null);
       toast.success('Вы успешно вышли из аккаунта');
     } catch (err: unknown) {
-      setError((err as Error).message);
       throw new Error((err as Error).message);
     } finally {
       setLoading(false);
     }
   };
 
-  return { login, register, logout, loading, error };
+  return { login, register, logout, loading };
 };

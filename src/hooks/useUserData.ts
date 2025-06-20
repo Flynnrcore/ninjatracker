@@ -9,7 +9,6 @@ export const useUserData = () => {
   const [trainings, setTrainings] = useState([]);
   const [statistics, setStatistics] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -35,7 +34,6 @@ export const useUserData = () => {
         if (statRes.ok) setStatistics(await statRes.json());
       } catch (e: unknown) {
         toast.error(e instanceof Error ? e.message : 'Неизвестная ошибка');
-        setError(e instanceof Error ? e.message : 'Неизвестная ошибка');
       } finally {
         setLoading(false);
       }
@@ -43,5 +41,5 @@ export const useUserData = () => {
     if (csrfToken) fetchData();
   }, [csrfToken]);
 
-  return { user, trainings, statistics, loading, error };
+  return { user, trainings, statistics, loading };
 };
