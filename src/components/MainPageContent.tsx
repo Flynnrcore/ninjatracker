@@ -10,7 +10,7 @@ const MainPageContent = () => {
     <div className="flex flex-col items-center justify-center pt-12 pb-12">
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
-        <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 md:mx-8 lg:flex-row lg:gap-12">
+        <div className="z-10 mx-4 pb-0 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 md:mx-8 lg:flex-row lg:gap-12">
           <img
             className="w-full rounded-2xl object-cover lg:w-1/3"
             src={PATH.MAIN_PAGE_LOGO}
@@ -32,7 +32,7 @@ const MainPageContent = () => {
               </span>
             </p>
             <Link to="/new">
-              <button className="mt-4 w-full rounded-lg bg-yellow-500 px-20 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:text-xl">
+              <button className="mt-4 w-full rounded-lg bg-yellow-500 px-12 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:px-20 md:text-xl">
                 Начать тренировку
               </button>
             </Link>
