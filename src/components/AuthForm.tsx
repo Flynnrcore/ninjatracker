@@ -9,14 +9,12 @@ import { PATH } from '@/constants/paths';
 import { useAuth } from '@/hooks/useAuth';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 
-type AuthMode = 'login' | 'register';
-
-interface AuthFormProps {
-  mode: AuthMode;
+type AuthFormProps = {
+  mode: 'login' | 'register';
   className?: string;
-}
+};
 
-export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
+const AuthForm = ({ mode, className }: AuthFormProps) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ email: '', name: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -145,3 +143,5 @@ export const AuthForm: React.FC<AuthFormProps> = ({ mode, className }) => {
     </Dialog>
   );
 };
+
+export default AuthForm;

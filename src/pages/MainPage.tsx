@@ -1,4 +1,3 @@
-//import LoaderFallback from '@/components/LoaderFallback';
 import { lazy } from 'react';
 import { withBaseUrl } from '@/constants/paths';
 
@@ -6,7 +5,6 @@ const MainPageContent = lazy(() => import('@/components/MainPageContent'));
 
 const MainPage = () => {
   return (
-    //<Suspense fallback={<LoaderFallback />}>
     <>
       <MainPageContent />
       <img
@@ -17,7 +15,6 @@ const MainPage = () => {
         loading="eager"
       />
     </>
-    //</Suspense>
   );
 };
 

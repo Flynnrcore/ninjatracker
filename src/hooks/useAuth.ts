@@ -1,8 +1,9 @@
-import { useAuthContext, type AuthContextType } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
 import { API_URLS } from '../constants/api';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
+import type { AuthContextType } from '@/types';
 
 export const useAuth = () => {
   const { setUser, csrfToken } = useAuthContext() as AuthContextType;

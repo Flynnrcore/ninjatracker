@@ -1,24 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from 'react';
 import { API_URLS } from '../constants/api';
 import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
-
-type User = {
-  id: number;
-  email: string;
-  name: string;
-};
-
-export type AuthContextType = {
-  user: User | null;
-  setUser: React.Dispatch<React.SetStateAction<User | null>>;
-  csrfToken: string;
-  loading: boolean;
-};
+import type { AuthContextType, TUser } from '@/types';
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<TUser | null>(null);
   const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(true);
 

@@ -1,17 +1,9 @@
 'use client';
-
 import * as React from 'react';
 import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
-
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-
-type Training = {
-  id: number;
-  name: string;
-  description: string;
-  date: string;
-};
+import type { TStatistic } from '@/types';
 
 const chartConfig = {
   difficulty: {
@@ -20,8 +12,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export const DifficultyStatistic = ({ trainings }: { trainings: Training[] | null }) => {
-  const data = trainings ? [...trainings].reverse() : [];
+export const DifficultyStatistic = ({ statistic }: { statistic: TStatistic | null }) => {
+  const data = statistic ? [...statistic.difficulties].reverse() : [];
   const [activeChart, setActiveChart] = React.useState<number>(7);
 
   return (

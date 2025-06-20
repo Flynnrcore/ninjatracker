@@ -1,7 +1,7 @@
 import { useId, useMemo } from 'react';
 import generateNotes from '../utils/generateNotes';
 
-const BackgroundAnimation = ({ countNotes = 30 }) => {
+const BackgroundAnimation = ({ countNotes = 30 }: { countNotes?: number }) => {
   const id = useId();
   const notes = useMemo(() => generateNotes(countNotes), [countNotes]);
 

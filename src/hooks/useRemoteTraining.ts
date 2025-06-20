@@ -1,16 +1,7 @@
-import { useAuthContext, type AuthContextType } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
 import { API_URLS } from '../constants/api';
 import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
-
-type Training = {
-  name: string;
-  description: string;
-  date: string;
-  difficulty: number;
-  instrument: string;
-  timer: number;
-  type: string[];
-};
+import type { AuthContextType, TTraining } from '@/types';
 
 export const useRemoteTraining = () => {
   const { csrfToken } = useAuthContext() as AuthContextType;
@@ -24,7 +15,7 @@ export const useRemoteTraining = () => {
     return await res.json();
   };
 
-  const addTraining = async (training: Training) => {
+  const addTraining = async (training: TTraining) => {
     const res = await fetchWithRefresh(API_URLS.trainings, {
       method: 'POST',
       credentials: 'include',

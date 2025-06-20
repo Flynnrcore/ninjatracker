@@ -1,4 +1,4 @@
-import { EXERCISE_TYPES, INSTRUMENTS } from '@/assets/mockData';
+import { EXERCISE_TYPES, INSTRUMENTS } from '@/constants/consts';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Link } from 'react-router-dom';
 import { cn } from '@/lib/utils';
@@ -11,22 +11,12 @@ import { useRemoteTraining } from '@/hooks/useRemoteTraining';
 import LoaderFallback from '../LoaderFallback';
 import { toast } from 'sonner';
 import PageWrapper from '../PageWrapper';
-
-type Training = {
-  id: number;
-  name: string;
-  description: string;
-  date: string;
-  instrument: string;
-  type: string[];
-  difficulty: number;
-  timer: number;
-};
+import type { TTraining } from '@/types';
 
 const TrackerPageContent = () => {
   const { getTrainings, deleteTraining } = useRemoteTraining();
 
-  const [trainings, setTrainings] = useState<Training[]>([]);
+  const [trainings, setTrainings] = useState<TTraining[]>([]);
   const [loading, setLoading] = useState(true);
 
   const [viewMode, setViewMode] = useState<'table' | 'cards'>(() => (window.innerWidth >= 1024 ? 'table' : 'cards'));
@@ -211,7 +201,7 @@ const TrackerPageContent = () => {
                       <button
                         className="rounded-full p-1 text-gray-400 hover:bg-red-50 hover:text-red-500"
                         aria-label={`Удалить тренировку ${train.name}`}
-                        onClick={() => handleRemoveTraining(train.id)}>
+                        onClick={() => handleRemoveTraining(train.id!)}>
                         <Trash2 size={18} />
                       </button>
                     </td>
@@ -250,7 +240,7 @@ const TrackerPageContent = () => {
                     <button
                       className="text-gray-400 hover:text-red-500"
                       aria-label={`Удалить тренировку ${train.name}`}
-                      onClick={() => handleRemoveTraining(train.id)}>
+                      onClick={() => handleRemoveTraining(train.id!)}>
                       <Trash2 size={16} />
                     </button>
                   </div>

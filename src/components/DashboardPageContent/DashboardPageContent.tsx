@@ -4,12 +4,13 @@ import { DifficultyStatistic } from './DifficultyStatistic';
 import LoaderFallback from '../LoaderFallback';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
-import { useAuthContext, type AuthContextType } from '@/context/AuthContext';
+import { useAuthContext } from '@/context/AuthContext';
 import { useUserData } from '@/hooks/useUserData';
-import { AuthForm } from '../AuthForm';
+import AuthForm from '../AuthForm';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import PageWrapper from '../PageWrapper';
 import { getFormattedTime } from '@/utils/TimeFn';
+import type { AuthContextType } from '@/types';
 
 const StatsCard = ({ title, value }: { title: string; value?: number | string }) => {
   return (
@@ -26,7 +27,7 @@ const StatsCard = ({ title, value }: { title: string; value?: number | string })
 
 const DashboardPageContent = () => {
   const { user } = useAuthContext() as AuthContextType;
-  const { statistics, trainings, loading: dataLoading } = useUserData();
+  const { statistics, loading: dataLoading } = useUserData();
 
   if (dataLoading) return <LoaderFallback />;
   if (!user)
@@ -45,13 +46,13 @@ const DashboardPageContent = () => {
           <StatsCard title="Количество тренировок" value={statistics?.totalCount || 0} />
           <StatsCard title="Среднее время тренировки" value={getFormattedTime(statistics?.avgDuration || 0)} />
           <StatsCard title="Максимальное время тренировки" value={getFormattedTime(statistics?.maxDuration || 0)} />
-          <StatsCard title="Серия тренировок подряд" value={statistics?.maxStreak || 0} />
+          <StatsCard title="Серия тренировок подряд" value={statistics?.streak || 0} />
         </div>
         <div className="flex h-max w-full flex-col gap-4 sm:flex-row">
-          <TimeStatistic stats={statistics} trainings={trainings} />
-          <TrainTypeStatistic stats={statistics} />
+          <TimeStatistic statistic={statistics} />
+          <TrainTypeStatistic statistic={statistics} />
         </div>
-        <DifficultyStatistic trainings={trainings} />
+        <DifficultyStatistic statistic={statistics} />
       </div>
     </PageWrapper>
   );

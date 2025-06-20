@@ -1,10 +1,9 @@
 'use client';
-
 import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from 'recharts';
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { EXERCISE_TYPES } from '@/assets/mockData';
+import { EXERCISE_TYPES } from '@/constants/consts';
+import type { TStatistic } from '@/types';
 
 const chartConfig = {
   count: {
@@ -13,19 +12,15 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-type TrainTypeStats = {
-  trainTypes: Record<string, number>;
-};
-
-export const TrainTypeStatistic = ({ stats }: { stats: TrainTypeStats | null }) => {
+export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null }) => {
   let data: { name: string; count: number }[] = [];
   let favouriteType = '';
-  if (stats?.trainTypes && Object.keys(stats.trainTypes).length > 0) {
-    data = Object.entries(stats.trainTypes).map(([name, count]) => ({
+  if (statistic?.trainTypes && Object.keys(statistic.trainTypes).length > 0) {
+    data = Object.entries(statistic.trainTypes).map(([name, count]) => ({
       name: EXERCISE_TYPES[name as keyof typeof EXERCISE_TYPES],
       count,
     }));
-    favouriteType = Object.entries(stats.trainTypes).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
+    favouriteType = Object.entries(statistic.trainTypes).reduce((a, b) => (a[1] > b[1] ? a : b))[0];
   }
 
   return (

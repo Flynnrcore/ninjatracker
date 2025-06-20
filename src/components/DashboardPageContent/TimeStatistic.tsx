@@ -1,21 +1,9 @@
 'use client';
-
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { getFormattedTime } from '@/utils/TimeFn';
-
-type Training = {
-  id: number;
-  name: string;
-  description: string;
-  date: string;
-};
-
-type TimeStatistic = {
-  alltime: number;
-};
+import type { TStatistic } from '@/types';
 
 const chartConfig = {
   timer: {
@@ -24,8 +12,8 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export const TimeStatistic = ({ stats, trainings }: { stats: TimeStatistic | null; trainings: Training[] | null }) => {
-  const data = trainings ? [...trainings].reverse().slice(-10) : [];
+export const TimeStatistic = ({ statistic }: { statistic: TStatistic | null }) => {
+  const data = statistic ? [...statistic.difficulties].reverse().slice(0, 10) : [];
 
   return (
     <Card className="flex-ba w-full max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
@@ -33,7 +21,7 @@ export const TimeStatistic = ({ stats, trainings }: { stats: TimeStatistic | nul
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Общее время тренировок</CardTitle>
         <CardDescription>
           <h3 className="text-3xl font-bold text-yellow-500 md:text-4xl">
-            {stats ? getFormattedTime(stats.alltime) : '00:00:00'}
+            {statistic ? getFormattedTime(statistic.alltime) : '00:00:00'}
           </h3>
           <span className="text-xs text-gray-500 md:text-sm">за все время</span>
         </CardDescription>

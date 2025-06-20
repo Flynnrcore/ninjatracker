@@ -98,7 +98,6 @@ const Timer = () => {
               max={24}
               label="Часы"
               onChange={value => handleTimeChange('hours', value)}
-              //disabled={isRunning}
             />
             <TimeInput
               id="timerMinutes"
@@ -107,7 +106,6 @@ const Timer = () => {
               max={59}
               label="Минуты"
               onChange={value => handleTimeChange('minutes', value)}
-              //disabled={isRunning}
             />
             <TimeInput
               id="timerSeconds"
@@ -116,7 +114,6 @@ const Timer = () => {
               max={59}
               label="Секунды"
               onChange={value => handleTimeChange('seconds', value)}
-              //disabled={isRunning}
             />
           </div>
 

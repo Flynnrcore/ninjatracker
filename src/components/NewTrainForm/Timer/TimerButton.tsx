@@ -1,13 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
-type TTimerButton = {
-  label: string;
-  onClick: () => void;
-  variant: 'primary' | 'secondary' | 'danger';
-  className?: string;
-  size?: 'sm' | 'md' | 'lg';
-};
+import type { TTimerButton } from '@/types';
 
 const TimerButton = ({ label, onClick, variant, className, size = 'md' }: TTimerButton) => {
   const variantStyles = {

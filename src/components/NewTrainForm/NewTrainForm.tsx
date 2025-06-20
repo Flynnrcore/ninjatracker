@@ -11,9 +11,10 @@ import { DatePicker } from '../ui/datepicker';
 import { toast } from 'sonner';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
-import { useAuthContext, type AuthContextType } from '@/context/AuthContext';
+import { useAuthContext } from '@/context/AuthContext';
 import { useRemoteTraining } from '@/hooks/useRemoteTraining';
-import { AuthForm } from '../AuthForm';
+import AuthForm from '../AuthForm';
+import type { AuthContextType } from '@/types';
 
 const NewTrainForm = () => {
   const { user } = useAuthContext() as AuthContextType;

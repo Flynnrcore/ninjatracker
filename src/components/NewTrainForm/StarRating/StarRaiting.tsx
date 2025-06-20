@@ -1,11 +1,6 @@
 import { useState } from 'react';
 
-type TStarRating = {
-  value: number;
-  onChange: (val: number) => void;
-};
-
-const StarRating = ({ value, onChange }: TStarRating) => {
+const StarRating = ({ value, onChange }: { value: number; onChange: (val: number) => void }) => {
   const [hovered, setHovered] = useState<number | null>(null);
 
   return (

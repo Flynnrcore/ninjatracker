@@ -1,22 +1,14 @@
-import { useAuthContext, type AuthContextType } from '../context/AuthContext';
+import { useAuthContext } from '../context/AuthContext';
 import { API_URLS } from '../constants/api';
 import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
-
-type TStatistic = {
-  alltime: number;
-  trainTypes: Record<string, number>;
-  totalCount: number;
-  avgDuration: number;
-  maxDuration: number;
-  maxStreak: number;
-};
+import type { AuthContextType, TStatistic, TTraining } from '@/types';
 
 export const useUserData = () => {
   const { csrfToken } = useAuthContext() as AuthContextType;
   const [user, setUser] = useState(null);
-  const [trainings, setTrainings] = useState([]);
+  const [trainings, setTrainings] = useState<TTraining[]>([]);
   const [statistics, setStatistics] = useState<TStatistic | null>(null);
   const [loading, setLoading] = useState(true);
 
