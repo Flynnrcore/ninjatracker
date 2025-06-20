@@ -2,11 +2,14 @@ import { useAuthContext } from '../context/AuthContext';
 import { API_URLS } from '../constants/api';
 import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
 import type { AuthContextType, TTraining } from '@/types';
+import { useState } from 'react';
 
 export const useRemoteTraining = () => {
   const { csrfToken } = useAuthContext() as AuthContextType;
+  const [loading, setLoading] = useState(false);
 
   const getTrainings = async () => {
+    setLoading(true);
     const res = await fetchWithRefresh(API_URLS.trainings, {
       credentials: 'include',
       headers: { 'x-csrf-token': csrfToken },
@@ -26,6 +29,7 @@ export const useRemoteTraining = () => {
       body: JSON.stringify(training),
     });
     if (!res.ok) throw new Error('Ошибка добавления тренировки');
+    setLoading(false);
     return await res.json();
   };
 
@@ -48,5 +52,5 @@ export const useRemoteTraining = () => {
     return await res.json();
   };
 
-  return { getTrainings, addTraining, deleteTraining, getStatistics };
+  return { getTrainings, addTraining, deleteTraining, getStatistics, loading };
 };

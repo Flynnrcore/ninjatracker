@@ -11,7 +11,7 @@ const StarRating = ({ value, onChange }: { value: number; onChange: (val: number
           <button
             key={star}
             type="button"
-            className={`difficulty-star text-4xl transition-colors ${
+            className={`difficulty-star text-5xl transition-colors sm:text-4xl ${
               (hovered ?? value) >= star ? 'text-yellow-400' : 'text-gray-300'
             }`}
             onMouseEnter={() => setHovered(star)}

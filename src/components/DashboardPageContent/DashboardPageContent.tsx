@@ -14,7 +14,7 @@ import type { AuthContextType } from '@/types';
 
 const StatsCard = ({ title, value }: { title: string; value?: number | string }) => {
   return (
-    <Card className="w-full gap-0 border-none">
+    <Card className="flex flex-col justify-between w-full gap-0 border-none">
       <CardHeader>
         <CardTitle className="text-center text-lg md:text-xl lg:text-2xl">{title}</CardTitle>
       </CardHeader>
@@ -43,7 +43,7 @@ const DashboardPageContent = () => {
     <PageWrapper title="Дашборд">
       <div className="flex flex-col gap-8">
         <div className="flex w-full flex-col gap-4 md:flex-row">
-          <StatsCard title="Количество тренировок" value={statistics?.totalCount || 0} />
+          <StatsCard title="Общее количество тренировок" value={statistics?.totalCount || 0} />
           <StatsCard title="Среднее время тренировки" value={getFormattedTime(statistics?.avgDuration || 0)} />
           <StatsCard title="Максимальное время тренировки" value={getFormattedTime(statistics?.maxDuration || 0)} />
           <StatsCard title="Серия тренировок подряд" value={statistics?.streak || 0} />

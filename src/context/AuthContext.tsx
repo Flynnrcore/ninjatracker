@@ -14,12 +14,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     fetchWithRefresh(API_URLS.csrf, { credentials: 'include' })
       .then(res => res.json())
-      .then(data => setCsrfToken(data.csrfToken));
+      .then(data => setCsrfToken(data.csrfToken))
+      .catch(() => setLoading(false));
   }, []);
 
   // Проверить сессию при старте
   useEffect(() => {
+    setLoading(true);
     if (!csrfToken) return;
+
     fetchWithRefresh(API_URLS.session, {
       credentials: 'include',
       headers: { 'x-csrf-token': csrfToken },

@@ -16,7 +16,7 @@ const MainPageContent = () => {
             src={PATH.MAIN_PAGE_LOGO}
             alt="Ninja practicing with music"
           />
-          <div className="flex min-h-[60vh] flex-col items-center justify-center px-4 py-8 text-center">
+          <div className="flex flex-col items-center justify-center px-4 py-8 text-center">
             <h1 className="mb-2 font-[LogoFont] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
             <h3 className="mb-1 text-2xl font-bold text-yellow-500 sm:text-3xl md:text-4xl">
               Ваш личный музыкальный трекер

@@ -12,9 +12,10 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 type AuthFormProps = {
   mode: 'login' | 'register';
   className?: string;
+  loader?: boolean;
 };
 
-const AuthForm = ({ mode, className }: AuthFormProps) => {
+const AuthForm = ({ mode, loader, className }: AuthFormProps) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ email: '', name: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -72,8 +73,8 @@ const AuthForm = ({ mode, className }: AuthFormProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className={`${className} px-4`}>
-          Вход/Регистрация
+        <Button variant="outline" className={`${className} ${loader ? 'w-[190px]' : 'px-4'}`} disabled={loader}>
+          {loader ? <Loader2 className="animate-spin" /> : 'Вход/Регистрация'}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md" aria-describedby={undefined}>

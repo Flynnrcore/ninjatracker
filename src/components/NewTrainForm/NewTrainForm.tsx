@@ -18,21 +18,27 @@ import type { AuthContextType } from '@/types';
 
 const NewTrainForm = () => {
   const { user } = useAuthContext() as AuthContextType;
-  const { addTraining } = useRemoteTraining();
+  const { addTraining, loading } = useRemoteTraining();
   const navigate = useNavigate();
   const [difficulty, setDifficulty] = useState(0);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
+
+    const instrument = String(formData.get('instrument') || '');
+    const type = String(formData.get('type') || '');
+    if (!instrument || instrument === '') return toast.error('Пожалуйста, выберите инструмент');
+    if (!type || type === '') return toast.error('Пожалуйста, выберите тип тренировки');
+
     const newTrain = {
       name: String(formData.get('name') || ''),
       description: String(formData.get('description') || ''),
       date: String(formData.get('date') || new Date().toISOString()),
       difficulty: Number(formData.get('difficulty') || difficulty),
-      instrument: String(formData.get('instrument') || ''),
+      instrument: instrument,
       timer: Number(formData.get('time') || 0),
-      type: String(formData.get('type') || '')
+      type: type
         .split(',')
         .map(s => s.trim())
         .filter(Boolean),
@@ -71,8 +77,8 @@ const NewTrainForm = () => {
           className="w-full rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6 md:p-8 lg:w-auto"
           onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6 md:flex-row md:gap-8">
-            <div className="w-full md:w-1/2">
-              <div className="space-y-4">
+            <div className="w-full h-auto md:w-1/2">
+              <div className="flex flex-col space-y-4 h-full ">
                 <div>
                   <label htmlFor="trainName">Название тренировки:</label>
                   <Input
@@ -86,13 +92,13 @@ const NewTrainForm = () => {
                     autoComplete="off"
                   />
                 </div>
-                <div>
+                <div className="flex flex-col h-full">
                   <label htmlFor="trainDescription">Описание:</label>
                   <Textarea
                     maxLength={100}
                     id="trainDescription"
                     placeholder="Описание тренировки"
-                    className="h-24 w-full sm:h-20"
+                    className="h-24 w-full sm:h-full"
                     name="description"
                   />
                 </div>
@@ -115,7 +121,7 @@ const NewTrainForm = () => {
               <Timer />
             </div>
 
-            <button type="submit" className={buttonStyle}>
+            <button type="submit" className={buttonStyle} disabled={loading}>
               Записать тренировку
             </button>
           </div>

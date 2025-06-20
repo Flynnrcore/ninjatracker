@@ -12,7 +12,7 @@ import type { AuthContextType } from '@/types';
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { user } = useAuthContext() as AuthContextType;
+  const { user, loading } = useAuthContext() as AuthContextType;
   const { logout } = useAuth();
 
   const menuItems = useMemo(
@@ -73,7 +73,7 @@ const Header = () => {
                   Выйти
                 </Button>
               ) : (
-                <AuthForm mode="login" className={menuItemStyle} />
+                <AuthForm mode="login" className={menuItemStyle} loader={loading} />
               )}
             </li>
           </ul>
@@ -106,7 +106,7 @@ const Header = () => {
                       Выйти
                     </Button>
                   ) : (
-                    <AuthForm mode="login" className={menuItemStyle} />
+                    <AuthForm mode="login" className={menuItemStyle} loader={loading} />
                   )}
                 </li>
               </ul>
