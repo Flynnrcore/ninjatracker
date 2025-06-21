@@ -1,20 +1,15 @@
 import Metronome from '@/components/Metronome';
-import Timer from '@/components/NewTrainForm/Timer/Timer';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import { useState } from 'react';
-import StarRating from '@/components/NewTrainForm/StarRating/StarRaiting';
-import InstrumentSelector from './InstrumentSelector/InstrumentSelector';
-import TrainType from './TrainType/TrainType';
 import { useNavigate } from 'react-router-dom';
-import { DatePicker } from '../ui/datepicker';
 import { toast } from 'sonner';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
 import { useAuthContext } from '@/context/AuthContext';
-import { useRemoteTraining } from '@/hooks/useRemoteTraining';
+import { useRemoteTraining } from '@/hooks';
 import AuthForm from '../AuthForm';
 import type { AuthContextType } from '@/types';
+import { StarRating, InstrumentSelector, TrainType, Timer } from '.';
+import { Input, Textarea, DatePicker } from '../ui';
 
 const NewTrainForm = () => {
   const { user } = useAuthContext() as AuthContextType;

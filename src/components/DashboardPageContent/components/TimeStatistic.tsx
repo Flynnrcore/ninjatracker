@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { getFormattedTime } from '@/utils/TimeFn';
 import type { TStatistic } from '@/types';
+import { EmptyStats } from './index';
 
 const chartConfig = {
   timer: {
@@ -63,10 +64,7 @@ export const TimeStatistic = ({ statistic }: { statistic: TStatistic | null }) =
               />
             </LineChart>
           ) : (
-            <div className="flex h-full w-full flex-col items-center justify-center">
-              <p className="text-md text-gray-400">Нет данных</p>
-              <p className="text-sm text-gray-400">Начни новую тренировку чтобы увидеть статистику!</p>
-            </div>
+            <EmptyStats />
           )}
         </ChartContainer>
         <CardFooter>

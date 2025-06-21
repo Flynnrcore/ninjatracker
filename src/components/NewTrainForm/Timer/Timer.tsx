@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { Tooltip, TooltipContent, TooltipTrigger } from '../../ui/tooltip';
-import TimerButton from './TimerButton';
-import TimeInput from './TimeInput';
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui';
+import TimerButton from './components/TimerButton';
+import TimeInput from './components/TimeInput';
 
 const Timer = () => {
   const [totalSeconds, setTotalSeconds] = useState(0);

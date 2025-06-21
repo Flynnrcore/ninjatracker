@@ -4,6 +4,7 @@ import { Area, AreaChart, CartesianGrid, XAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import type { TStatistic } from '@/types';
+import { EmptyStats } from './index';
 
 const chartConfig = {
   difficulty: {
@@ -21,7 +22,7 @@ export const DifficultyStatistic = ({ statistic }: { statistic: TStatistic | nul
       <CardHeader className="flex flex-col items-stretch border-b border-stone-200 !p-0 sm:flex-row">
         <div className="flex flex-1 flex-col justify-center gap-1 px-6 pb-3 sm:pb-0">
           <CardTitle className="text-lg md:text-xl lg:text-2xl">Сложность тренировок</CardTitle>
-          <CardDescription>изменение сложности тренировок по шкале от 0 до 5</CardDescription>
+          <CardDescription>динамика изменения сложности тренировок</CardDescription>
         </div>
         <div className="grid grid-cols-2 sm:flex">
           {[7, 30, 90, 120].map((key, idx) => (
@@ -99,10 +100,7 @@ export const DifficultyStatistic = ({ statistic }: { statistic: TStatistic | nul
             </AreaChart>
           </ChartContainer>
         ) : (
-          <div className="flex h-full w-full flex-col items-center justify-center">
-            <p className="text-sm text-gray-400">Нет данных</p>
-            <p className="text-sm text-gray-400">Начни новую тренировку чтобы увидеть статистику!</p>
-          </div>
+          <EmptyStats />
         )}
       </CardContent>
     </Card>

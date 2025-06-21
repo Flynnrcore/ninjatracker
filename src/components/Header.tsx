@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { cn } from '@/lib/utils';
 import { Menu, X } from 'lucide-react';
 import AuthForm from './AuthForm';
-import { Button } from './ui/button';
+import { Button } from '@/components/ui';
 import { useAuth } from '@/hooks/useAuth';
 import { useAuthContext } from '@/context/AuthContext';
 import type { AuthContextType } from '@/types';

@@ -1,5 +1,5 @@
 import { EXERCISE_TYPES, INSTRUMENTS } from '@/constants/consts';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui';
 
 interface TrainingFiltersProps {
   selectedInstrument: string;

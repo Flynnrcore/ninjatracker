@@ -15,10 +15,8 @@ interface TrainingCardsProps {
 export const TrainingCards = ({ trainings, onDeleteTraining }: TrainingCardsProps) => {
   if (trainings.length === 0) {
     return (
-      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        <div className="col-span-full rounded-lg border-2 border-dashed border-gray-300 py-12 text-center">
-          <p className="text-gray-500">Нет данных для отображения</p>
-        </div>
+      <div className="mt-6 rounded-lg border-2 border-dashed border-gray-300 bg-white p-12 text-center">
+        <p className="text-gray-500">Нет данных для отображения</p>
       </div>
     );
   }

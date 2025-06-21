@@ -5,7 +5,7 @@ import { useViewMode } from '@/hooks/useViewMode';
 import LoaderFallback from '../LoaderFallback';
 import { toast } from 'sonner';
 import PageWrapper from '../PageWrapper';
-import { TrainingFilters, ViewModeToggle, TrainingTable, TrainingCards } from './components';
+import { TrainingFilters, ViewModeToggle, TrainingCards, TrainingTable } from './components';
 import type { TTraining } from '@/types';
 
 const TrackerPageContent = () => {
@@ -62,9 +62,11 @@ const TrackerPageContent = () => {
         <ViewModeToggle viewMode={viewMode} onViewModeChange={setViewMode} />
       </div>
 
-      {/* Контент */}
+      {/* Данные тренировок */}
       {viewMode === 'table' ? (
-        <TrainingTable trainings={filteredTrainings} onDeleteTraining={handleRemoveTraining} />
+        <div className="mt-4 h-[calc(100vh-200px)]">
+          <TrainingTable trainings={filteredTrainings} onDeleteTraining={handleRemoveTraining} />
+        </div>
       ) : (
         <TrainingCards trainings={filteredTrainings} onDeleteTraining={handleRemoveTraining} />
       )}

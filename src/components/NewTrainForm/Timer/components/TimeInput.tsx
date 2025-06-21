@@ -1,7 +1,7 @@
 import { formatTimeUnit } from '@/utils/TimeFn';
-import { Input } from '@/components/ui/input';
 import { cn } from '@/lib/utils';
 import type { TTimeInput } from '@/types';
+import { Input } from '@/components/ui';
 
 const TimeInput = ({ id, value, min, max, label, onChange, className }: TTimeInput) => (
   <div className={cn('flex w-full flex-col justify-center sm:w-1/3 lg:h-[100px] lg:w-[100px]', className)}>

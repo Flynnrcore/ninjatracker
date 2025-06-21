@@ -1,29 +1,13 @@
-import { TimeStatistic } from './TimeStatistic';
-import { TrainTypeStatistic } from './TrainTypeStatistic';
-import { DifficultyStatistic } from './DifficultyStatistic';
 import LoaderFallback from '../LoaderFallback';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
 import { useAuthContext } from '@/context/AuthContext';
-import { useUserData } from '@/hooks/useUserData';
+import { useUserData } from '@/hooks';
 import AuthForm from '../AuthForm';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import PageWrapper from '../PageWrapper';
 import { getFormattedTime } from '@/utils/TimeFn';
 import type { AuthContextType } from '@/types';
-
-const StatsCard = ({ title, value }: { title: string; value?: number | string }) => {
-  return (
-    <Card className="flex w-full flex-col justify-between gap-0 border-none">
-      <CardHeader>
-        <CardTitle className="text-center text-lg md:text-xl lg:text-2xl">{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        <p className="text-center text-2xl font-bold text-yellow-500 sm:text-3xl">{value}</p>
-      </CardContent>
-    </Card>
-  );
-};
+import { StatsCard, TimeStatistic, TrainTypeStatistic, DifficultyStatistic } from '.';
 
 const DashboardPageContent = () => {
   const { user } = useAuthContext() as AuthContextType;

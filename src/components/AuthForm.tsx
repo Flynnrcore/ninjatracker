@@ -1,13 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Button } from './ui/button';
 import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { PATH } from '@/constants/paths';
 import { useAuth } from '@/hooks/useAuth';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
+import { Button, Input, Label } from '@/components/ui';
 
 type AuthFormProps = {
   mode: 'login' | 'register';

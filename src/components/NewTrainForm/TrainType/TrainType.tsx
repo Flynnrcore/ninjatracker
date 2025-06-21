@@ -1,6 +1,5 @@
-import { Label } from '@/components/ui/label';
-import { Checkbox } from '@/components/ui/checkbox';
 import { useState } from 'react';
+import { Checkbox, Label } from '@/components/ui';
 
 const TrainType = () => {
   const [trainTypes, setTrainTypes] = useState<string[]>([]);
