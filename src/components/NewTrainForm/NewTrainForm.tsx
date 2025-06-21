@@ -1,41 +1,47 @@
 import Metronome from '@/components/Metronome';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
 import { useAuthContext } from '@/context/AuthContext';
 import { useRemoteTraining } from '@/hooks';
+import { useFormValidation } from '@/hooks/useFormValidation';
+import { TRAINING_FORM_VALIDATION_RULES, FORM_CONSTRAINTS } from '@/constants/validation';
 import AuthForm from '../AuthForm';
-import type { AuthContextType } from '@/types';
 import { StarRating, InstrumentSelector, TrainType, Timer } from '.';
-import { Input, Textarea, DatePicker } from '../ui';
+import { Input, Textarea, DatePicker, Button } from '../ui';
+import { Loader2 } from 'lucide-react';
 
 const NewTrainForm = () => {
-  const { user } = useAuthContext() as AuthContextType;
-  const { addTraining, loading } = useRemoteTraining();
-  const navigate = useNavigate();
+  const authContext = useAuthContext();
+  const { addTraining } = useRemoteTraining();
+  const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0);
+  const navigate = useNavigate();
+  
+  const { validateForm } = useFormValidation(TRAINING_FORM_VALIDATION_RULES);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setLoading(true);
+    
     const formData = new FormData(e.target as HTMLFormElement);
-
-    const name = String(formData.get('name') || '');
-    if (!name || name === '') return toast.error('Пожалуйста, введите название тренировки');
-    const instrument = String(formData.get('instrument') || '');
-    if (!instrument || instrument === '') return toast.error('Пожалуйста, выберите инструмент');
-    const type = String(formData.get('type') || '');
-    if (!type || type === '') return toast.error('Пожалуйста, выберите тип тренировки');
+    
+    // Валидация формы
+    if (!validateForm(formData)) {
+      setLoading(false);
+      return;
+    }
 
     const newTrain = {
       name: String(formData.get('name') || ''),
       description: String(formData.get('description') || ''),
       date: String(formData.get('date') || new Date().toISOString()),
       difficulty: Number(formData.get('difficulty') || difficulty),
-      instrument: instrument,
+      instrument: String(formData.get('instrument') || ''),
       timer: Number(formData.get('time') || 0),
-      type: type
+      type: String(formData.get('type') || '')
         .split(',')
         .map(s => s.trim())
         .filter(Boolean),
@@ -45,15 +51,15 @@ const NewTrainForm = () => {
       await addTraining(newTrain);
       toast.success('Тренировка успешно добавлена');
       navigate('/tracker');
-    } catch {
+    } catch (error) {
+      console.error('Error adding training:', error);
       toast.error('Ошибка при добавлении тренировки');
+    } finally {
+      setLoading(false);
     }
-  };
+  }, [validateForm, difficulty, addTraining, navigate]);
 
-  const buttonStyle =
-    'mt-6 w-full rounded-lg bg-yellow-500 px-6 py-3 text-lg md:text-2xl text-white transition-all hover:scale-[1.01] hover:bg-yellow-400 active:scale-95';
-
-  if (!user)
+  if (!authContext?.user) {
     return (
       <ErrorPageContent
         picUrl={PATH.LOCK_IMG}
@@ -61,6 +67,7 @@ const NewTrainForm = () => {
         children={<AuthForm mode="login" />}
       />
     );
+  }
 
   return (
     <div className="mt-15 flex min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:justify-center lg:px-8">
@@ -82,7 +89,7 @@ const NewTrainForm = () => {
                     <span className="required-dot">*</span>:
                   </label>
                   <Input
-                    maxLength={50}
+                    maxLength={FORM_CONSTRAINTS.NAME_MAX_LENGTH}
                     id="trainName"
                     name="name"
                     type="text"
@@ -94,7 +101,7 @@ const NewTrainForm = () => {
                 <div className="flex h-full flex-col">
                   <label htmlFor="trainDescription">Описание:</label>
                   <Textarea
-                    maxLength={100}
+                    maxLength={FORM_CONSTRAINTS.DESCRIPTION_MAX_LENGTH}
                     id="trainDescription"
                     placeholder="Описание тренировки"
                     className="h-24 w-full sm:h-full"
@@ -120,9 +127,9 @@ const NewTrainForm = () => {
               <Timer />
             </div>
 
-            <button type="submit" className={buttonStyle} disabled={loading}>
-              Записать тренировку
-            </button>
+            <Button type="submit" className="submit-button" disabled={loading}>
+              {loading ? <Loader2 className="animate-spin" /> : 'Записать тренировку'}
+            </Button>
           </div>
         </form>
       </div>

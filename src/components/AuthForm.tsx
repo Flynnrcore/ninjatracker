@@ -71,8 +71,14 @@ const AuthForm = ({ mode, loader, className }: AuthFormProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className={`${className} ${loader ? 'w-[190px]' : 'px-4'}`} disabled={loader}>
-          {loader ? <Loader2 className="animate-spin" /> : 'Вход/Регистрация'}
+        <Button variant="outline" className={`${className} px-4`} disabled={loader}>
+          {loader ? (
+            <>
+              Проверка сессии <Loader2 className="animate-spin" />
+            </>
+          ) : (
+            'Вход/Регистрация'
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-md" aria-describedby={undefined}>
