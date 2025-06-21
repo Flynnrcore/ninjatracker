@@ -30,6 +30,7 @@ const NewTrainForm = () => {
     
     // Валидация формы
     if (!validateForm(formData)) {
+      toast.error('Пожалуйста, заполните все обязательные поля');
       setLoading(false);
       return;
     }

@@ -1,4 +1,5 @@
 import { Menu, X } from 'lucide-react';
+import { useEffect, useRef } from 'react';
 import { Navigation } from './Navigation';
 import type { MenuItem } from '../types';
 
@@ -19,8 +20,19 @@ export const MobileMenu = ({
   onLogout,
   loading = false 
 }: MobileMenuProps) => {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) onToggle();
+    };
+    if (isOpen) document.addEventListener('mousedown', handleClickOutside);
+
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [isOpen, onToggle]);
+
   return (
-    <>
+    <div ref={menuRef}>
       <button
         className="md:hidden"
         onClick={onToggle}
@@ -40,6 +52,6 @@ export const MobileMenu = ({
           />
         </div>
       )}
-    </>
+    </div>
   );
 }; 
