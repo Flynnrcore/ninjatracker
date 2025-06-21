@@ -54,12 +54,9 @@ const AuthForm = ({ mode, loader, className }: AuthFormProps) => {
 
       try {
         if (isRegister) {
-          // Сначала регистрация
           await register(form.email, form.password, form.name, recaptchaToken);
-          
-          // После успешной регистрации автоматически входим
-          const loginAction = 'login';
-          const loginRecaptchaToken = await executeRecaptcha(loginAction);
+
+          const loginRecaptchaToken = await executeRecaptcha('login');
           if (loginRecaptchaToken) {
             await login(form.email, form.password, loginRecaptchaToken);
             toast.success('Регистрация успешна! Вы автоматически вошли в систему.');

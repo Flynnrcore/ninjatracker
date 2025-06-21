@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { API_URLS } from '../constants/api';
 import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
 import type { AuthContextType, TUser } from '@/types';
@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState<TUser | null>(null);
   const [csrfToken, setCsrfToken] = useState('');
   const [loading, setLoading] = useState(true);
+  const [dataRefreshTrigger, setDataRefreshTrigger] = useState(0);
 
   // Получить CSRF-токен при старте
   useEffect(() => {
@@ -32,7 +33,20 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       .finally(() => setLoading(false));
   }, [csrfToken]);
 
-  const value = { user, setUser, csrfToken, loading };
+  // Функция для принудительного обновления данных
+  const refreshData = useCallback(() => {
+    setDataRefreshTrigger(prev => prev + 1);
+  }, []);
+
+  const value = { 
+    user, 
+    setUser, 
+    csrfToken, 
+    loading, 
+    dataRefreshTrigger,
+    refreshData 
+  };
+  
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

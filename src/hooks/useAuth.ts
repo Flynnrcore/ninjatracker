@@ -6,7 +6,7 @@ import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
 import type { AuthContextType } from '@/types';
 
 export const useAuth = () => {
-  const { setUser, csrfToken } = useAuthContext() as AuthContextType;
+  const { setUser, csrfToken, refreshData } = useAuthContext() as AuthContextType;
   const [loading, setLoading] = useState(false);
 
   const login = async (email: string, password: string, recaptchaToken: string) => {
@@ -25,6 +25,7 @@ export const useAuth = () => {
       }
       const data = await response.json();
       setUser(data.user);
+      refreshData();
       toast.success('Вы успешно вошли в аккаунт');
     } catch (err: unknown) {
       throw new Error((err as Error).message);
@@ -50,6 +51,7 @@ export const useAuth = () => {
       }
       const data = await response.json();
       setUser(data.user);
+      refreshData();
       toast.success('Вы успешно зарегистрировались');
     } catch (err: unknown) {
       throw new Error((err as Error).message);
@@ -67,6 +69,7 @@ export const useAuth = () => {
         credentials: 'include',
       });
       setUser(null);
+      refreshData();
       toast.success('Вы успешно вышли из аккаунта');
     } catch (err: unknown) {
       throw new Error((err as Error).message);

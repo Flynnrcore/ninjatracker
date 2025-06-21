@@ -1,19 +1,48 @@
 import { useAuthContext } from '../context/AuthContext';
 import { API_URLS } from '../constants/api';
 import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
+import { useState, useEffect, useCallback } from 'react';
+import { toast } from 'sonner';
 import type { AuthContextType, TTraining } from '@/types';
 
 export const useRemoteTraining = () => {
-  const { csrfToken } = useAuthContext() as AuthContextType;
+  const { csrfToken, user, dataRefreshTrigger } = useAuthContext() as AuthContextType;
+  const [trainings, setTrainings] = useState<TTraining[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const getTrainings = async () => {
+  // Получение тренировок
+  const getTrainings = useCallback(async () => {
     const res = await fetchWithRefresh(API_URLS.trainings, {
       credentials: 'include',
       headers: { 'x-csrf-token': csrfToken },
     });
     if (!res.ok) throw new Error('Ошибка получения тренировок');
     return await res.json();
-  };
+  }, [csrfToken]);
+
+  // Автоматическое обновление данных при изменении аутентификации
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        // Если пользователь не авторизован, очищаем данные
+        if (!user) {
+          setTrainings([]);
+          setLoading(false);
+          return;
+        }
+
+        const data = await getTrainings();
+        setTrainings(data);
+      } catch (err: unknown) {
+        toast.error((err as Error).message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (csrfToken) fetchData();
+  }, [csrfToken, user, dataRefreshTrigger, getTrainings]);
 
   const addTraining = async (training: TTraining) => {
     const res = await fetchWithRefresh(API_URLS.trainings, {
@@ -48,5 +77,13 @@ export const useRemoteTraining = () => {
     return await res.json();
   };
 
-  return { getTrainings, addTraining, deleteTraining, getStatistics };
+  return { 
+    trainings, 
+    loading, 
+    getTrainings, 
+    addTraining, 
+    deleteTraining, 
+    getStatistics,
+    setTrainings 
+  };
 };

@@ -32,6 +32,8 @@ export type AuthContextType = {
   setUser: React.Dispatch<React.SetStateAction<TUser | null>>;
   csrfToken: string;
   loading: boolean;
+  dataRefreshTrigger: number;
+  refreshData: () => void;
 };
 
 export type TTimerButton = {

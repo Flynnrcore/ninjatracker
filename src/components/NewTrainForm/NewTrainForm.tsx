@@ -5,7 +5,8 @@ import { toast } from 'sonner';
 import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
 import { useAuthContext } from '@/context/AuthContext';
-import { useRemoteTraining } from '@/hooks';
+import { useRemoteTraining } from '@/hooks/useRemoteTraining';
+import { useDataRefresh } from '@/hooks/useDataRefresh';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import { TRAINING_FORM_VALIDATION_RULES, FORM_CONSTRAINTS } from '@/constants/validation';
 import AuthForm from '../AuthForm';
@@ -16,6 +17,7 @@ import { Loader2 } from 'lucide-react';
 const NewTrainForm = () => {
   const authContext = useAuthContext();
   const { addTraining } = useRemoteTraining();
+  const { refreshData } = useDataRefresh();
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0);
   const navigate = useNavigate();
@@ -50,15 +52,16 @@ const NewTrainForm = () => {
 
     try {
       await addTraining(newTrain);
+      // Обновляем данные после успешного добавления
+      refreshData();
       toast.success('Тренировка успешно добавлена');
       navigate('/tracker');
-    } catch (error) {
-      console.error('Error adding training:', error);
-      toast.error('Ошибка при добавлении тренировки');
+    } catch (err: unknown) {
+      toast.error((err as Error).message || 'Ошибка при добавлении тренировки');
     } finally {
       setLoading(false);
     }
-  }, [validateForm, difficulty, addTraining, navigate]);
+  }, [validateForm, difficulty, addTraining, navigate, refreshData]);
 
   if (!authContext?.user) {
     return (

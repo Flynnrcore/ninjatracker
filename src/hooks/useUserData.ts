@@ -6,7 +6,7 @@ import { fetchWithRefresh } from '@/lib/fetchWithRefresh';
 import type { AuthContextType, TStatistic } from '@/types';
 
 export const useUserData = () => {
-  const { csrfToken } = useAuthContext() as AuthContextType;
+  const { csrfToken, user, dataRefreshTrigger } = useAuthContext() as AuthContextType;
   const [statistics, setStatistics] = useState<TStatistic | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -14,6 +14,13 @@ export const useUserData = () => {
     const fetchData = async () => {
       setLoading(true);
       try {
+        // Если пользователь не авторизован, очищаем данные
+        if (!user) {
+          setStatistics(null);
+          setLoading(false);
+          return;
+        }
+
         const statRes = await fetchWithRefresh(API_URLS.statistics, {
           credentials: 'include',
           headers: { 'x-csrf-token': csrfToken },
@@ -25,8 +32,9 @@ export const useUserData = () => {
         setLoading(false);
       }
     };
+    
     if (csrfToken) fetchData();
-  }, [csrfToken]);
+  }, [csrfToken, user, dataRefreshTrigger]);
 
   return { statistics, loading };
 };
