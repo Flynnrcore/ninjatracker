@@ -39,6 +39,10 @@
   @apply aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
 }
 
+.menu-item {
+  @apply text-lg font-medium transition-colors hover:text-yellow-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-yellow-400 py-2 px-1 rounded-md;
+}
+
 .timer {
   @apply h-full bg-white text-center text-xl sm:text-2xl;
   @apply [appearance:textfield] px-2 py-1;

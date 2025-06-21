@@ -6,15 +6,14 @@ import { useUserData } from '@/hooks';
 import AuthForm from '../AuthForm';
 import PageWrapper from '../PageWrapper';
 import { getFormattedTime } from '@/utils/TimeFn';
-import type { AuthContextType } from '@/types';
 import { StatsCard, TimeStatistic, TrainTypeStatistic, DifficultyStatistic } from '.';
 
 const DashboardPageContent = () => {
-  const { user } = useAuthContext() as AuthContextType;
+  const authContext = useAuthContext();
   const { statistics, loading: dataLoading } = useUserData();
 
   if (dataLoading) return <LoaderFallback />;
-  if (!user)
+  if (!authContext?.user)
     return (
       <ErrorPageContent
         picUrl={PATH.LOCK_IMG}

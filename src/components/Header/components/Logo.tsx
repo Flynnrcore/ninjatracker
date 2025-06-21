@@ -1,0 +1,14 @@
+import { PATH } from '@/constants/paths';
+import { Link } from 'react-router-dom';
+
+export const Logo = () => {
+  return (
+    <Link
+      to="/"
+      className="flex items-center gap-2 transition-transform hover:scale-105 active:scale-95"
+      aria-label="На главную">
+      <img className="h-10 md:h-12" src={PATH.LOGO} alt="Логотип NinjaTracker" />
+      <h1 className="font-[LogoFont] text-2xl font-bold md:text-3xl">NinjaTracker</h1>
+    </Link>
+  );
+}; 
