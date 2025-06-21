@@ -32,7 +32,7 @@ export const MobileMenu = ({
   }, [isOpen, onToggle]);
 
   return (
-    <div ref={menuRef}>
+    <div ref={menuRef} className="md:hidden">
       <button
         className="md:hidden"
         onClick={onToggle}
