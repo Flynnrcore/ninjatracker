@@ -21,7 +21,10 @@ const InstrumentSelector = () => {
 
   return (
     <fieldset className="mt-3 flex flex-col items-center justify-center">
-      <legend className="text-center">Инструмент:</legend>
+      <legend className="text-center">
+        Инструмент
+        <span className="required-dot">*</span>:
+      </legend>
       <ToggleGroup
         variant="outline"
         value={instrument}

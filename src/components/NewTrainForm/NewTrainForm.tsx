@@ -26,9 +26,11 @@ const NewTrainForm = () => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
 
+    const name = String(formData.get('name') || '');
+    if (!name || name === '') return toast.error('Пожалуйста, введите название тренировки');
     const instrument = String(formData.get('instrument') || '');
-    const type = String(formData.get('type') || '');
     if (!instrument || instrument === '') return toast.error('Пожалуйста, выберите инструмент');
+    const type = String(formData.get('type') || '');
     if (!type || type === '') return toast.error('Пожалуйста, выберите тип тренировки');
 
     const newTrain = {
@@ -77,12 +79,14 @@ const NewTrainForm = () => {
           className="w-full rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6 md:p-8 lg:w-auto"
           onSubmit={handleSubmit}>
           <div className="flex flex-col gap-6 md:flex-row md:gap-8">
-            <div className="w-full h-auto md:w-1/2">
-              <div className="flex flex-col space-y-4 h-full ">
+            <div className="h-auto w-full md:w-1/2">
+              <div className="flex h-full flex-col space-y-4">
                 <div>
-                  <label htmlFor="trainName">Название тренировки:</label>
+                  <label htmlFor="trainName">
+                    Название тренировки
+                    <span className="required-dot">*</span>:
+                  </label>
                   <Input
-                    required
                     maxLength={50}
                     id="trainName"
                     name="name"
@@ -92,7 +96,7 @@ const NewTrainForm = () => {
                     autoComplete="off"
                   />
                 </div>
-                <div className="flex flex-col h-full">
+                <div className="flex h-full flex-col">
                   <label htmlFor="trainDescription">Описание:</label>
                   <Textarea
                     maxLength={100}

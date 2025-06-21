@@ -26,7 +26,10 @@ const TrainType = () => {
 
   return (
     <fieldset className="mt-4">
-      <legend>Тип тренировки:</legend>
+      <legend>
+        Тип тренировки
+        <span className="required-dot">*</span>:
+      </legend>
       <div className="grid grid-cols-2 rounded-lg border border-gray-200 p-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3">
         {options.map(({ id, label }) => (
           <div key={id} className="flex items-center space-x-2 p-1">
@@ -35,9 +38,9 @@ const TrainType = () => {
               onCheckedChange={() => handleToggleCheckbox(id)}
               id={id}
               name={id}
-              className="cursor-pointer h-7 w-7 sm:h-4 sm:w-4"
+              className="h-7 w-7 cursor-pointer sm:h-4 sm:w-4"
             />
-            <Label htmlFor={id} className="cursor-pointer m-2 text-md sm:text-sm sm:m-0">
+            <Label htmlFor={id} className="text-md m-2 cursor-pointer sm:m-0 sm:text-sm">
               {label}
             </Label>
           </div>

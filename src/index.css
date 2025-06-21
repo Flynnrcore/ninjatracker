@@ -45,6 +45,10 @@
   @apply focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2;
 }
 
+.required-dot {
+  @apply relative bottom-1 text-sm text-red-500;
+}
+
 @keyframes falling-notes {
   0% {
     transform: translateY(-100px) rotate(0deg);

@@ -14,7 +14,7 @@ import type { AuthContextType } from '@/types';
 
 const StatsCard = ({ title, value }: { title: string; value?: number | string }) => {
   return (
-    <Card className="flex flex-col justify-between w-full gap-0 border-none">
+    <Card className="flex w-full flex-col justify-between gap-0 border-none">
       <CardHeader>
         <CardTitle className="text-center text-lg md:text-xl lg:text-2xl">{title}</CardTitle>
       </CardHeader>
