@@ -5,7 +5,7 @@ import { INSTRUMENTS } from '@/constants/consts';
 import { getFormattedTime } from '@/utils/TimeFn';
 import { TrainingDifficultyStars } from './TrainingDifficultyStars';
 import { TrainingTypeTags } from './TrainingTypeTags';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
 import type { TTraining } from '@/types';
 
 interface TrainingTableProps {
@@ -110,6 +110,7 @@ export const TrainingTable = ({ trainings, onDeleteTraining }: TrainingTableProp
             </tbody>
           </table>
         </div>
+        <ScrollBar orientation="horizontal" />
       </ScrollArea>
     </div>
   );
