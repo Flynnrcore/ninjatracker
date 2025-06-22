@@ -18,7 +18,7 @@ const DashboardPageContent = () => {
       <ErrorPageContent
         picUrl={PATH.LOCK_IMG}
         message="Пожалуйста, войдите в аккаунт"
-        children={<AuthForm mode="login" />}
+        children={<AuthForm mode="login" loader={authContext?.loading} />}
       />
     );
 

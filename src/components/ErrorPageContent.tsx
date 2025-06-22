@@ -1,6 +1,5 @@
+import type { TErrorPage } from '@/types';
 import { Link } from 'react-router-dom';
-
-type TErrorPage = { picUrl: string; message: string; children?: React.ReactNode };
 
 const ErrorPageContent = ({ picUrl, message, children }: TErrorPage) => (
   <div className="flex h-screen flex-col items-center justify-center bg-stone-50 px-4 py-8 sm:px-8">

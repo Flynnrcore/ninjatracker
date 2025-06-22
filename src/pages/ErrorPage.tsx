@@ -1,5 +1,5 @@
-import type { TErrorPage } from '@/components/ErrorPageContent';
 import LoaderFallback from '@/components/LoaderFallback';
+import type { TErrorPage } from '@/types';
 import { lazy, Suspense } from 'react';
 
 const ErrorPageContent = lazy(() => import('@/components/ErrorPageContent'));

@@ -53,3 +53,5 @@ export type TTimeInput = {
   onChange: (value: number) => void;
   className?: string;
 };
+
+export type TErrorPage = { picUrl: string; message: string; children?: React.ReactNode };
