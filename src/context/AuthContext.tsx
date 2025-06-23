@@ -38,15 +38,15 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     setDataRefreshTrigger(prev => prev + 1);
   }, []);
 
-  const value = { 
-    user, 
-    setUser, 
-    csrfToken, 
-    loading, 
+  const value = {
+    user,
+    setUser,
+    csrfToken,
+    loading,
     dataRefreshTrigger,
-    refreshData 
+    refreshData,
   };
-  
+
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 

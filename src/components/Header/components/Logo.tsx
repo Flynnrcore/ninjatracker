@@ -11,4 +11,4 @@ export const Logo = () => {
       <h1 className="font-[LogoFont] text-2xl font-bold md:text-3xl">NinjaTracker</h1>
     </Link>
   );
-}; 
+};

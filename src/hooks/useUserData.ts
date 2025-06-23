@@ -32,7 +32,7 @@ export const useUserData = () => {
         setLoading(false);
       }
     };
-    
+
     if (csrfToken) fetchData();
   }, [csrfToken, user, dataRefreshTrigger]);
 

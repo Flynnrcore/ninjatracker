@@ -5,4 +5,4 @@ export interface MenuItem {
 
 export interface HeaderProps {
   className?: string;
-} 
+}

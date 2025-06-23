@@ -21,47 +21,50 @@ const NewTrainForm = () => {
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0);
   const navigate = useNavigate();
-  
+
   const { validateForm } = useFormValidation(TRAINING_FORM_VALIDATION_RULES);
 
-  const handleSubmit = useCallback(async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    
-    const formData = new FormData(e.target as HTMLFormElement);
-    
-    // Валидация формы
-    if (!validateForm(formData)) {
-      toast.error('Пожалуйста, заполните все обязательные поля');
-      setLoading(false);
-      return;
-    }
+  const handleSubmit = useCallback(
+    async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      setLoading(true);
 
-    const newTrain = {
-      name: String(formData.get('name') || ''),
-      description: String(formData.get('description') || ''),
-      date: String(formData.get('date') || new Date().toISOString()),
-      difficulty: Number(formData.get('difficulty') || difficulty),
-      instrument: String(formData.get('instrument') || ''),
-      timer: Number(formData.get('time') || 0),
-      type: String(formData.get('type') || '')
-        .split(',')
-        .map(s => s.trim())
-        .filter(Boolean),
-    };
+      const formData = new FormData(e.target as HTMLFormElement);
 
-    try {
-      await addTraining(newTrain);
-      // Обновляем данные после успешного добавления
-      refreshData();
-      toast.success('Тренировка успешно добавлена');
-      navigate('/tracker');
-    } catch (err: unknown) {
-      toast.error((err as Error).message || 'Ошибка при добавлении тренировки');
-    } finally {
-      setLoading(false);
-    }
-  }, [validateForm, difficulty, addTraining, navigate, refreshData]);
+      // Валидация формы
+      if (!validateForm(formData)) {
+        toast.error('Пожалуйста, заполните все обязательные поля');
+        setLoading(false);
+        return;
+      }
+
+      const newTrain = {
+        name: String(formData.get('name') || ''),
+        description: String(formData.get('description') || ''),
+        date: String(formData.get('date') || new Date().toISOString()),
+        difficulty: Number(formData.get('difficulty') || difficulty),
+        instrument: String(formData.get('instrument') || ''),
+        timer: Number(formData.get('time') || 0),
+        type: String(formData.get('type') || '')
+          .split(',')
+          .map(s => s.trim())
+          .filter(Boolean),
+      };
+
+      try {
+        await addTraining(newTrain);
+        // Обновляем данные после успешного добавления
+        refreshData();
+        toast.success('Тренировка успешно добавлена');
+        navigate('/tracker');
+      } catch (err: unknown) {
+        toast.error((err as Error).message || 'Ошибка при добавлении тренировки');
+      } finally {
+        setLoading(false);
+      }
+    },
+    [validateForm, difficulty, addTraining, navigate, refreshData],
+  );
 
   if (!authContext?.user) {
     return (

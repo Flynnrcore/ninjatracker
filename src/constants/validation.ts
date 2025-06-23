@@ -18,7 +18,10 @@ export const TRAINING_FORM_VALIDATION_RULES: ValidationRule[] = [
     required: true,
     custom: (value: unknown) => {
       if (typeof value !== 'string') return false;
-      const types = value.split(',').map(s => s.trim()).filter(Boolean);
+      const types = value
+        .split(',')
+        .map(s => s.trim())
+        .filter(Boolean);
       return types.length > 0;
     },
     message: 'Пожалуйста, выберите тип тренировки',
@@ -38,4 +41,4 @@ export const FORM_CONSTRAINTS = {
   MAX_TIMER_HOURS: 24,
   MAX_TIMER_MINUTES: 59,
   MAX_TIMER_SECONDS: 59,
-} as const; 
+} as const;

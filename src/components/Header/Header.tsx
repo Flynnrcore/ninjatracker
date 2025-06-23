@@ -11,7 +11,7 @@ const Header = ({ className }: HeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const authContext = useAuthContext();
   const { logout } = useAuth();
-  
+
   const isScrolled = useScrollEffect({
     threshold: HEADER_CONSTANTS.SCROLL_THRESHOLD,
     throttleMs: HEADER_CONSTANTS.THROTTLE_MS,
@@ -59,4 +59,4 @@ const Header = ({ className }: HeaderProps) => {
   );
 };
 
-export default Header; 
+export default Header;

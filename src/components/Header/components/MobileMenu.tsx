@@ -12,13 +12,13 @@ interface MobileMenuProps {
   loading?: boolean;
 }
 
-export const MobileMenu = ({ 
-  isOpen, 
-  onToggle, 
-  menuItems, 
-  isAuthenticated, 
+export const MobileMenu = ({
+  isOpen,
+  onToggle,
+  menuItems,
+  isAuthenticated,
   onLogout,
-  loading = false 
+  loading = false,
 }: MobileMenuProps) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -33,10 +33,7 @@ export const MobileMenu = ({
 
   return (
     <div ref={menuRef} className="md:hidden">
-      <button
-        className="md:hidden"
-        onClick={onToggle}
-        aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}>
+      <button className="md:hidden" onClick={onToggle} aria-label={isOpen ? 'Закрыть меню' : 'Открыть меню'}>
         {isOpen ? <X size={28} /> : <Menu size={28} />}
       </button>
 
@@ -54,4 +51,4 @@ export const MobileMenu = ({
       )}
     </div>
   );
-}; 
+};

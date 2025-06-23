@@ -5,10 +5,7 @@ interface UseScrollEffectOptions {
   throttleMs?: number;
 }
 
-export const useScrollEffect = ({ 
-  threshold = 10, 
-  throttleMs = 16 
-}: UseScrollEffectOptions = {}) => {
+export const useScrollEffect = ({ threshold = 10, throttleMs = 16 }: UseScrollEffectOptions = {}) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = useCallback(() => {
@@ -20,7 +17,7 @@ export const useScrollEffect = ({
 
     const throttledHandleScroll = () => {
       if (timeoutId) return;
-      
+
       timeoutId = window.setTimeout(() => {
         handleScroll();
         timeoutId = undefined;
@@ -28,7 +25,7 @@ export const useScrollEffect = ({
     };
 
     window.addEventListener('scroll', throttledHandleScroll, { passive: true });
-    
+
     return () => {
       window.removeEventListener('scroll', throttledHandleScroll);
       if (timeoutId) window.clearTimeout(timeoutId);
@@ -36,4 +33,4 @@ export const useScrollEffect = ({
   }, [handleScroll, throttleMs]);
 
   return isScrolled;
-}; 
+};

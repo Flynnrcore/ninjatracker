@@ -54,4 +54,17 @@ export type TTimeInput = {
   className?: string;
 };
 
+export type TMetronomeState = {
+  bpm: number;
+  isRunning: boolean;
+  beatCount: number;
+  beatsPerMeasure: number;
+};
+
+export type TMetronomeAction =
+  | { type: 'SET_BPM'; payload: number }
+  | { type: 'SET_IS_RUNNING'; payload: boolean }
+  | { type: 'SET_BEAT_COUNT'; payload: number }
+  | { type: 'SET_BEATS_PER_MEASURE'; payload: number };
+
 export type TErrorPage = { picUrl: string; message: string; children?: React.ReactNode };

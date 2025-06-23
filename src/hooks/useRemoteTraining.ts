@@ -77,13 +77,13 @@ export const useRemoteTraining = () => {
     return await res.json();
   };
 
-  return { 
-    trainings, 
-    loading, 
-    getTrainings, 
-    addTraining, 
-    deleteTraining, 
+  return {
+    trainings,
+    loading,
+    getTrainings,
+    addTraining,
+    deleteTraining,
     getStatistics,
-    setTrainings 
+    setTrainings,
   };
 };
