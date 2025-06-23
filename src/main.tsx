@@ -15,7 +15,7 @@ const router = createBrowserRouter(
     {
       path: '/',
       element: <App />,
-      errorElement: <ErrorPage picUrl={PATH.NOT_FOUND_IMG} message="Упс! Что-то пошло не так" />,
+      errorElement: <ErrorPage picUrl={PATH.ERROR_IMG} message="Упс! Что-то пошло не так" />,
       children: [
         {
           index: true,
@@ -35,7 +35,7 @@ const router = createBrowserRouter(
         },
         {
           path: '*',
-          element: <ErrorPage picUrl={PATH.ERROR_IMG} message="Страница не найдена" />,
+          element: <ErrorPage picUrl={PATH.NOT_FOUND_IMG} message="Страница не найдена" />,
         },
       ],
     },

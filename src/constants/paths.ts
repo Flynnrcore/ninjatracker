@@ -4,7 +4,7 @@ export const withBaseUrl = (path: string) => `${BASE_URL}${path}`;
 export const PATH = {
   ERROR_IMG: withBaseUrl('error-img.webp'),
   LOGO: withBaseUrl('logo.webp'),
-  NOT_FOUND_IMG: withBaseUrl('404-img.webp'),
+  NOT_FOUND_IMG: withBaseUrl('404-an.webp'),
   MAIN_PAGE_LOGO: withBaseUrl('main-img.svg'),
   MAIN_PAGE_SHEDULE_IMG: withBaseUrl('shedule-ninja.webp'),
   INSTRUMENT: {
