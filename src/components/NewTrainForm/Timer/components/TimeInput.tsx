@@ -4,7 +4,7 @@ import type { TTimeInput } from '@/types';
 import { Input } from '@/components/ui';
 
 const TimeInput = ({ id, value, min, max, label, onChange, className }: TTimeInput) => (
-  <div className={cn('flex w-full flex-col justify-center sm:w-1/3 lg:h-[100px] lg:w-[100px]', className)}>
+  <div className={cn('flex h-[100px] w-full flex-col justify-center sm:w-[100px]', className)}>
     <div className="relative h-full">
       <Input
         id={id}

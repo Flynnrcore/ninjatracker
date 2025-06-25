@@ -77,17 +77,17 @@ const NewTrainForm = () => {
   }
 
   return (
-    <div className="mt-15 flex min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:justify-center lg:px-8">
+    <div className="flex mt-15  min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:px-8">
       <div className="w-full max-w-4xl">
         <div className="flex justify-center">
           <h1 className="mb-4 border-b-4 border-yellow-400 pb-2 text-3xl font-bold sm:mb-6 sm:border-b-6 sm:pb-3 sm:text-4xl">
-            Новая <span className="font-[LogoFont] sm:relative sm:top-2 sm:text-5xl">Ninja</span> тренировка!
+            Новая <span className="font-[LogoFont] relative top-1 sm:top-2 sm:text-5xl">Ninja</span> тренировка!
           </h1>
         </div>
         <form
           className="w-full rounded-2xl border border-gray-100 bg-white p-4 shadow-sm sm:p-6 md:p-8 lg:w-auto"
           onSubmit={handleSubmit}>
-          <div className="flex flex-col gap-6 md:flex-row md:gap-8">
+          <div className="flex flex-col gap-4 sm:gap-6 md:flex-row md:gap-8">
             <div className="h-auto w-full md:w-1/2">
               <div className="flex h-full flex-col space-y-4">
                 <div>

@@ -21,7 +21,7 @@
   }
   label,
   legend {
-    @apply mb-2 block text-sm font-medium text-gray-700 sm:text-base;
+    @apply mb-2 block text-sm font-medium text-gray-700 text-center sm:text-base sm:text-start;
   }
 
   main {

@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, useCallback, useMemo } from 'react';
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui';
 import TimerButton from './components/TimerButton';
 import TimeInput from './components/TimeInput';
 
@@ -72,25 +71,21 @@ const Timer = () => {
   return (
     <div className="w-full px-2 sm:px-4">
       <fieldset className="flex flex-col items-center space-y-4">
-        <legend className="sr-only">Таймер тренировки</legend>
+        <legend className="text-center">Таймер тренировки</legend>
 
         <input type="hidden" name="time" id="timer" value={totalSeconds} />
 
         <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <TimerButton
-                label={isRunning ? '⏸︎' : '▶'}
-                onClick={handleStartPause}
-                variant={isRunning ? 'danger' : 'primary'}
-                size="lg"
-                aria-label={isRunning ? 'Пауза' : 'Старт'}
-              />
-            </TooltipTrigger>
-            <TooltipContent>{isRunning ? 'Остановить таймер' : 'Запустить таймер'}</TooltipContent>
-          </Tooltip>
+          <TimerButton
+            label={isRunning ? '⏸︎' : '▶'}
+            onClick={handleStartPause}
+            variant={isRunning ? 'danger' : 'primary'}
+            aria-label={isRunning ? 'Пауза' : 'Старт'}
+            className="order-2 sm:order-1"
+            tooltip={isRunning ? 'Остановить таймер' : 'Запустить таймер'}
+          />
 
-          <div className="flex w-full flex-col items-center gap-4 sm:w-auto sm:flex-row sm:gap-6">
+          <div className="order-1 flex w-full flex-col items-center gap-4 sm:order-2 sm:w-auto sm:flex-row sm:gap-6">
             <TimeInput
               id="timerHours"
               value={hours}
@@ -117,12 +112,14 @@ const Timer = () => {
             />
           </div>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <TimerButton label="↻" onClick={handleReset} variant="secondary" size="lg" aria-label="Сбросить" />
-            </TooltipTrigger>
-            <TooltipContent>Сбросить таймер</TooltipContent>
-          </Tooltip>
+          <TimerButton
+            label="↻"
+            onClick={handleReset}
+            variant="secondary"
+            aria-label="Сбросить"
+            className="order-3 sm:order-3"
+            tooltip="Сбросить таймер"
+          />
         </div>
       </fieldset>
     </div>
