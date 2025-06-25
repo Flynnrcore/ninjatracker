@@ -1,16 +1,16 @@
 import { Menu, X } from 'lucide-react';
 import { useEffect, useRef } from 'react';
 import { Navigation } from './Navigation';
-import type { MenuItem } from '../types';
+import type { TMenuItem } from '@/types';
 
-interface MobileMenuProps {
+type TMobileMenu = {
   isOpen: boolean;
   onToggle: () => void;
-  menuItems: MenuItem[];
+  menuItems: TMenuItem[];
   isAuthenticated: boolean;
   onLogout: () => void;
   loading?: boolean;
-}
+};
 
 export const MobileMenu = ({
   isOpen,
@@ -19,7 +19,7 @@ export const MobileMenu = ({
   isAuthenticated,
   onLogout,
   loading = false,
-}: MobileMenuProps) => {
+}: TMobileMenu) => {
   const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

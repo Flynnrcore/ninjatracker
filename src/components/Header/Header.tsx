@@ -5,9 +5,9 @@ import { useAuthContext } from '@/context/AuthContext';
 import { useScrollEffect } from '@/hooks/useScrollEffect';
 import { HEADER_MENU_ITEMS, HEADER_CONSTANTS } from '@/constants/header';
 import { Logo, Navigation, MobileMenu } from '.';
-import type { HeaderProps } from './types';
+import type { THeaderProps } from '@/types';
 
-const Header = ({ className }: HeaderProps) => {
+const Header = ({ className }: THeaderProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const authContext = useAuthContext();
   const { logout } = useAuth();

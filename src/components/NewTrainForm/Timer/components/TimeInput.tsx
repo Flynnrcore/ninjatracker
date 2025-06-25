@@ -1,4 +1,4 @@
-import { formatTimeUnit } from '@/utils/TimeFn';
+import { formatTimeUnit } from '@/lib/TimeFn';
 import { cn } from '@/lib/utils';
 import type { TTimeInput } from '@/types';
 import { Input } from '@/components/ui';

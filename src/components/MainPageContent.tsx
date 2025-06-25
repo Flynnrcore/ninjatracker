@@ -1,5 +1,5 @@
 import { PATH, withBaseUrl } from '@/constants/paths';
-import BackgroundAnimation from '../components/BackgroundAnimation';
+import BackgroundAnimation from './BackgroundAnimation';
 import { Link } from 'react-router-dom';
 
 const MainPageContent = () => {

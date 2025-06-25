@@ -1,7 +1,7 @@
 import { Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { INSTRUMENTS } from '@/constants/consts';
-import { getFormattedTime } from '@/utils/TimeFn';
+import { getFormattedTime } from '@/lib/TimeFn';
 import { withBaseUrl } from '@/constants/paths';
 import { TrainingDifficultyStars } from './TrainingDifficultyStars';
 import { TrainingTypeTags } from './TrainingTypeTags';

@@ -9,7 +9,7 @@ import { useRemoteTraining } from '@/hooks/useRemoteTraining';
 import { useDataRefresh } from '@/hooks/useDataRefresh';
 import { useFormValidation } from '@/hooks/useFormValidation';
 import { TRAINING_FORM_VALIDATION_RULES, FORM_CONSTRAINTS } from '@/constants/validation';
-import AuthForm from '../AuthForm';
+import AuthForm from '../AuthForm/AuthForm';
 import { StarRating, InstrumentSelector, TrainType, Timer } from '.';
 import { Input, Textarea, DatePicker, Button } from '../ui';
 import { Loader2 } from 'lucide-react';

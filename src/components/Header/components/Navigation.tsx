@@ -1,16 +1,16 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui';
-import AuthForm from '../../AuthForm';
-import type { MenuItem } from '../types';
+import AuthForm from '../../AuthForm/AuthForm';
+import type { TMenuItem } from '@/types';
 
-interface NavigationProps {
-  menuItems: MenuItem[];
+type TNavigation = {
+  menuItems: TMenuItem[];
   isAuthenticated: boolean;
   onLogout: () => void;
   onItemClick?: () => void;
   loading?: boolean;
   isMobile?: boolean;
-}
+};
 
 export const Navigation = ({
   menuItems,
@@ -19,7 +19,7 @@ export const Navigation = ({
   onItemClick,
   loading = false,
   isMobile = false,
-}: NavigationProps) => {
+}: TNavigation) => {
   const containerClass = isMobile ? 'flex flex-col space-y-2 p-4' : 'flex items-center space-x-4 lg:space-x-6';
 
   const itemClass = isMobile ? 'block w-full px-4 py-3 hover:bg-gray-50' : 'menu-item';

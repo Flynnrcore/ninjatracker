@@ -68,3 +68,12 @@ export type TMetronomeAction =
   | { type: 'SET_BEATS_PER_MEASURE'; payload: number };
 
 export type TErrorPage = { picUrl: string; message: string; children?: React.ReactNode };
+
+export type TMenuItem = {
+  path: string;
+  label: string;
+};
+
+export type THeaderProps = {
+  className?: string;
+};

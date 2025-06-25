@@ -21,13 +21,16 @@ const Metronome = ({ className }: { className?: string }) => {
   // Анимация кнопки при монтировании
   useEffect(() => {
     setAnimate(true);
-    const timeout = setTimeout(() => setAnimate(false), 3700);
+    const timeout = setTimeout(() => {
+      setAnimate(false);
+      setHiddenMetronome(true);
+    }, 2000);
     return () => clearTimeout(timeout);
   }, []);
 
   return (
     <div
-      className={`absolute top-1/2 right-0 flex items-center ${animate ? 'animate-bounce-left-twice' : ''} ${hiddenMetronome ? 'w-0' : ''}`}>
+      className={`fixed top-[50%] right-0 flex items-center ${animate ? 'animate-bounce-left-twice' : ''} ${hiddenMetronome ? 'w-0' : ''}`}>
       <Button
         type="button"
         onClick={() => setHiddenMetronome(!hiddenMetronome)}

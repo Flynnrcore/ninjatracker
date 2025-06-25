@@ -5,15 +5,16 @@ import { toast } from 'sonner';
 import { PATH } from '@/constants/paths';
 import { useAuth } from '@/hooks/useAuth';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
-import { Button, Input, Label } from '@/components/ui';
+import { Button } from '@/components/ui';
+import AuthFormFields from './components/AuthFormFields';
 
-type AuthFormProps = {
+type TAuthForm = {
   mode: 'login' | 'register';
   className?: string;
   loader?: boolean;
 };
 
-const AuthForm = ({ mode, loader, className }: AuthFormProps) => {
+const AuthForm = ({ mode, loader, className }: TAuthForm) => {
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({ email: '', name: '', password: '' });
   const [isLoading, setIsLoading] = useState(false);
@@ -95,56 +96,7 @@ const AuthForm = ({ mode, loader, className }: AuthFormProps) => {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="max-w-md">
           <img src={PATH.AUTH_IMG} alt="auth" className="mx-auto h-auto w-1/2" />
-          <div className="flex flex-col gap-4">
-            <div className="grid gap-1">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="Введите email"
-                value={form.email}
-                onChange={handleChange}
-                autoComplete="email"
-                required
-              />
-            </div>
-            {isRegister && (
-              <div className="grid gap-1">
-                <Label htmlFor="name">Никнейм</Label>
-                <Input
-                  id="name"
-                  name="name"
-                  type="text"
-                  placeholder="Введите никнейм"
-                  value={form.name}
-                  onChange={handleChange}
-                  autoComplete="name"
-                  required
-                />
-              </div>
-            )}
-            <div className="grid gap-1">
-              <div className="flex items-center">
-                <Label htmlFor="password">Пароль</Label>
-              </div>
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                required
-                placeholder="Введите пароль"
-                value={form.password}
-                onChange={handleChange}
-                autoComplete={isRegister ? 'new-password' : 'current-password'}
-              />
-            </div>
-            <div className="flex flex-col gap-3">
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? <Loader2 className="animate-spin" /> : isRegister ? 'Зарегистрироваться' : 'Войти'}
-              </Button>
-            </div>
-          </div>
+          <AuthFormFields isRegister={isRegister} form={form} isLoading={isLoading} handleChange={handleChange} />
         </form>
         <DialogFooter className="mt-2 flex flex-row items-center justify-center text-sm md:mt-0">
           {isRegister ? 'Уже есть аккаунт? ' : 'Нет аккаунта? '}

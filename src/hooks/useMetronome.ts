@@ -99,6 +99,7 @@ const useMetronome = () => {
   // Сброс счетчика при смене размера такта или bpm
   useEffect(() => {
     dispatch({ type: 'SET_BEAT_COUNT', payload: 0 });
+    beatCountRef.current = 0;
   }, [state.beatsPerMeasure, state.bpm]);
 
   // Таймер метронома

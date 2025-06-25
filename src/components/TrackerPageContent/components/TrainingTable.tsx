@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils';
 import { Trash2 } from 'lucide-react';
 import { format } from 'date-fns';
 import { INSTRUMENTS } from '@/constants/consts';
-import { getFormattedTime } from '@/utils/TimeFn';
+import { getFormattedTime } from '@/lib/TimeFn';
 import { TrainingDifficultyStars } from './TrainingDifficultyStars';
 import { TrainingTypeTags } from './TrainingTypeTags';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';

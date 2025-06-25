@@ -2,7 +2,7 @@
 import { CartesianGrid, Line, LineChart, XAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
-import { getFormattedTime } from '@/utils/TimeFn';
+import { getFormattedTime } from '@/lib/TimeFn';
 import type { TStatistic } from '@/types';
 import { EmptyStats } from './index';
 

@@ -3,9 +3,9 @@ import ErrorPageContent from '../ErrorPageContent';
 import { PATH } from '@/constants/paths';
 import { useAuthContext } from '@/context/AuthContext';
 import { useUserData } from '@/hooks';
-import AuthForm from '../AuthForm';
+import AuthForm from '../AuthForm/AuthForm';
 import PageWrapper from '../PageWrapper';
-import { getFormattedTime } from '@/utils/TimeFn';
+import { getFormattedTime } from '@/lib/TimeFn';
 import { StatsCard, TimeStatistic, TrainTypeStatistic, DifficultyStatistic } from '.';
 
 const DashboardPageContent = () => {

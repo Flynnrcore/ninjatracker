@@ -1,5 +1,5 @@
 import { useId, useMemo } from 'react';
-import generateNotes from '../utils/generateNotes';
+import generateNotes from '@/lib/generateNotes';
 
 const BackgroundAnimation = ({ countNotes = 30 }: { countNotes?: number }) => {
   const id = useId();
