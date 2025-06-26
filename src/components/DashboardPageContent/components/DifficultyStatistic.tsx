@@ -14,7 +14,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export const DifficultyStatistic = ({ statistic }: { statistic: TStatistic | null }) => {
-  const data = statistic ? [...statistic.difficulties].reverse() : [];
+  const data = statistic ? [...statistic.difficulties] : [];
   const [activeChart, setActiveChart] = React.useState<number>(7);
 
   return (

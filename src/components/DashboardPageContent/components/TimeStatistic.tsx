@@ -14,7 +14,7 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 export const TimeStatistic = ({ statistic }: { statistic: TStatistic | null }) => {
-  const data = statistic ? [...statistic.difficulties].reverse().slice(0, 10) : [];
+  const data = statistic ? [...statistic.difficulties].slice(0, 10) : [];
 
   return (
     <Card className="flex-ba w-full max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
