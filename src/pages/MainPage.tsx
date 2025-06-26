@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { withBaseUrl } from '@/constants/paths';
 
-const MainPageContent = lazy(() => import('@/components/MainPageContent'));
+const MainPageContent = lazy(() => import('@/components/MainPageContent/MainPageContent'));
 
 const MainPage = () => {
   return (

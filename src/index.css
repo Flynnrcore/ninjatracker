@@ -21,12 +21,20 @@
   }
   label,
   legend {
-    @apply mb-2 block text-sm font-medium text-gray-700 text-center sm:text-base sm:text-start;
+    @apply mb-2 block text-center text-sm font-medium text-gray-700 sm:text-start sm:text-base;
   }
 
   main {
     @apply bg-stone-50;
   }
+}
+
+.section {
+  @apply flex w-full flex-col items-center gap-8 px-4 py-8 md:px-6 lg:px-0 lg:py-6;
+}
+
+.article {
+  @apply rounded-2xl bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl;
 }
 
 .circle-button {

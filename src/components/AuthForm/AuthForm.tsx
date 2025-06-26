@@ -7,12 +7,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Button } from '@/components/ui';
 import AuthFormFields from './components/AuthFormFields';
-
-type TAuthForm = {
-  mode: 'login' | 'register';
-  className?: string;
-  loader?: boolean;
-};
+import type { TAuthForm } from '@/types';
 
 const AuthForm = ({ mode, loader, className }: TAuthForm) => {
   const [open, setOpen] = useState(false);

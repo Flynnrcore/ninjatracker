@@ -22,7 +22,7 @@ const NewTrainForm = () => {
   const [difficulty, setDifficulty] = useState(0);
   const navigate = useNavigate();
 
-  const { validateForm } = useFormValidation(TRAINING_FORM_VALIDATION_RULES);
+  const { validateForm, errors } = useFormValidation(TRAINING_FORM_VALIDATION_RULES);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -77,11 +77,11 @@ const NewTrainForm = () => {
   }
 
   return (
-    <div className="flex mt-15  min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:px-8">
+    <div className="mt-15 flex min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:px-8">
       <div className="w-full max-w-4xl">
         <div className="flex justify-center">
           <h1 className="mb-4 border-b-4 border-yellow-400 pb-2 text-3xl font-bold sm:mb-6 sm:border-b-6 sm:pb-3 sm:text-4xl">
-            Новая <span className="font-[LogoFont] relative top-1 sm:top-2 sm:text-5xl">Ninja</span> тренировка!
+            Новая <span className="relative top-1 font-[LogoFont] sm:top-2 sm:text-5xl">Ninja</span> тренировка!
           </h1>
         </div>
         <form
@@ -133,6 +133,10 @@ const NewTrainForm = () => {
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 sm:rounded-2xl">
               <Timer />
             </div>
+
+            {Object.keys(errors).length > 0 && (
+              <div className="text-red-500">Пожалуйста, заполните все обязательные поля</div>
+            )}
 
             <Button type="submit" className="submit-button" disabled={loading}>
               {loading ? <Loader2 className="animate-spin" /> : 'Записать тренировку'}

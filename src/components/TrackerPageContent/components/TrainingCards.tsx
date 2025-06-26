@@ -5,14 +5,9 @@ import { getFormattedTime } from '@/lib/TimeFn';
 import { withBaseUrl } from '@/constants/paths';
 import { TrainingDifficultyStars } from './TrainingDifficultyStars';
 import { TrainingTypeTags } from './TrainingTypeTags';
-import type { TTraining } from '@/types';
+import type { TTrainingCards } from '@/types';
 
-interface TrainingCardsProps {
-  trainings: TTraining[];
-  onDeleteTraining: (id: number | string) => void;
-}
-
-export const TrainingCards = ({ trainings, onDeleteTraining }: TrainingCardsProps) => {
+export const TrainingCards = ({ trainings, onDeleteTraining }: TTrainingCards) => {
   if (trainings.length === 0) {
     return (
       <div className="mt-6 rounded-lg border-2 border-dashed border-gray-300 bg-white p-12 text-center">

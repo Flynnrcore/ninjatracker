@@ -1,6 +1,6 @@
-import type { MenuItem } from '@/components/Header/types';
+import type { TMenuItem } from '@/types';
 
-export const HEADER_MENU_ITEMS: MenuItem[] = [
+export const HEADER_MENU_ITEMS: TMenuItem[] = [
   { path: '/dashboard', label: 'Дашборд' },
   { path: '/tracker', label: 'Тренировки' },
 ];

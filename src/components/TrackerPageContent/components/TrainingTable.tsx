@@ -6,12 +6,7 @@ import { getFormattedTime } from '@/lib/TimeFn';
 import { TrainingDifficultyStars } from './TrainingDifficultyStars';
 import { TrainingTypeTags } from './TrainingTypeTags';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
-import type { TTraining } from '@/types';
-
-interface TrainingTableProps {
-  trainings: TTraining[];
-  onDeleteTraining: (id: number | string) => void;
-}
+import type { TTrainingTable } from '@/types';
 
 const TABLE_HEADERS = [
   { label: 'Дата', className: 'min-w-[120px]' },
@@ -24,7 +19,7 @@ const TABLE_HEADERS = [
   { label: '', className: 'w-16' },
 ] as const;
 
-export const TrainingTable = ({ trainings, onDeleteTraining }: TrainingTableProps) => {
+export const TrainingTable = ({ trainings, onDeleteTraining }: TTrainingTable) => {
   if (trainings.length === 0) {
     return (
       <div className="h-[calc(80vh-120px)] overflow-y-hidden rounded-lg border border-gray-200 bg-white shadow-sm">

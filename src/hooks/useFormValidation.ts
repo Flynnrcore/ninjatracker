@@ -1,22 +1,9 @@
+import type { TValidationRule, TFormErrors } from '@/types';
 import { useState, useCallback } from 'react';
 import { toast } from 'sonner';
 
-export interface ValidationRule {
-  field: string;
-  required?: boolean;
-  minLength?: number;
-  maxLength?: number;
-  pattern?: RegExp;
-  custom?: (value: unknown) => boolean;
-  message: string;
-}
-
-interface FormErrors {
-  [key: string]: string;
-}
-
-export const useFormValidation = (validationRules: ValidationRule[]) => {
-  const [errors, setErrors] = useState<FormErrors>({});
+export const useFormValidation = (validationRules: TValidationRule[]) => {
+  const [errors, setErrors] = useState<TFormErrors>({});
 
   const validateField = useCallback(
     (name: string, value: unknown): string | null => {
@@ -55,7 +42,7 @@ export const useFormValidation = (validationRules: ValidationRule[]) => {
 
   const validateForm = useCallback(
     (formData: FormData): boolean => {
-      const newErrors: FormErrors = {};
+      const newErrors: TFormErrors = {};
       let isValid = true;
 
       validationRules.forEach(rule => {

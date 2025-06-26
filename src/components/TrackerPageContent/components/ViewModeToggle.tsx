@@ -1,11 +1,7 @@
 import { cn } from '@/lib/utils';
+import type { TViewModeToggle } from '@/types';
 
-interface ViewModeToggleProps {
-  viewMode: 'table' | 'cards';
-  onViewModeChange: (mode: 'table' | 'cards') => void;
-}
-
-export const ViewModeToggle = ({ viewMode, onViewModeChange }: ViewModeToggleProps) => {
+export const ViewModeToggle = ({ viewMode, onViewModeChange }: TViewModeToggle) => {
   return (
     <div className="flex gap-2">
       <button

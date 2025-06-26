@@ -1,12 +1,6 @@
 import { Input, Label, Button } from '@/components/ui';
 import { Loader2 } from 'lucide-react';
-
-type TAuthFormFields = {
-  isRegister: boolean;
-  form: { email: string; name: string; password: string };
-  isLoading: boolean;
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import type { TAuthFormFields } from '@/types';
 
 const AuthFormFields = ({ isRegister, form, isLoading, handleChange }: TAuthFormFields) => (
   <div className="flex flex-col gap-4">

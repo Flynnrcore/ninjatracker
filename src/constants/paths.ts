@@ -20,4 +20,5 @@ export const PATH = {
   METRONOME_IMG: withBaseUrl('metronome-img.webp'),
   AUTH_IMG: withBaseUrl('auth.webp'),
   LOCK_IMG: withBaseUrl('lock-an.webp'),
+  SHURIKEN: withBaseUrl('shuriken.webp'),
 };

@@ -1,11 +1,7 @@
+import type { TUseScrollEffectOptions } from '@/types';
 import { useState, useEffect, useCallback } from 'react';
 
-interface UseScrollEffectOptions {
-  threshold?: number;
-  throttleMs?: number;
-}
-
-export const useScrollEffect = ({ threshold = 10, throttleMs = 16 }: UseScrollEffectOptions = {}) => {
+export const useScrollEffect = ({ threshold = 10, throttleMs = 16 }: TUseScrollEffectOptions = {}) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
   const handleScroll = useCallback(() => {

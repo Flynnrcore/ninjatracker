@@ -1,6 +1,6 @@
-import type { ValidationRule } from '@/hooks/useFormValidation';
+import type { TValidationRule } from '@/types';
 
-export const TRAINING_FORM_VALIDATION_RULES: ValidationRule[] = [
+export const TRAINING_FORM_VALIDATION_RULES: TValidationRule[] = [
   {
     field: 'name',
     required: true,

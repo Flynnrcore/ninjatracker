@@ -1,11 +1,7 @@
 import { EXERCISE_TYPES } from '@/constants/consts';
+import type { TTrainingTypeTags } from '@/types';
 
-interface TrainingTypeTagsProps {
-  types: string[];
-  className?: string;
-}
-
-export const TrainingTypeTags = ({ types, className = '' }: TrainingTypeTagsProps) => {
+export const TrainingTypeTags = ({ types, className = '' }: TTrainingTypeTags) => {
   return (
     <div className={`flex flex-wrap gap-1 ${className}`}>
       {types.map(
