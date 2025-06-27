@@ -11,13 +11,15 @@ const MainPageContent = () => {
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
         <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 pb-0 md:mx-8 lg:flex-row lg:gap-12">
-          <img
-            className="w-full rounded-2xl object-cover lg:w-1/3"
-            src={PATH.MAIN_PAGE_LOGO}
-            alt="Ninja practicing with music"
-          />
+        <img
+  className="w-full h-full min-h-[200px] rounded-2xl object-cover lg:w-1/3 aspect-auto"
+  src={PATH.MAIN_PAGE_LOGO}
+  alt="Ninja practicing with music"
+  width={1024}
+  height={1024}
+/>
           <div className="flex flex-col items-center justify-center px-4 py-8 text-center">
-            <h1 className="mb-2 font-[LogoFont] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
+            <h1 className="mb-2 font-logo text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
             <h3 className="mb-1 text-2xl font-bold text-yellow-500 sm:text-3xl md:text-4xl">
               Ваш личный музыкальный трекер
             </h3>
@@ -27,14 +29,12 @@ const MainPageContent = () => {
             <p className="text-lg text-gray-700 md:text-xl lg:text-2xl">
               Ставьте цели, ведите записи и достигайте новых высот <br />
               вместе с{' '}
-              <span className="font-[LogoFont] text-2xl text-yellow-500 sm:relative sm:top-2 md:text-3xl lg:text-4xl">
+              <span className="font-logo text-2xl text-yellow-500 sm:relative sm:top-2 md:text-3xl lg:text-4xl">
                 NinjaTracker!
               </span>
             </p>
-            <Link to="/new">
-              <button className="mt-4 w-full rounded-lg bg-yellow-500 px-12 py-3 text-lg text-white transition-all hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:px-20 md:text-xl">
-                Начать тренировку
-              </button>
+            <Link className="w-full min-w-[200px] rounded-lg bg-yellow-500 px-12 py-3 text-lg text-white transition-transform hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:px-20 md:text-xl" to="/new">
+              Начать тренировку
             </Link>
           </div>
         </div>

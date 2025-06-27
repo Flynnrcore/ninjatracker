@@ -81,7 +81,7 @@ const NewTrainForm = () => {
       <div className="w-full max-w-4xl">
         <div className="flex justify-center">
           <h1 className="mb-4 border-b-4 border-yellow-400 pb-2 text-3xl font-bold sm:mb-6 sm:border-b-6 sm:pb-3 sm:text-4xl">
-            Новая <span className="relative top-1 font-[LogoFont] sm:top-2 sm:text-5xl">Ninja</span> тренировка!
+            Новая <span className="relative top-1 font-logo sm:top-2 sm:text-5xl">Ninja</span> тренировка!
           </h1>
         </div>
         <form

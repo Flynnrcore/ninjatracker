@@ -75,7 +75,7 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className={`${className} px-4`} disabled={loader}>
+        <Button variant="outline" className={`${className} px-4 w-[200px]`} disabled={loader}>
           {loader ? (
             <>
               Проверка сессии <Loader2 className="animate-spin" />
