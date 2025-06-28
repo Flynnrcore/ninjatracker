@@ -1,5 +1,35 @@
 import type { TValidationRule } from '@/types';
 
+// Регулярное выражение для валидации email
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+export const AUTH_FORM_VALIDATION_RULES: TValidationRule[] = [
+  {
+    field: 'email',
+    required: true,
+    pattern: EMAIL_REGEX,
+    message: 'Пожалуйста, введите корректный email адрес',
+  },
+  {
+    field: 'name',
+    required: true,
+    minLength: 2,
+    maxLength: 10,
+    message: 'Никнейм должен содержать от 2 до 10 символов',
+  },
+  {
+    field: 'password',
+    required: true,
+    minLength: 8,
+    maxLength: 20,
+    custom: (value: unknown) => {
+      if (typeof value !== 'string') return false;
+      return /[a-zA-Z]/.test(value) && /[0-9]/.test(value);
+    },
+    message: 'Пароль должен содержать минимум 8 символов, включая буквы и цифры',
+  },
+];
+
 export const TRAINING_FORM_VALIDATION_RULES: TValidationRule[] = [
   {
     field: 'name',

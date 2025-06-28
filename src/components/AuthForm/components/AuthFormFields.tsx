@@ -2,7 +2,7 @@ import { Input, Label, Button } from '@/components/ui';
 import { Loader2 } from 'lucide-react';
 import type { TAuthFormFields } from '@/types';
 
-const AuthFormFields = ({ isRegister, form, isLoading, handleChange }: TAuthFormFields) => (
+const AuthFormFields = ({ isRegister, form, isLoading, handleChange, errors }: TAuthFormFields) => (
   <div className="flex flex-col gap-4">
     <div className="grid gap-1">
       <Label htmlFor="email">Email</Label>
@@ -15,7 +15,9 @@ const AuthFormFields = ({ isRegister, form, isLoading, handleChange }: TAuthForm
         onChange={handleChange}
         autoComplete="email"
         required
+        className={errors?.email ? 'input-error' : ''}
       />
+      {errors?.email && <p className="text-sm text-red-500">{errors.email}</p>}
     </div>
     {isRegister && (
       <div className="grid gap-1">
@@ -29,7 +31,9 @@ const AuthFormFields = ({ isRegister, form, isLoading, handleChange }: TAuthForm
           onChange={handleChange}
           autoComplete="name"
           required
+          className={errors?.name ? 'input-error' : ''}
         />
+        {errors?.name && <p className="text-sm text-red-500">{errors.name}</p>}
       </div>
     )}
     <div className="grid gap-1">
@@ -43,7 +47,9 @@ const AuthFormFields = ({ isRegister, form, isLoading, handleChange }: TAuthForm
         value={form.password}
         onChange={handleChange}
         autoComplete={isRegister ? 'new-password' : 'current-password'}
+        className={errors?.password ? 'input-error' : ''}
       />
+      {errors?.password && <p className="text-sm text-red-500">{errors.password}</p>}
     </div>
     <div className="flex flex-col gap-3">
       <Button type="submit" className="w-full" disabled={isLoading}>

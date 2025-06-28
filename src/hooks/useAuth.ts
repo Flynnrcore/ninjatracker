@@ -48,7 +48,7 @@ export const useAuth = () => {
       });
       if (!response.ok) {
         throw new Error('Ошибка регистрации');
-      }
+      } 
       const data = await response.json();
       setUser(data.user);
       refreshData();

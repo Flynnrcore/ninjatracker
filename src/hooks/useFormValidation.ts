@@ -10,27 +10,22 @@ export const useFormValidation = (validationRules: TValidationRule[]) => {
       const rule = validationRules.find(r => r.field === name);
       if (!rule) return null;
 
-      // Required validation
       if (rule.required && (!value || value === '')) {
         return rule.message;
       }
 
-      // Min length validation
       if (rule.minLength && value && typeof value === 'string' && value.length < rule.minLength) {
         return rule.message;
       }
 
-      // Max length validation
       if (rule.maxLength && value && typeof value === 'string' && value.length > rule.maxLength) {
         return rule.message;
       }
 
-      // Pattern validation
       if (rule.pattern && value && typeof value === 'string' && !rule.pattern.test(value)) {
         return rule.message;
       }
 
-      // Custom validation
       if (rule.custom && !rule.custom(value)) {
         return rule.message;
       }

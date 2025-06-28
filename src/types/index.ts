@@ -25,6 +25,7 @@ export type TAuthFormFields = {
   form: { email: string; name: string; password: string };
   isLoading: boolean;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  errors?: TFormErrors;
 };
 
 // Тренировки и статистика

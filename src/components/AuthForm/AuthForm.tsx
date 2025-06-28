@@ -4,6 +4,8 @@ import { Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { PATH } from '@/constants/paths';
 import { useAuth } from '@/hooks/useAuth';
+import { useFormValidation } from '@/hooks/useFormValidation';
+import { AUTH_FORM_VALIDATION_RULES } from '@/constants/validation';
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3';
 import { Button } from '@/components/ui';
 import AuthFormFields from './components/AuthFormFields';
@@ -17,22 +19,32 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
 
   const { login, register } = useAuth();
   const { executeRecaptcha } = useGoogleReCaptcha();
+  const { validateForm, errors, clearErrors } = useFormValidation(AUTH_FORM_VALIDATION_RULES);
 
-  // Универсальный обработчик изменения полей
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
-  }, []);
+    if (errors[e.target.name]) {
+      clearErrors();
+    }
+  }, [errors, clearErrors]);
 
-  // Сброс формы
   const resetForm = useCallback(() => {
     setForm({ email: '', name: '', password: '' });
     setIsLoading(false);
-  }, []);
+    clearErrors();
+  }, [clearErrors]);
 
-  // Отправка формы
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
+      
+      // Валидация формы для регистрации
+      const formData = new FormData(e.target as HTMLFormElement);
+      if (isRegister && !validateForm(formData)) {
+        toast.error('Пожалуйста, исправьте ошибки в форме');
+        return;
+      }
+
       setIsLoading(true);
 
       if (!executeRecaptcha) {
@@ -65,11 +77,11 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
         setOpen(false);
         resetForm();
       } catch (err: unknown) {
-        toast.error((err as Error).message || (isRegister ? 'Ошибка регистрации' : 'Ошибка входа'));
+        toast.error((err as Error).message);
         setIsLoading(false);
       }
     },
-    [isRegister, register, login, form, executeRecaptcha, resetForm],
+    [isRegister, register, login, form, executeRecaptcha, resetForm, validateForm],
   );
 
   return (
@@ -91,7 +103,13 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="max-w-md">
           <img src={PATH.AUTH_IMG} alt="auth" className="mx-auto h-auto w-1/2" />
-          <AuthFormFields isRegister={isRegister} form={form} isLoading={isLoading} handleChange={handleChange} />
+          <AuthFormFields 
+            isRegister={isRegister} 
+            form={form} 
+            isLoading={isLoading} 
+            handleChange={handleChange} 
+            errors={errors}
+          />
         </form>
         <DialogFooter className="mt-2 flex flex-row items-center justify-center text-sm md:mt-0">
           {isRegister ? 'Уже есть аккаунт? ' : 'Нет аккаунта? '}

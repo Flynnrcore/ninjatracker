@@ -56,6 +56,10 @@
   @apply aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
 }
 
+.input-error {
+  @apply border-red-500 focus-visible:ring-red-500;
+}
+
 .menu-item {
   @apply rounded-md px-1 py-2 text-lg font-medium transition-colors hover:text-yellow-600 focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:outline-none;
 }
