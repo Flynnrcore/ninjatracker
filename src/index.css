@@ -3,15 +3,24 @@
 
 @font-face {
   font-family: 'LogoFont';
-  src: url('/fonts/growl.woff2') format('woff2'),
-       url('/fonts/growl.woff') format('woff');
+  src:
+    url('/fonts/growl.woff2') format('woff2'),
+    url('/fonts/growl.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 .font-logo {
-  font-family: 'LogoFont', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-family:
+    'LogoFont',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
 }
 
 @layer base {

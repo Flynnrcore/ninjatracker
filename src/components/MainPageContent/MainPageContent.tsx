@@ -11,15 +11,15 @@ const MainPageContent = () => {
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
         <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 pb-0 md:mx-8 lg:flex-row lg:gap-12">
-        <img
-  className="w-full h-full min-h-[200px] rounded-2xl object-cover lg:w-1/3 aspect-auto"
-  src={PATH.MAIN_PAGE_LOGO}
-  alt="Ninja practicing with music"
-  width={1024}
-  height={1024}
-/>
+          <img
+            className="aspect-auto h-full min-h-[200px] w-full rounded-2xl object-cover lg:w-1/3"
+            src={PATH.MAIN_PAGE_LOGO}
+            alt="Ninja practicing with music"
+            width={1024}
+            height={1024}
+          />
           <div className="flex flex-col items-center justify-center px-4 py-8 text-center">
-            <h1 className="mb-2 font-logo text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
+            <h1 className="font-logo mb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
             <h3 className="mb-1 text-2xl font-bold text-yellow-500 sm:text-3xl md:text-4xl">
               Ваш личный музыкальный трекер
             </h3>
@@ -33,7 +33,9 @@ const MainPageContent = () => {
                 NinjaTracker!
               </span>
             </p>
-            <Link className="w-full min-w-[200px] rounded-lg bg-yellow-500 px-12 py-3 text-lg text-white transition-transform hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:px-20 md:text-xl" to="/new">
+            <Link
+              className="w-full min-w-[200px] rounded-lg bg-yellow-500 px-12 py-3 text-lg text-white transition-transform hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:px-20 md:text-xl"
+              to="/new">
               Начать тренировку
             </Link>
           </div>

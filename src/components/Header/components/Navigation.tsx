@@ -37,7 +37,11 @@ export const Navigation = ({
         <li className="list-none">
           {isAuthenticated ? (
             <Button
-              className={isMobile ? 'min-w-[200px] menu-item ml-4 px-4' : 'min-w-[200px] bg-yellow-500 text-lg text-white hover:bg-yellow-600'}
+              className={
+                isMobile
+                  ? 'menu-item ml-4 min-w-[200px] px-4'
+                  : 'min-w-[200px] bg-yellow-500 text-lg text-white hover:bg-yellow-600'
+              }
               variant={isMobile ? 'outline' : 'default'}
               onClick={onLogout}>
               Выйти

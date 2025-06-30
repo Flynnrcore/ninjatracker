@@ -21,12 +21,15 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
   const { executeRecaptcha } = useGoogleReCaptcha();
   const { validateForm, errors, clearErrors } = useFormValidation(AUTH_FORM_VALIDATION_RULES);
 
-  const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
-    if (errors[e.target.name]) {
-      clearErrors();
-    }
-  }, [errors, clearErrors]);
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
+      if (errors[e.target.name]) {
+        clearErrors();
+      }
+    },
+    [errors, clearErrors],
+  );
 
   const resetForm = useCallback(() => {
     setForm({ email: '', name: '', password: '' });
@@ -37,7 +40,7 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
   const handleSubmit = useCallback(
     async (e: React.FormEvent) => {
       e.preventDefault();
-      
+
       // Валидация формы для регистрации
       const formData = new FormData(e.target as HTMLFormElement);
       if (isRegister && !validateForm(formData)) {
@@ -87,7 +90,7 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className={`${className} px-4 w-[200px]`} disabled={loader}>
+        <Button variant="outline" className={`${className} w-[200px] px-4`} disabled={loader}>
           {loader ? (
             <>
               Проверка сессии <Loader2 className="animate-spin" />
@@ -103,11 +106,11 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
         </DialogHeader>
         <form onSubmit={handleSubmit} className="max-w-md">
           <img src={PATH.AUTH_IMG} alt="auth" className="mx-auto h-auto w-1/2" />
-          <AuthFormFields 
-            isRegister={isRegister} 
-            form={form} 
-            isLoading={isLoading} 
-            handleChange={handleChange} 
+          <AuthFormFields
+            isRegister={isRegister}
+            form={form}
+            isLoading={isLoading}
+            handleChange={handleChange}
             errors={errors}
           />
         </form>
