@@ -27,6 +27,7 @@ export const TrainingCards = ({ trainings, onDeleteTraining }: TTrainingCards) =
             <img
               src={withBaseUrl(`trainType/${train.instrument}.webp`)}
               alt={INSTRUMENTS[train.instrument as keyof typeof INSTRUMENTS]}
+              loading="lazy"
               className="h-full w-full object-contain"
             />
           </div>

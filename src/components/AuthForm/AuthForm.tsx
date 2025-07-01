@@ -105,7 +105,7 @@ const AuthForm = ({ mode, loader, className }: TAuthForm) => {
           <DialogTitle>{isRegister ? 'Регистрация' : 'Вход'}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="max-w-md">
-          <img src={PATH.AUTH_IMG} alt="auth" className="mx-auto h-auto w-1/2" />
+          <img src={PATH.AUTH_IMG} loading="lazy" alt="auth" className="mx-auto h-auto w-1/2" />
           <AuthFormFields
             isRegister={isRegister}
             form={form}

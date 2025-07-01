@@ -15,6 +15,7 @@ const MainPageContent = () => {
             className="aspect-auto h-full min-h-[200px] w-full rounded-2xl object-cover lg:w-1/3"
             src={PATH.MAIN_PAGE_LOGO}
             alt="Ninja practicing with music"
+            loading="lazy"
             width={1024}
             height={1024}
           />
@@ -61,6 +62,7 @@ const MainPageContent = () => {
           <img
             className="order-1 mt-0 w-full object-contain sm:order-2 lg:block lg:w-1/2"
             src={PATH.MAIN_PAGE_SHEDULE_IMG}
+            loading="lazy"
             alt="ninja with schedule"
           />
         </div>

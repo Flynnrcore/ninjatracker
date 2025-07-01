@@ -6,6 +6,7 @@ const ErrorPageContent = ({ picUrl, message, children }: TErrorPage) => (
     <img
       src={picUrl}
       alt="Error img"
+      loading="lazy"
       className="mb-6 h-40 w-auto max-w-xs object-contain sm:h-1/2 sm:max-w-md md:max-w-lg"
     />
     <h1 className="mb-4 text-center text-2xl font-bold sm:text-3xl md:text-4xl">{message}</h1>

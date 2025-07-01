@@ -39,7 +39,7 @@ const InstrumentSelector = () => {
             value={value}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <img className={`max-h-[${maxH}] sm:max-h-[${maxH}]`} src={src} alt={value} />
+                <img className={`max-h-[${maxH}] sm:max-h-[${maxH}]`} loading="lazy" src={src} alt={value} />
               </TooltipTrigger>
               <TooltipContent>{label}</TooltipContent>
             </Tooltip>

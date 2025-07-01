@@ -7,7 +7,7 @@ export const Logo = () => {
       to="/"
       className="flex min-h-[40px] items-center justify-center gap-2 transition-transform hover:scale-105 active:scale-95"
       aria-label="На главную">
-      <img className="h-10 w-10 md:h-12 md:w-12" src={PATH.LOGO} alt="Логотип NinjaTracker" />
+      <img className="h-10 w-10 md:h-12 md:w-12" src={PATH.LOGO} loading="lazy" alt="Логотип NinjaTracker" />
       <h1 className="font-logo text-2xl font-bold md:text-3xl">NinjaTracker</h1>
     </Link>
   );
