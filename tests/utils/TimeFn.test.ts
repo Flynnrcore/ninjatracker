@@ -1,4 +1,4 @@
-import { getFormattedTime, formatTimeUnit } from '../../src/utils/TimeFn';
+import { getFormattedTime, formatTimeUnit } from '../../src/lib/TimeFn';
 
 // Проверка функций форматирования времени
 describe('getFormattedTime', () => {
