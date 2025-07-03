@@ -4,6 +4,10 @@ import { render, screen } from '@testing-library/react';
 import { RecaptchaProvider } from '../../src/context/RecaptchaProvider';
 import { vi } from 'vitest';
 
+beforeAll(() => {
+  process.env.VITE_RECAPTCHA_SITE_KEY = 'test-key';
+});
+
 vi.mock('react-google-recaptcha-v3', () => ({
   GoogleReCaptchaProvider: ({ children, ...props }: { children: React.ReactNode; [key: string]: unknown }) => (
     <div data-testid="recaptcha-provider-mock" {...props}>
@@ -11,10 +15,6 @@ vi.mock('react-google-recaptcha-v3', () => ({
     </div>
   ),
 }));
-
-beforeAll(() => {
-  (import.meta as any).env = { VITE_RECAPTCHA_SITE_KEY: 'test-key' };
-});
 
 describe('RecaptchaProvider', () => {
   it('рендерит детей внутри GoogleReCaptchaProvider', () => {
