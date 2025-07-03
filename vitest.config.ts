@@ -7,6 +7,22 @@ export default defineConfig({
     globals: true,
     setupFiles: './tests/setupTests.ts',
     include: ['tests/**/*.test.{ts,tsx}'],
+    coverage: {
+      exclude: [
+        '**/index.ts',
+        '**/eslint.config.js',
+        '**/vite.config.ts',
+        '**/vitest.config.ts',
+        '**/NinjaTracker/dist/assets/',
+        '**/dist/assets/',
+        '**/main.tsx',
+        '**/App.tsx',
+        '**/.github/**',
+        '**/coverage/**',
+        '**/.vercel/**',
+        '**/vercel/**',
+      ],
+    },
   },
   resolve: {
     alias: {
