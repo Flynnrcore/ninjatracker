@@ -1,5 +1,26 @@
 import { vi } from 'vitest';
 
+export function createMockResponse({ ok = true, status = 200, json = async () => ({}), ...rest } = {}) {
+  return {
+    ok,
+    status,
+    json,
+    text: async () => '',
+    headers: new Headers(),
+    redirected: false,
+    statusText: '',
+    type: 'basic',
+    url: '',
+    clone: () => this,
+    body: null,
+    bodyUsed: false,
+    arrayBuffer: async () => new ArrayBuffer(0),
+    blob: async () => new Blob(),
+    formData: async () => new FormData(),
+    ...rest,
+  } as unknown as Response;
+}
+
 function myMockFetch(input: RequestInfo | URL) {
   const url = input instanceof Request ? input.url : input.toString();
   if (url.includes('api/csrf-token')) {
