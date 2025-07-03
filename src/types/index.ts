@@ -1,3 +1,5 @@
+import type { ChangeEventHandler } from 'react';
+
 // Пользователь и авторизация
 export type TUser = {
   id: number;
@@ -18,6 +20,15 @@ export type TAuthForm = {
   mode: 'login' | 'register';
   className?: string;
   loader?: boolean;
+};
+
+export type TFormField = {
+  name: string;
+  label: string;
+  placeholder: string;
+  value: string;
+  onChange: ChangeEventHandler<HTMLInputElement>;
+  error: string | undefined;
 };
 
 export type TAuthFormFields = {
