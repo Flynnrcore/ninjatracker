@@ -8,6 +8,7 @@ export default defineConfig({
     setupFiles: './tests/setupTests.ts',
     include: ['tests/**/*.test.{ts,tsx}'],
     coverage: {
+      reporter: ['text', 'lcov'],
       exclude: [
         '**/index.ts',
         '**/eslint.config.js',
