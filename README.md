@@ -8,9 +8,7 @@
 **Персональный трекер музыкальных тренировок** для профессиональных музыкантов и любителей.
 Отслеживайте прогресс, планируйте занятия и совершенствуйте мастерство.
 
-<br/>
-<a href='https://ninjatracker.vercel.app' target='_blank'><img src='https://i.postimg.cc/hjjqMV1z/temp-Image-QClbe-S.avif' border='0' alt='site view'/></a>
-<br/>
+[![site view](https://i.postimg.cc/hjjqMV1z/temp-Image-QClbe-S.avif)](https://ninjatracker.vercel.app)
 
 ## 🌟 Основные возможности
 
@@ -24,17 +22,13 @@
 
 ## 🛠 Технологический стек
 
-<div align="center">
-  
 | Технология | Применение |
 |------------|------------|
-| <img src="https://cdn.worldvectorlogo.com/logos/react-2.svg" width="40"> **React 19** | Базовый фреймворк |
-| <img src="https://cdn.worldvectorlogo.com/logos/typescript.svg" width="40"> **TypeScript** | Типизация кода |
-| <img src="https://cdn.worldvectorlogo.com/logos/vitejs.svg" width="40"> **Vite** | Сборка проекта |
-| <img src="https://cdn.worldvectorlogo.com/logos/tailwindcss.svg" width="40"> **Tailwind CSS** | Стилизация |
-| <img src="https://shadcn.com/favicon.ico" width="40"> **Shadcn UI** | UI компоненты |
-
-</div>
+| ![React 19 logo](https://cdn.worldvectorlogo.com/logos/react-2.svg) | **React 19** — Базовый фреймворк |
+| ![TypeScript logo](https://cdn.worldvectorlogo.com/logos/typescript.svg) | **TypeScript** — Типизация кода |
+| ![Vite logo](https://cdn.worldvectorlogo.com/logos/vitejs.svg) | **Vite** — Сборка проекта |
+| ![Tailwind CSS logo](https://cdn.worldvectorlogo.com/logos/tailwindcss.svg) | **Tailwind CSS** — Стилизация |
+| ![Shadcn UI logo](https://shadcn.com/favicon.ico) | **Shadcn UI** — UI компоненты |
 
 ## ⚙️ Технические особенности
 
@@ -56,19 +50,19 @@
 
 ## 🚀 Быстрый старт
 
-# 1. Клонируйте репозиторий
+### 1. Клонируйте репозиторий
 
 ```bash
 git clone git@github.com:Flynnrcore/ninjatracker.git
 ```
 
-# 2. Установите зависимости
+### 2. Установите зависимости
 
 ```bash
 npm install
 ```
 
-# 3. Запустите приложение
+### 3. Запустите приложение
 
 ```bash
 npm run dev
