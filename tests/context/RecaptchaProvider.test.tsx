@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { RecaptchaProvider } from '../../src/context/RecaptchaProvider';
@@ -18,7 +19,7 @@ describe('RecaptchaProvider', () => {
         <div data-testid="child">Child</div>
       </RecaptchaProvider>,
     );
-    expect(screen.getByTestId('recaptcha-provider-mock')).toBeInTheDocument();
+    expect(screen.getByTestId('recaptcha-provider-mock')).toHaveAttribute('reCaptchaKey', expect.any(String));
     expect(screen.getByTestId('child')).toBeInTheDocument();
   });
 
