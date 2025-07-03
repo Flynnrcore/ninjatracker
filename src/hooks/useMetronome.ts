@@ -111,7 +111,7 @@ const useMetronome = () => {
       clearTimer();
     }
     return clearTimer;
-  }, [state.isRunning, state.bpm, state.beatsPerMeasure]);
+  }, [state.isRunning, state.bpm, state.beatsPerMeasure, clearTimer, playBeat]);
 
   return { state, dispatch, toggleMetronome, handleBpmChange };
 };
