@@ -1,9 +1,9 @@
 import React, { Suspense } from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import DashboardPage from '../../src/pages/DashboardPage';
 import { AuthContext } from '../../src/context/AuthContext';
-import { MemoryRouter } from 'react-router-dom';
 import { mockContext } from '../testUtils/mockAuthContext';
+import NewTrainPage from '../../src/pages/NewTrainPage';
+import { MemoryRouter } from 'react-router-dom';
+import { render, screen, waitFor } from '@testing-library/react';
 import { vi } from 'vitest';
 
 beforeAll(() => {
@@ -89,23 +89,23 @@ afterAll(() => {
   vi.unstubAllGlobals();
 });
 
-describe('Тест страницы DashboardPage', () => {
+describe('Тест страницы NewTrainPage', () => {
   const renderWithProviders = () =>
     render(
       <MemoryRouter>
         <AuthContext.Provider value={{ ...mockContext }}>
           <Suspense fallback={<div>Загрузка</div>}>
-            <DashboardPage />
+            <NewTrainPage />
           </Suspense>
         </AuthContext.Provider>
       </MemoryRouter>,
     );
 
-  it('отображает "Общее количество тренировок" после загрузки', async () => {
+  it('отображает форму тренировки', async () => {
     renderWithProviders();
     await waitFor(
       () => {
-        expect(screen.getByText(/Общее количество тренировок/i)).toBeTruthy();
+        expect(screen.findByText(/Таймер тренировки/i)).toBeTruthy();
       },
       { timeout: 10000, interval: 100 }
     );
