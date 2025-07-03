@@ -12,6 +12,6 @@ describe('тест страницы MainPage', () => {
         </Suspense>
       </MemoryRouter>,
     );
-    expect(await screen.findByText('Ваш личный музыкальный трекер')).toBeInTheDocument();
+    expect(await screen.findByText('Ваш личный музыкальный трекер')).toBeTruthy();
   });
 });

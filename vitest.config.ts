@@ -7,6 +7,9 @@ export default defineConfig({
     globals: true,
     setupFiles: './tests/setupTests.ts',
     include: ['tests/**/*.test.{ts,tsx}'],
+    sequence: {
+      concurrent: false,
+    },
     coverage: {
       reporter: ['text', 'lcov'],
       exclude: [

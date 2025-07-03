@@ -4,6 +4,7 @@ import { vi } from 'vitest';
 import NewTrainForm from '../../src/components/NewTrainForm/NewTrainForm';
 import { AuthContext } from '../../src/context/AuthContext';
 import { MemoryRouter } from 'react-router-dom';
+import { mockContext } from '../testUtils/mockAuthContext';
 
 const mockAddTraining = vi.fn();
 const mockRefreshData = vi.fn();
@@ -19,16 +20,6 @@ vi.mock('../../src/hooks/useRemoteTraining', () => ({
 vi.mock('../../src/hooks/useDataRefresh', () => ({
   useDataRefresh: () => ({ refreshData: mockRefreshData }),
 }));
-
-const mockUser = { id: 1, name: 'Test', email: 'test@mail.com' };
-const mockContext = {
-  user: mockUser,
-  setUser: () => {},
-  csrfToken: '',
-  loading: false,
-  dataRefreshTrigger: 0,
-  refreshData: () => {},
-};
 
 describe('NewTrainForm', () => {
   const renderWithContext = () =>
