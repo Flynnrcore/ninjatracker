@@ -24,7 +24,7 @@ export const AUTH_FORM_VALIDATION_RULES: TValidationRule[] = [
     maxLength: 20,
     custom: (value: unknown) => {
       if (typeof value !== 'string') return false;
-      return /[a-zA-Z]/.test(value) && /[0-9]/.test(value);
+      return /[a-zA-Z]/.test(value) && /\d/.test(value);
     },
     message: 'Пароль должен содержать минимум 8 символов, включая буквы и цифры',
   },
