@@ -7,7 +7,7 @@ import { FeatureCard, ListFeature } from './components/Articles';
 
 const MainPageContent = () => {
   return (
-    <div className="flex flex-col items-center justify-center pt-12 pb-12">
+    <div className="flex flex-col items-center justify-center pb-12 pt-12">
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
         <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 pb-0 md:mx-8 lg:flex-row lg:gap-12">

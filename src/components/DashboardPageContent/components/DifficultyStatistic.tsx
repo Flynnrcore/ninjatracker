@@ -32,12 +32,12 @@ export const DifficultyStatistic = ({ statistic }: { statistic: TStatistic | nul
               className={
                 'data-[active=true]:bg-muted/50 flex flex-1 cursor-pointer flex-col justify-center gap-1 border-t border-stone-200 px-6 py-4 text-left ' +
                 'even:border-l' +
-                'sm:basis-1/2 sm:border-t-0 sm:border-l sm:px-8 sm:py-6'
+                'sm:basis-1/2 sm:border-l sm:border-t-0 sm:px-8 sm:py-6'
               }
               style={idx % 2 === 1 && idx < 2 ? { borderLeftWidth: 1 } : undefined}
               onClick={() => setActiveChart(key)}>
               <span className="text-muted-foreground text-center text-xs">за последние</span>
-              <span className="text-center text-lg leading-none font-bold sm:text-3xl">{key}</span>
+              <span className="text-center text-lg font-bold leading-none sm:text-3xl">{key}</span>
               <span className="text-muted-foreground text-center text-xs">тренировок</span>
             </button>
           ))}

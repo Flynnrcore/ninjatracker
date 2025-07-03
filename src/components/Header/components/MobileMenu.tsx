@@ -38,7 +38,7 @@ export const MobileMenu = ({
       </button>
 
       {isOpen && (
-        <div className="absolute top-full left-0 w-full bg-white shadow-lg md:hidden">
+        <div className="absolute left-0 top-full w-full bg-white shadow-lg md:hidden">
           <Navigation
             menuItems={menuItems}
             isAuthenticated={isAuthenticated}

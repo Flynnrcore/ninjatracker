@@ -30,12 +30,12 @@ const Metronome = ({ className }: { className?: string }) => {
 
   return (
     <div
-      className={`fixed top-[50%] right-0 flex items-center ${animate ? 'animate-bounce-left-twice' : ''} ${hiddenMetronome ? 'w-0' : ''}`}>
+      className={`fixed right-0 top-[50%] flex items-center ${animate ? 'animate-bounce-left-twice' : ''} ${hiddenMetronome ? 'w-0' : ''}`}>
       <Button
         type="button"
         onClick={() => setHiddenMetronome(!hiddenMetronome)}
         className={`metronome-button ${hiddenMetronome ? 'absolute right-0' : ''} `}>
-        <span className="mb-6 rotate-90 transform pl-12 whitespace-nowrap">Метроном</span>
+        <span className="mb-6 rotate-90 transform whitespace-nowrap pl-12">Метроном</span>
         {hiddenMetronome ? <span className="text-2xl">&#10563;</span> : <span className="text-2xl">&#10562;</span>}
       </Button>
       <div

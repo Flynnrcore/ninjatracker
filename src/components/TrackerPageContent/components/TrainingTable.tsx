@@ -47,7 +47,7 @@ export const TrainingTable = ({ trainings, onDeleteTraining }: TTrainingTable) =
             {trainings.length > 0 &&
               trainings.map(train => (
                 <tr key={train.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
+                  <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700">
                     {format(new Date(train.date), 'dd.MM.yyyy')}
                   </td>
                   <td className="px-4 py-3 text-sm font-medium text-yellow-600 hover:underline">{train.name}</td>
@@ -57,7 +57,7 @@ export const TrainingTable = ({ trainings, onDeleteTraining }: TTrainingTable) =
                   <td className="px-4 py-3">
                     <TrainingTypeTags types={train.type} />
                   </td>
-                  <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
+                  <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700">
                     {INSTRUMENTS[(train.instrument as keyof typeof INSTRUMENTS) || 'other']}
                   </td>
                   <td className="px-4 py-3">
@@ -112,7 +112,7 @@ export const TrainingTable = ({ trainings, onDeleteTraining }: TTrainingTable) =
             {trainings.length > 0 &&
               trainings.map(train => (
                 <tr key={train.id} className="hover:bg-gray-50">
-                  <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
+                  <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700">
                     {format(new Date(train.date), 'dd.MM.yyyy')}
                   </td>
                   <td className="px-4 py-3 text-sm font-medium text-yellow-600 hover:underline">{train.name}</td>
@@ -122,7 +122,7 @@ export const TrainingTable = ({ trainings, onDeleteTraining }: TTrainingTable) =
                   <td className="px-4 py-3">
                     <TrainingTypeTags types={train.type} />
                   </td>
-                  <td className="px-4 py-3 text-sm whitespace-nowrap text-gray-700">
+                  <td className="whitespace-nowrap px-4 py-3 text-sm text-gray-700">
                     {INSTRUMENTS[(train.instrument as keyof typeof INSTRUMENTS) || 'other']}
                   </td>
                   <td className="px-4 py-3">

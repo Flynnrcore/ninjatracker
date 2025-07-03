@@ -35,7 +35,7 @@ const InstrumentSelector = () => {
         {instruments.map(({ value, label, src, maxH }) => (
           <ToggleGroupItem
             key={value}
-            className="h-[120px] rounded-md border-1 border-stone-200 p-8 sm:h-[100px] sm:rounded-none sm:p-0"
+            className="border-1 h-[120px] rounded-md border-stone-200 p-8 sm:h-[100px] sm:rounded-none sm:p-0"
             value={value}>
             <Tooltip>
               <TooltipTrigger asChild>

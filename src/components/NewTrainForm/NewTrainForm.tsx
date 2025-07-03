@@ -80,7 +80,7 @@ const NewTrainForm = () => {
     <div className="mt-15 flex min-h-screen flex-col items-center bg-stone-50 px-4 py-6 sm:px-6 lg:px-8">
       <div className="w-full max-w-4xl">
         <div className="flex justify-center">
-          <h1 className="mb-4 border-b-4 border-yellow-400 pb-2 text-3xl font-bold sm:mb-6 sm:border-b-6 sm:pb-3 sm:text-4xl">
+          <h1 className="sm:border-b-6 mb-4 border-b-4 border-yellow-400 pb-2 text-3xl font-bold sm:mb-6 sm:pb-3 sm:text-4xl">
             Новая <span className="font-logo relative top-1 sm:top-2 sm:text-5xl">Ninja</span> тренировка!
           </h1>
         </div>
