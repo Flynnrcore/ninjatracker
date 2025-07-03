@@ -12,6 +12,10 @@ vi.mock('react-google-recaptcha-v3', () => ({
   ),
 }));
 
+beforeAll(() => {
+  (import.meta as any).env = { VITE_RECAPTCHA_SITE_KEY: 'test-key' };
+});
+
 describe('RecaptchaProvider', () => {
   it('рендерит детей внутри GoogleReCaptchaProvider', () => {
     render(
