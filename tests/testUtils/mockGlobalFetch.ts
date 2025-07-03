@@ -1,7 +1,7 @@
 import { vi } from 'vitest';
 
 function myMockFetch(input: RequestInfo | URL) {
-  const url = typeof input === 'string' ? input : input instanceof Request ? input.url : input.toString();
+  const url = input instanceof Request ? input.url : input.toString();
   if (url.includes('api/csrf-token')) {
     return Promise.resolve({
       ok: true,
