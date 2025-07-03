@@ -23,7 +23,7 @@ describe('Тест страницы DashboardPage', () => {
       () => {
         expect(screen.getByText(/Общее количество тренировок/i)).toBeTruthy();
       },
-      { timeout: 10000, interval: 100 }
+      { timeout: 10000, interval: 100 },
     );
   });
 });

@@ -23,7 +23,7 @@ describe('Тест страницы NewTrainPage', () => {
       () => {
         expect(screen.findByText(/Таймер тренировки/i)).toBeTruthy();
       },
-      { timeout: 10000, interval: 100 }
+      { timeout: 10000, interval: 100 },
     );
   });
 });
