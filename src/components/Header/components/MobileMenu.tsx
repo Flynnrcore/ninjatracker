@@ -24,6 +24,7 @@ export const MobileMenu = ({
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      if (document.querySelector('[data-slot="dialog-content"]')) return;
       if (menuRef.current && !menuRef.current.contains(event.target as Node)) onToggle();
     };
     if (isOpen) document.addEventListener('mousedown', handleClickOutside);
