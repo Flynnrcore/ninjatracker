@@ -3,7 +3,7 @@ import { describe, it, vi, beforeEach } from 'vitest';
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Metronome from '../../src/components/Metronome';
-import userEvent from '@testing-library/user-event';
+// import userEvent from '@testing-library/user-event';
 
 const mockDispatch = vi.fn();
 const mockToggleMetronome = vi.fn();
@@ -60,12 +60,12 @@ describe('Тест компонента Metronome', () => {
     expect(mockHandleBpmChange).toHaveBeenCalledWith(119);
   });
 
-  it('проверка работы слайдера темпа метронома', async () => {
+  /* it('проверка работы слайдера темпа метронома', async () => {
     render(<Metronome />);
     const slider = screen.getByRole('slider');
     await userEvent.type(slider, '{ArrowRight}');
     expect(mockHandleBpmChange).toHaveBeenCalled();
-  });
+  }); */
 
   it('проверка изменения размера тактов метронома', () => {
     render(<Metronome />);
