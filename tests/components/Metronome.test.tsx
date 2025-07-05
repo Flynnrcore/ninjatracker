@@ -80,4 +80,4 @@ describe('Тест компонента Metronome', () => {
     fireEvent.click(startBtn);
     expect(mockToggleMetronome).toHaveBeenCalled();
   });
-}); 
+});
