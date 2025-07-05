@@ -10,27 +10,29 @@ export const useFormValidation = (validationRules: TValidationRule[]) => {
       const rule = validationRules.find(r => r.field === name);
       if (!rule) return null;
 
+      let errorMessage: string | null = null;
+
       if (rule.required && (!value || value === '')) {
-        return rule.message;
+        errorMessage = rule.message;
       }
 
-      if (rule.minLength && value && typeof value === 'string' && value.length < rule.minLength) {
-        return rule.message;
+      if (!errorMessage && typeof value === 'string') {
+        if (rule.minLength && value.length < rule.minLength) {
+          errorMessage = rule.message;
+        } else if (rule.maxLength && value.length > rule.maxLength) {
+          errorMessage = rule.message;
+        }
       }
 
-      if (rule.maxLength && value && typeof value === 'string' && value.length > rule.maxLength) {
-        return rule.message;
+      if (!errorMessage && rule.pattern && value && typeof value === 'string' && !rule.pattern.test(value)) {
+        errorMessage = rule.message;
       }
 
-      if (rule.pattern && value && typeof value === 'string' && !rule.pattern.test(value)) {
-        return rule.message;
+      if (!errorMessage && rule.custom && !rule.custom(value)) {
+        errorMessage = rule.message;
       }
 
-      if (rule.custom && !rule.custom(value)) {
-        return rule.message;
-      }
-
-      return null;
+      return errorMessage;
     },
     [validationRules],
   );
