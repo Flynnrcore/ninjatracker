@@ -2,6 +2,61 @@ import type { TValidationRule, TFormErrors } from '@/types';
 import { useState, useCallback } from 'react';
 import { toast } from 'sonner';
 
+type ValidationResult = {
+  isValid: boolean;
+  error: string | null;
+};
+
+// Функция для проверки обязательного поля
+const validateRequired = (value: unknown, rule: TValidationRule): ValidationResult => {
+  if (rule.required && (!value || value === '')) {
+    return { isValid: false, error: rule.message };
+  }
+  return { isValid: true, error: null };
+};
+
+// Функция для проверки длины строки
+const validateStringLength = (value: unknown, rule: TValidationRule): ValidationResult => {
+  if (typeof value !== 'string') {
+    return { isValid: true, error: null };
+  }
+
+  const hasMinLengthError = rule.minLength && value.length < rule.minLength;
+  const hasMaxLengthError = rule.maxLength && value.length > rule.maxLength;
+
+  if (hasMinLengthError || hasMaxLengthError) {
+    return { isValid: false, error: rule.message };
+  }
+
+  return { isValid: true, error: null };
+};
+
+// Функция для проверки паттерна
+const validatePattern = (value: unknown, rule: TValidationRule): ValidationResult => {
+  if (typeof value !== 'string' || !rule.pattern) {
+    return { isValid: true, error: null };
+  }
+
+  if (!rule.pattern.test(value)) {
+    return { isValid: false, error: rule.message };
+  }
+
+  return { isValid: true, error: null };
+};
+
+// Функция для проверки кастомного правила
+const validateCustom = (value: unknown, rule: TValidationRule): ValidationResult => {
+  if (!rule.custom) {
+    return { isValid: true, error: null };
+  }
+
+  if (!rule.custom(value)) {
+    return { isValid: false, error: rule.message };
+  }
+
+  return { isValid: true, error: null };
+};
+
 export const useFormValidation = (validationRules: TValidationRule[]) => {
   const [errors, setErrors] = useState<TFormErrors>({});
 
@@ -9,24 +64,27 @@ export const useFormValidation = (validationRules: TValidationRule[]) => {
     (name: string, value: unknown): string | null => {
       const rule = validationRules.find(r => r.field === name);
       if (!rule) return null;
-
+      
       let errorMessage: string | null = null;
 
-      if (rule.required && (!value || value === '')) {
-        errorMessage = rule.message;
+      const requiredValidation = validateRequired(value, rule);
+      if (!requiredValidation.isValid) {
+        errorMessage = requiredValidation.error;
       }
 
-      if (!errorMessage && typeof value === 'string') {
-        if ((rule.minLength && value.length < rule.minLength) || (rule.maxLength && value.length > rule.maxLength)) {
-          errorMessage = rule.message;
-        }
-        if (rule.pattern && !rule.pattern.test(value)) {
-          errorMessage = rule.message;
-        }
+      const lengthValidation = validateStringLength(value, rule);
+      if (!lengthValidation.isValid) {
+        errorMessage = lengthValidation.error;
       }
 
-      if (!errorMessage && rule.custom && !rule.custom(value)) {
-        errorMessage = rule.message;
+      const patternValidation = validatePattern(value, rule);
+      if (!patternValidation.isValid) {
+        errorMessage = patternValidation.error;
+      }
+
+      const customValidation = validateCustom(value, rule);
+      if (!customValidation.isValid) {
+        errorMessage = customValidation.error;
       }
 
       return errorMessage;
