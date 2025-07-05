@@ -13,11 +13,11 @@ vi.mock('@/constants/consts', () => ({
 }));
 
 vi.mock('@/lib/TimeFn', () => ({
-  getFormattedTime: vi.fn((time) => time ? `${time} мин` : null),
+  getFormattedTime: vi.fn(time => (time ? `${time} мин` : null)),
 }));
 
 vi.mock('@/constants/paths', () => ({
-  withBaseUrl: vi.fn((path) => `/public/${path}`),
+  withBaseUrl: vi.fn(path => `/public/${path}`),
 }));
 
 vi.mock('../../src/components/TrackerPageContent/components/TrainingDifficultyStars', () => ({
@@ -64,13 +64,13 @@ describe('TrainingCards Component', () => {
 
   it('отображает сообщение при отсутствии тренировок', () => {
     render(<TrainingCards trainings={[]} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     expect(screen.getByText('Нет данных для отображения')).toBeInTheDocument();
   });
 
   it('отображает карточки тренировок', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     expect(screen.getByText('Тренировка гитары')).toBeInTheDocument();
     expect(screen.getByText('Практика пианино')).toBeInTheDocument();
     expect(screen.getByText('Изучение новых аккордов и техник игры')).toBeInTheDocument();
@@ -79,10 +79,10 @@ describe('TrainingCards Component', () => {
 
   it('отображает изображения инструментов', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     const images = screen.getAllByRole('img');
     expect(images).toHaveLength(2);
-    
+
     expect(images[0]).toHaveAttribute('src', '/public/trainType/guitar.webp');
     expect(images[0]).toHaveAttribute('alt', 'Гитара');
     expect(images[1]).toHaveAttribute('src', '/public/trainType/piano.webp');
@@ -91,28 +91,28 @@ describe('TrainingCards Component', () => {
 
   it('отображает даты тренировок', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     expect(screen.getByText('15.01.2024')).toBeInTheDocument();
     expect(screen.getByText('16.01.2024')).toBeInTheDocument();
   });
 
   it('отображает названия инструментов', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     expect(screen.getByText('Гитара')).toBeInTheDocument();
     expect(screen.getByText('Пианино')).toBeInTheDocument();
   });
 
   it('отображает время тренировок', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     expect(screen.getByText('Время тренировки: 45 мин')).toBeInTheDocument();
     expect(screen.getByText('Время тренировки: 60 мин')).toBeInTheDocument();
   });
 
   it('отображает компоненты сложности', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     const difficultyStars = screen.getAllByTestId('difficulty-stars');
     expect(difficultyStars).toHaveLength(2);
     expect(difficultyStars[0]).toHaveTextContent('Difficulty: 3');
@@ -121,7 +121,7 @@ describe('TrainingCards Component', () => {
 
   it('отображает теги типов тренировок', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     const typeTags = screen.getAllByTestId('training-type-tags');
     expect(typeTags).toHaveLength(2);
     expect(typeTags[0]).toHaveTextContent('Types: technique, theory');
@@ -130,13 +130,13 @@ describe('TrainingCards Component', () => {
 
   it('вызывает функцию удаления при клике на кнопку удаления', () => {
     render(<TrainingCards trainings={mockTrainings} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     const deleteButtons = screen.getAllByRole('button', { name: /удалить тренировку/i });
     expect(deleteButtons).toHaveLength(2);
-    
+
     fireEvent.click(deleteButtons[0]);
     expect(mockOnDeleteTraining).toHaveBeenCalledWith('1');
-    
+
     fireEvent.click(deleteButtons[1]);
     expect(mockOnDeleteTraining).toHaveBeenCalledWith('2');
   });
@@ -148,9 +148,9 @@ describe('TrainingCards Component', () => {
         timer: null,
       },
     ];
-    
+
     render(<TrainingCards trainings={trainingsWithoutTime} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     expect(screen.getByText('Время тренировки: -')).toBeInTheDocument();
   });
 
@@ -161,9 +161,9 @@ describe('TrainingCards Component', () => {
         description: '',
       },
     ];
-    
+
     render(<TrainingCards trainings={trainingsWithoutDescription} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     expect(screen.getByText('Тренировка гитары')).toBeInTheDocument();
     // Описание пустое, но компонент не должен падать
   });
@@ -175,10 +175,10 @@ describe('TrainingCards Component', () => {
         instrument: 'unknown',
       },
     ];
-    
+
     render(<TrainingCards trainings={trainingsWithUnknownInstrument} onDeleteTraining={mockOnDeleteTraining} />);
-    
+
     // Компонент должен отображаться без ошибок
     expect(screen.getByText('Тренировка гитары')).toBeInTheDocument();
   });
-}); 
+});

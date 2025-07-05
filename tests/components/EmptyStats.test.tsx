@@ -28,4 +28,4 @@ describe('EmptyStats Component', () => {
     expect(mainText).toHaveClass('text-md', 'text-gray-400');
     expect(subText).toHaveClass('text-sm', 'text-gray-400');
   });
-}); 
+});

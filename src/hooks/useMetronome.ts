@@ -34,7 +34,7 @@ const useAudioManager = () => {
 
   const playSound = useCallback((frequency: number, duration: number) => {
     if (!audioContextRef.current) return;
-    
+
     const oscillator = audioContextRef.current.createOscillator();
     const gainNode = audioContextRef.current.createGain();
 
@@ -64,10 +64,13 @@ const useTimerManager = () => {
     }
   }, []);
 
-  const startTimer = useCallback((callback: () => void, interval: number) => {
-    clearTimer();
-    timerRef.current = setInterval(callback, interval);
-  }, [clearTimer]);
+  const startTimer = useCallback(
+    (callback: () => void, interval: number) => {
+      clearTimer();
+      timerRef.current = setInterval(callback, interval);
+    },
+    [clearTimer],
+  );
 
   return { clearTimer, startTimer };
 };
@@ -128,15 +131,15 @@ const useMetronomeState = () => {
 };
 
 const useMetronome = () => {
-  const { 
-    state, 
-    dispatch, 
-    beatCountRef, 
-    handleBpmChange, 
+  const {
+    state,
+    dispatch,
+    beatCountRef,
+    handleBpmChange,
     handleBeatsPerMeasureChange,
-    resetBeatCount, 
-    incrementBeatCount, 
-    toggleRunning 
+    resetBeatCount,
+    incrementBeatCount,
+    toggleRunning,
   } = useMetronomeState();
   const { initAudioContext, playSound } = useAudioManager();
   const { clearTimer, startTimer } = useTimerManager();
@@ -168,12 +171,12 @@ const useMetronome = () => {
     return clearTimer;
   }, [state.isRunning, state.bpm, state.beatsPerMeasure, clearTimer, playBeat, startTimer]);
 
-  return { 
-    state, 
-    dispatch, 
-    toggleMetronome, 
+  return {
+    state,
+    dispatch,
+    toggleMetronome,
     handleBpmChange,
-    handleBeatsPerMeasureChange 
+    handleBeatsPerMeasureChange,
   };
 };
 
