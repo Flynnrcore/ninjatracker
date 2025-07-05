@@ -5,7 +5,7 @@ import '@testing-library/jest-dom';
 import Metronome from '../../src/components/Metronome';
 // import userEvent from '@testing-library/user-event';
 
-const mockDispatch = vi.fn();
+const mockHandleBeatsPerMeasureChange = vi.fn();
 const mockToggleMetronome = vi.fn();
 const mockHandleBpmChange = vi.fn();
 
@@ -19,15 +19,15 @@ vi.mock('@/hooks/useMetronome', () => ({
   __esModule: true,
   default: () => ({
     state: defaultState,
-    dispatch: mockDispatch,
     toggleMetronome: mockToggleMetronome,
     handleBpmChange: mockHandleBpmChange,
+    handleBeatsPerMeasureChange: mockHandleBeatsPerMeasureChange,
   }),
 }));
 
 describe('Тест компонента Metronome', () => {
   beforeEach(() => {
-    mockDispatch.mockClear();
+    mockHandleBeatsPerMeasureChange.mockClear();
     mockToggleMetronome.mockClear();
     mockHandleBpmChange.mockClear();
   });
@@ -71,7 +71,7 @@ describe('Тест компонента Metronome', () => {
     render(<Metronome />);
     const select = screen.getByLabelText(/Тактовый размер/i);
     fireEvent.change(select, { target: { value: '3' } });
-    expect(mockDispatch).toHaveBeenCalledWith({ type: 'SET_BEATS_PER_MEASURE', payload: 3 });
+    expect(mockHandleBeatsPerMeasureChange).toHaveBeenCalledWith(3);
   });
 
   it('проверка работы кнопок старт и стоп метронома', () => {

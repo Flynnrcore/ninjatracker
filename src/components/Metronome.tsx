@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Button, Slider } from '@/components/ui';
 import { PATH } from '@/constants/paths';
 import { MIN_BPM, MAX_BPM } from '@/constants/metronome';
-import useMetronome from '@/hooks/useMetronome';
+import { useMetronome } from '@/hooks';
 
 const RHYTHM_PRESETS = [
   { name: '1/4', value: 1 },
@@ -13,7 +13,7 @@ const RHYTHM_PRESETS = [
 ];
 
 const Metronome = ({ className }: { className?: string }) => {
-  const { state, dispatch, toggleMetronome, handleBpmChange } = useMetronome();
+  const { state, toggleMetronome, handleBpmChange, handleBeatsPerMeasureChange } = useMetronome();
 
   const [hiddenMetronome, setHiddenMetronome] = useState(false);
   const [animate, setAnimate] = useState(false);
@@ -67,7 +67,7 @@ const Metronome = ({ className }: { className?: string }) => {
             id="tsize"
             className="input"
             value={state.beatsPerMeasure}
-            onChange={e => dispatch({ type: 'SET_BEATS_PER_MEASURE', payload: parseInt(e.target.value) })}>
+            onChange={e => handleBeatsPerMeasureChange(parseInt(e.target.value))}>
             {RHYTHM_PRESETS.map(preset => (
               <option key={preset.value} value={preset.value}>
                 {preset.name}

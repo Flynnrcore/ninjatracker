@@ -25,6 +25,7 @@ export default defineConfig({
         '**/coverage/**',
         '**/.vercel/**',
         '**/vercel/**',
+        '**/tests/**'
       ],
     },
   },
