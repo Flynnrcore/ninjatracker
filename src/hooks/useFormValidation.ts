@@ -64,7 +64,7 @@ export const useFormValidation = (validationRules: TValidationRule[]) => {
     (name: string, value: unknown): string | null => {
       const rule = validationRules.find(r => r.field === name);
       if (!rule) return null;
-      
+
       let errorMessage: string | null = null;
 
       const requiredValidation = validateRequired(value, rule);
