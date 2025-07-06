@@ -12,7 +12,9 @@ export const fetchWithRefresh = async (input: RequestInfo, init?: RequestInit) =
     if (refreshResponse.ok) {
       response = await fetch(input, { ...init, credentials: 'include' });
     } else {
-      throw new Error('Ваша сессия истекла. Пожалуйста, войдите снова');
+      const errMockText = 'Ваша сессия истекла. Пожалуйста, обновите страницу и войдите снова';
+      const errorData = await response.json().catch(() => ({ error: errMockText }));
+      throw new Error(errorData.error || errMockText);
     }
   }
 

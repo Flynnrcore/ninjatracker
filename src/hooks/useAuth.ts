@@ -21,7 +21,8 @@ export const useAuth = () => {
         body: JSON.stringify({ email, password, recaptchaToken }),
       });
       if (!response.ok) {
-        throw new Error('Ошибка входа');
+        const errorData = await response.json().catch(() => ({ error: 'Ошибка входа' }));
+        throw new Error(errorData.error || 'Ошибка входа');
       }
       const data = await response.json();
       setUser(data.user);
