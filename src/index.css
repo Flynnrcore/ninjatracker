@@ -42,21 +42,37 @@
     @apply bg-stone-50;
   }
 }
-
-.section {
-  @apply flex w-full flex-col items-center gap-8 px-4 py-8 md:px-6 lg:px-0 lg:py-6;
-}
-
 .article {
   @apply rounded-2xl bg-white p-6 shadow-lg transition-shadow duration-300 hover:shadow-xl;
+}
+
+.button {
+  @apply flex w-full items-center justify-center space-x-2 rounded-lg px-6 py-3 text-lg font-bold text-white shadow-md transition duration-300 md:text-xl;
+  @apply bg-yellow-500 hover:scale-105 hover:bg-yellow-400 active:scale-95;
 }
 
 .circle-button {
   @apply border-1 flex h-8 w-8 items-center justify-center rounded-full border-black bg-white text-black duration-300 hover:bg-black hover:text-white hover:shadow-xl;
 }
 
+.required-dot {
+  @apply relative bottom-1 text-sm text-red-500;
+}
+
+.section {
+  @apply flex w-full flex-col items-center gap-8 px-4 py-8 md:px-6 lg:px-0 lg:py-6;
+}
+
 .submit-button {
   @apply w-full rounded-lg bg-yellow-500 p-8 text-lg text-white transition-all hover:scale-[1.01] hover:bg-yellow-400 active:scale-95 md:text-2xl;
+}
+
+.timer {
+  @apply h-full bg-white text-center text-xl sm:text-2xl;
+  @apply px-2 py-1 [appearance:textfield];
+  @apply [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none;
+  @apply [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none;
+  @apply focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2;
 }
 
 .input {
@@ -79,18 +95,6 @@
 
 .metronome-wrapper {
   @apply right-full top-0 z-10 mb-4 mr-4 flex flex-col items-center gap-2 rounded-lg border border-gray-100 bg-white p-2 shadow-md;
-}
-
-.timer {
-  @apply h-full bg-white text-center text-xl sm:text-2xl;
-  @apply px-2 py-1 [appearance:textfield];
-  @apply [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none;
-  @apply [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none;
-  @apply focus-visible:ring-2 focus-visible:ring-yellow-400 focus-visible:ring-offset-2;
-}
-
-.required-dot {
-  @apply relative bottom-1 text-sm text-red-500;
 }
 
 @keyframes falling-notes {

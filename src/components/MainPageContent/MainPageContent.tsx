@@ -34,9 +34,7 @@ const MainPageContent = () => {
                 NinjaTracker!
               </span>
             </p>
-            <Link
-              className="w-full min-w-[200px] rounded-lg bg-yellow-500 px-12 py-3 text-lg text-white transition-transform hover:scale-105 hover:bg-yellow-400 active:scale-95 sm:w-auto md:mt-6 md:px-20 md:text-xl"
-              to="/new">
+            <Link className="button lg:max-w-3/4 mt-4" to="/new">
               Начать тренировку
             </Link>
           </div>

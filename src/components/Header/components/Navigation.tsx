@@ -40,7 +40,7 @@ export const Navigation = ({
               className={
                 isMobile
                   ? 'menu-item ml-4 min-w-[200px] px-4'
-                  : 'min-w-[200px] bg-yellow-500 text-lg text-white hover:bg-yellow-600'
+                  : 'min-w-[200px] bg-yellow-500 text-lg text-white hover:bg-yellow-400'
               }
               variant={isMobile ? 'outline' : 'default'}
               onClick={onLogout}>
