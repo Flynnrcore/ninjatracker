@@ -46,7 +46,7 @@ describe('fetchWithRefresh', () => {
       .mockResolvedValueOnce(firstResponse)
       .mockResolvedValueOnce(refreshResponse);
 
-    await expect(fetchWithRefresh('/api/test')).rejects.toThrow('Ваша сессия истекла. Пожалуйста, войдите снова');
+    await expect(fetchWithRefresh('/api/test')).rejects.toThrow('Ваша сессия истекла. Пожалуйста, обновите страницу и войдите снова');
     expect(fetchMock).toHaveBeenCalledTimes(2);
     expect(fetchMock).toHaveBeenNthCalledWith(1, '/api/test', { credentials: 'include' });
     expect(fetchMock).toHaveBeenNthCalledWith(2, API_URLS.refresh, { method: 'POST', credentials: 'include' });

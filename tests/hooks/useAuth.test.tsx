@@ -48,7 +48,13 @@ describe('useAuth', () => {
   });
 
   it('login с ошибкой', async () => {
-    (fetchWithRefresh as jest.Mock).mockResolvedValue({ ok: false });
+    const mockResponse = {
+      ok: false,
+      status: 400,
+      json: () => Promise.resolve({ error: 'Ошибка входа' }),
+    };
+
+    (fetchWithRefresh as jest.Mock).mockResolvedValue(mockResponse);
 
     const { result } = renderHook(() => useAuth());
     await expect(result.current.login('test@mail.com', '123', 'recaptcha')).rejects.toThrow('Ошибка входа');
@@ -74,7 +80,13 @@ describe('useAuth', () => {
   });
 
   it('register с ошибкой', async () => {
-    (global.fetch as unknown as MockInstance).mockResolvedValue({ ok: false });
+    const mockResponse = {
+      ok: false,
+      status: 400,
+      json: () => Promise.resolve({ error: 'Ошибка регистрации' }),
+    };
+
+    (global.fetch as unknown as MockInstance).mockResolvedValue(mockResponse);
 
     const { result } = renderHook(() => useAuth());
     await expect(result.current.register('test@mail.com', '123', 'User', 'recaptcha')).rejects.toThrow(
