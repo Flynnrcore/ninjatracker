@@ -12,7 +12,7 @@ const MainPageContent = () => {
         <BackgroundAnimation countNotes={50} />
         <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 pb-0 md:mx-8 lg:flex-row lg:gap-12">
           <img
-            className="aspect-auto h-full min-h-[200px] w-full rounded-2xl object-cover lg:w-1/3"
+            className="aspect-auto h-full min-h-[300px] w-full min-w-[300px] rounded-2xl object-cover md:min-h-[360px] md:min-w-[360px] lg:w-1/3"
             src={PATH.MAIN_PAGE_LOGO}
             alt="Ninja practicing with music"
             loading="lazy"
