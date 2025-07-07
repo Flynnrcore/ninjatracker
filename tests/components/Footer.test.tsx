@@ -29,7 +29,7 @@ describe('Footer Component', () => {
     render(<Footer />);
 
     const githubLink = screen.getByRole('link', { name: /Flynnrcore/i });
-    expect(githubLink).toHaveClass('text-yellow-500', 'underline');
+    expect(githubLink).toHaveClass('text-yellow-400', 'underline');
   });
 
   it('footer имеет правильные стили', () => {
