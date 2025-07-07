@@ -26,6 +26,7 @@ export default defineConfig({
         '**/.vercel/**',
         '**/vercel/**',
         '**/tests/**',
+        '**/vite-env.d.ts'
       ],
     },
   },
