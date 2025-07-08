@@ -51,7 +51,7 @@ const MainPageContent = () => {
 
       <Section title="" className="max-w-7xl">
         <div className="flex w-full flex-col gap-8 lg:flex-row">
-          <div className="order-2 flex w-full flex-col rounded-2xl bg-white p-6 shadow-lg sm:order-1 md:p-8 lg:w-1/2">
+          <div className="order-2 flex w-full flex-col gap-4 rounded-2xl bg-white p-6 shadow-lg sm:order-1 md:gap-2 md:p-8 lg:w-1/2 lg:gap-0">
             <h2>Планирование тренировок и репертуара</h2>
             <div className="flex h-full flex-col justify-between">
               {MAIN_PAGE.shedule.children.map((item, index) => (
