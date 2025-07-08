@@ -21,7 +21,7 @@ const TimerButton = ({ label, onClick, variant, className, tooltip }: TTimerButt
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
             'active:scale-95',
             variantStyles[variant],
-            'h-[70px] w-full text-2xl sm:h-[70px] sm:w-[100px] sm:text-4xl',
+            'h-[72px] w-full text-2xl sm:w-[100px] sm:text-4xl',
             className,
           )}>
           {label}
