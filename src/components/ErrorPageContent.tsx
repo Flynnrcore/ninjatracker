@@ -5,7 +5,7 @@ const ErrorPageContent = ({ picUrl, message, children }: TErrorPage) => (
   <div className="flex h-screen flex-col items-center justify-center bg-stone-50 px-4 py-8 sm:px-8">
     <img
       src={picUrl}
-      alt="Error img"
+      alt="Изображение ниндзя на странице ошибки"
       loading="lazy"
       className="mb-6 h-40 w-auto max-w-xs object-contain sm:h-1/2 sm:max-w-md md:max-w-lg"
     />

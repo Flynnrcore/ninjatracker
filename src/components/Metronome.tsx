@@ -40,7 +40,7 @@ const Metronome = ({ className }: { className?: string }) => {
       </Button>
       <div
         className={`metronome-wrapper ${hiddenMetronome ? 'pointer-events-none opacity-0' : 'opacity-100'} ${className} `}>
-        <img className="h-25" src={PATH.METRONOME_IMG} loading="lazy" alt="Metronome Icon" />
+        <img className="h-25" src={PATH.METRONOME_IMG} loading="lazy" alt="Ниндзя с метрономом" />
         <div className="flex flex-col items-center justify-center gap-4 text-center">
           <div className="flex items-center justify-center gap-2">
             <Button type="button" onClick={() => handleBpmChange(state.bpm - 1)} className="circle-button">

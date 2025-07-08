@@ -34,7 +34,7 @@ describe('Тест компонента Metronome', () => {
 
   it('проврека рендера элементов метронома', () => {
     render(<Metronome />);
-    expect(screen.getByAltText(/Metronome Icon/i)).toBeInTheDocument();
+    expect(screen.getByAltText(/Ниндзя с метрономом/i)).toBeInTheDocument();
     expect(screen.getByText(/Метроном/i)).toBeInTheDocument();
     expect(screen.getByText(/120 BPM/)).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /▶/ })).toBeInTheDocument();

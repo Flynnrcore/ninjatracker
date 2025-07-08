@@ -14,7 +14,7 @@ const MainPageContent = () => {
           <img
             className="aspect-auto h-full min-h-[300px] w-full min-w-[300px] rounded-2xl object-cover md:min-h-[360px] md:min-w-[360px] lg:ml-6 lg:w-1/3"
             src={PATH.MAIN_PAGE_LOGO}
-            alt="Ninja practicing with music"
+            alt="Ниндзя практикуется в бамбуковой роще"
             loading="lazy"
             width={1024}
             height={1024}
@@ -63,7 +63,7 @@ const MainPageContent = () => {
             className="order-1 mt-0 w-full object-contain sm:order-2 lg:block lg:w-1/2"
             src={PATH.MAIN_PAGE_SHEDULE_IMG}
             loading="lazy"
-            alt="ninja with schedule"
+            alt="Задумчивый ниндзя стоит рядом с расписанием"
           />
         </div>
       </Section>

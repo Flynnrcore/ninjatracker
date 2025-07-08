@@ -10,7 +10,7 @@ describe('ErrorPageContent', () => {
         <ErrorPageContent picUrl="/test-error.png" message="Ошибка!" />
       </MemoryRouter>,
     );
-    expect(screen.getByAltText(/error img/i)).toBeTruthy();
+    expect(screen.getByAltText(/Изображение ниндзя на странице ошибки/i)).toBeTruthy();
     expect(screen.getByText(/ошибка!/i)).toBeTruthy();
     expect(screen.getByRole('link', { name: /вернуться на главную/i })).toBeTruthy();
   });

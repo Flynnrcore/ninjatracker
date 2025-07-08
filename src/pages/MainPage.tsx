@@ -9,7 +9,7 @@ const MainPage = () => {
       <MainPageContent />
       <img
         src={withBaseUrl('loader.webp')}
-        alt=""
+        alt="Ниндзя на странице загрузки"
         style={{ display: 'none', width: 0, height: 0 }}
         aria-hidden="true"
         loading="eager"
