@@ -10,16 +10,16 @@ const MainPageContent = () => {
     <div className="flex flex-col items-center justify-center pb-12 pt-12">
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
-        <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-6 rounded-2xl border border-gray-200 bg-white p-6 pb-0 md:mx-8 lg:flex-row lg:gap-12">
+        <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-0 rounded-2xl border border-gray-200 bg-white p-6 pb-0 shadow-md md:mx-8 lg:mx-0 lg:flex-row lg:gap-12 lg:px-0 lg:py-0">
           <img
-            className="aspect-auto h-full min-h-[300px] w-full min-w-[300px] rounded-2xl object-cover md:min-h-[360px] md:min-w-[360px] lg:w-1/3"
+            className="aspect-auto h-full min-h-[300px] w-full min-w-[300px] rounded-2xl object-cover md:min-h-[360px] md:min-w-[360px] lg:ml-6 lg:w-1/3"
             src={PATH.MAIN_PAGE_LOGO}
             alt="Ninja practicing with music"
             loading="lazy"
             width={1024}
             height={1024}
           />
-          <div className="flex flex-col items-center justify-center px-4 py-8 text-center">
+          <div className="flex flex-col items-center justify-center px-4 py-8 text-center lg:mr-6">
             <h1 className="font-logo mb-2 text-5xl sm:text-6xl md:text-7xl lg:text-8xl">NinjaTracker</h1>
             <h3 className="mb-1 text-2xl font-bold text-yellow-500 sm:text-3xl md:text-4xl">
               Ваш личный музыкальный трекер
