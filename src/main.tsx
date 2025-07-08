@@ -9,6 +9,7 @@ import { ErrorPage, MainPage, TrackerPage, NewTrainPage, DashboardPage } from '.
 import { BASE_URL, PATH } from './constants/paths';
 import { AuthProvider } from './context/AuthContext';
 import { RecaptchaProvider } from './context/RecaptchaProvider';
+import { Analytics } from '@vercel/analytics/react';
 
 const router = createBrowserRouter(
   [
@@ -50,5 +51,6 @@ createRoot(document.getElementById('root')!).render(
         <RouterProvider router={router} />
       </RecaptchaProvider>
     </AuthProvider>
+    <Analytics />
   </StrictMode>,
 );
