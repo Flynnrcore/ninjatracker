@@ -36,7 +36,7 @@ const Header = ({ className }: THeaderProps) => {
         isScrolled ? 'shadow-md' : 'shadow-sm',
         className,
       )}>
-      <div className="container mx-auto flex items-center justify-between p-4 lg:max-w-6xl">
+      <div className="container mx-auto flex items-center justify-between p-4 lg:max-w-7xl xl:px-0">
         <Logo />
 
         <Navigation

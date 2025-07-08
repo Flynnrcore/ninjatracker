@@ -10,7 +10,7 @@ const MainPageContent = () => {
     <div className="flex flex-col items-center justify-center pb-12 pt-12">
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
         <BackgroundAnimation countNotes={50} />
-        <div className="z-10 mx-4 flex max-w-6xl flex-col items-center gap-0 rounded-2xl border border-gray-200 bg-white p-6 pb-0 shadow-md md:mx-8 lg:mx-0 lg:flex-row lg:gap-12 lg:px-0 lg:py-0">
+        <div className="z-10 mx-4 flex max-w-7xl flex-col items-center gap-0 rounded-2xl border border-gray-200 bg-white p-6 pb-0 shadow-md md:mx-8 lg:mx-0 lg:flex-row lg:gap-12 lg:px-0 lg:py-0">
           <img
             className="aspect-auto h-full min-h-[300px] w-full min-w-[300px] rounded-2xl object-cover md:min-h-[360px] md:min-w-[360px] lg:ml-6 lg:w-1/3"
             src={PATH.MAIN_PAGE_LOGO}
@@ -41,15 +41,15 @@ const MainPageContent = () => {
         </div>
       </section>
 
-      <Section title="Отслеживание прогресса занятий">
-        <div className="grid w-full max-w-6xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <Section title="Отслеживание прогресса занятий" className="max-w-7xl">
+        <div className="grid w-full max-w-7xl grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           {MAIN_PAGE.features.children.map((item, index) => (
             <FeatureCard key={index} title={item.title} description={item.description} />
           ))}
         </div>
       </Section>
 
-      <Section title="" className="max-w-6xl">
+      <Section title="" className="max-w-7xl">
         <div className="flex w-full flex-col gap-8 lg:flex-row">
           <div className="order-2 flex w-full flex-col gap-8 rounded-2xl bg-white p-6 shadow-lg sm:order-1 md:p-8 lg:w-1/2">
             <h2>Планирование тренировок и репертуара</h2>
@@ -66,7 +66,7 @@ const MainPageContent = () => {
         </div>
       </Section>
 
-      <Section title="Управление заметками и идеями" className="max-w-6xl">
+      <Section title="Управление заметками и идеями" className="max-w-7xl">
         <div className="grid w-full grid-cols-1 gap-6 md:grid-cols-2">
           {MAIN_PAGE.notes.children.map((item, index) => (
             <FeatureCard key={index} title={item.title} description={item.description} />
