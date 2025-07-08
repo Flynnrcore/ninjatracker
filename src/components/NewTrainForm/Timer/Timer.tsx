@@ -46,7 +46,7 @@ const Timer = () => {
 
         <input type="hidden" name="time" id="timer" value={totalSeconds} />
 
-        <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-6">
+        <div className="flex w-full flex-col items-start gap-4 sm:flex-row sm:justify-center sm:gap-6">
           <TimerControls isRunning={isRunning} onStartPause={handleStartPause} onReset={handleReset} />
           {renderTimeInputs()}
         </div>
