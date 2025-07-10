@@ -16,7 +16,7 @@ import { Loader2 } from 'lucide-react';
 
 const NewTrainForm = () => {
   const authContext = useAuthContext();
-  const { addTraining } = useRemoteTraining();
+  const { addTraining } = useRemoteTraining(false);
   const { refreshData } = useDataRefresh();
   const [loading, setLoading] = useState(false);
   const [difficulty, setDifficulty] = useState(0);

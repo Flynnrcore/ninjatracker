@@ -5,7 +5,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 import type { AuthContextType, TTraining } from '@/types';
 
-export const useRemoteTraining = () => {
+export const useRemoteTraining = (autoFetch = true) => {
   const { csrfToken, user, dataRefreshTrigger } = useAuthContext() as AuthContextType;
   const [trainings, setTrainings] = useState<TTraining[]>([]);
   const [loading, setLoading] = useState(true);
@@ -22,6 +22,7 @@ export const useRemoteTraining = () => {
 
   // Автоматическое обновление данных при изменении аутентификации
   useEffect(() => {
+    if (!autoFetch) return;
     const fetchData = async () => {
       setLoading(true);
       try {
@@ -42,7 +43,7 @@ export const useRemoteTraining = () => {
     };
 
     if (csrfToken) fetchData();
-  }, [csrfToken, user, dataRefreshTrigger, getTrainings]);
+  }, [autoFetch, csrfToken, user, dataRefreshTrigger, getTrainings]);
 
   const addTraining = async (training: TTraining) => {
     const res = await fetchWithRefresh(API_URLS.trainings, {
