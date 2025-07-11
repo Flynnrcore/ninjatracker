@@ -17,7 +17,7 @@ export const TimeStatistic = ({ statistic }: { statistic: TStatistic | null }) =
   const data = statistic ? [...statistic.difficulties].slice(-10) : [];
 
   return (
-    <Card className="flex-ba w-full max-w-md flex-1 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl lg:max-w-3xl xl:max-w-4xl">
+    <Card className="flex w-full flex-1 rounded-xl border-none bg-white shadow-md lg:max-w-4xl">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Общее время тренировок</CardTitle>
         <CardDescription>
@@ -30,7 +30,7 @@ export const TimeStatistic = ({ statistic }: { statistic: TStatistic | null }) =
       <CardContent className="pt-0">
         <ChartContainer config={chartConfig}>
           {data.length > 0 ? (
-            <LineChart accessibilityLayer data={data} margin={{ top: 10, left: 5, right: 5, bottom: 5 }}>
+            <LineChart accessibilityLayer data={data} margin={{ top: 20, left: 5, right: 5, bottom: 5 }}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="date"

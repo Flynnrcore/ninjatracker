@@ -25,13 +25,13 @@ const DashboardPageContent = () => {
   return (
     <PageWrapper title="Дашборд">
       <div className="flex flex-col gap-8">
-        <div className="flex w-full flex-col gap-4 md:flex-row">
+        <div className="flex w-full flex-col gap-4 md:flex-wrap md:flex-row">
           <StatsCard title="Общее количество тренировок" value={statistics?.totalCount || 0} />
           <StatsCard title="Среднее время тренировки" value={getFormattedTime(statistics?.avgDuration || 0)} />
           <StatsCard title="Максимальное время тренировки" value={getFormattedTime(statistics?.maxDuration || 0)} />
           <StatsCard title="Серия тренировок подряд" value={statistics?.streak || 0} />
         </div>
-        <div className="flex h-max w-full flex-col gap-4 sm:flex-row">
+        <div className="flex h-max w-full flex-col gap-4 lg:flex-row">
           <TimeStatistic statistic={statistics} />
           <TrainTypeStatistic statistic={statistics} />
         </div>

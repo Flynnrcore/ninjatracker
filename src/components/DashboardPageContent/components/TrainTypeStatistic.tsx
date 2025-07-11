@@ -25,7 +25,7 @@ export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null
   }
 
   return (
-    <Card className="w-full max-w-md flex-1 basis-1/3 rounded-xl border-none bg-white shadow-md sm:max-w-lg md:max-w-xl">
+    <Card className="w-full flex-1 basis-1/3 rounded-xl border-none bg-white shadow-md lg:max-w-lg">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Любимый тип тренировки</CardTitle>
         <CardDescription>
@@ -38,11 +38,21 @@ export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null
       <CardContent className="m-0 h-full pb-0">
         <ChartContainer className="h-[90%] w-full p-0" config={chartConfig}>
           {data.length > 0 ? (
-            <BarChart accessibilityLayer data={data} margin={{ top: 10 }}>
+            <BarChart accessibilityLayer data={data} margin={{ top: 30 }}>
               <CartesianGrid vertical={false} />
-              <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} />
+              <XAxis
+                dataKey="name"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={6}
+                tickFormatter={(value: string) => {
+                  //if (value === 'Импровизация') return 'Импро';
+                  //if (value === 'Упражнения') return 'Упр';
+                  return value;
+                }}
+              />
               <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
-              <Bar dataKey="count" type="natural" fill="orange" radius={8}>
+              <Bar dataKey="count" fill="orange" radius={8}>
                 <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
               </Bar>
             </BarChart>
@@ -51,7 +61,7 @@ export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null
           )}
         </ChartContainer>
         <CardFooter>
-          <CardDescription className="mt-2 flex items-center justify-center text-center">
+          <CardDescription className="mt-2">
             Статистика по типам тренировок
           </CardDescription>
         </CardFooter>
