@@ -1,14 +1,71 @@
 <!doctype html>
-<html lang="en">
+<html lang="ru" prefix="og: https://ogp.me/ns#">
   <head>
+    <!-- Базовые мета-теги -->
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- SEO мета-теги -->
+    <title>
+      NinjaTracker - Трекер музыкальных тренировок | Отслеживание прогресса, времени и эффективности занятий
+    </title>
+    <meta
+      name="description"
+      content="NinjaTracker - приложение для музыкантов. Записывайте тренировки, анализируйте прогресс и достигайте целей с персональным трекером занятий." />
+    <meta
+      name="keywords"
+      content="трекер тренировок, журнал занятий, музыкант, метроном, гитара, фортепиано, вокал, статистика занятий" />
+    <link rel="canonical" href="https://ninjatracker.vercel.app" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ninjatracker.vercel.app" />
+    <meta property="og:title" content="NinjaTracker - Трекер музыкальных тренировок" />
+    <meta property="og:description" content="Приложение для отслеживания музыкальных занятий и анализа прогресса" />
+    <meta property="og:image" content="https://ninjatracker.vercel.app/social-preview.jpeg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="ru_RU" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://ninjatracker.vercel.app" />
+    <meta name="twitter:title" content="NinjaTracker - Трекер музыкальных тренировок" />
+    <meta name="twitter:description" content="Приложение для отслеживания музыкальных занятий и анализа прогресса" />
+    <meta name="twitter:image" content="https://ninjatracker.vercel.app/social-preview.jpeg" />
+
+    <!-- Schema.org разметка -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "NinjaTracker",
+        "description": "Приложение для отслеживания музыкальных тренировок",
+        "url": "https://ninjatracker.vercel.app",
+        "applicationCategory": "MusicApplication",
+        "operatingSystem": "Web",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "RUB"
+        }
+      }
+    </script>
+
+    <!-- Иконки и предзагрузка -->
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <link rel="preload" href="/fonts/growl.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="/fonts/growl.woff" as="font" type="font/woff" crossorigin="anonymous" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NinjaTracker</title>
+
+    <!-- Мультиязычность -->
+    <link rel="alternate" hreflang="ru" href="https://ninjatracker.vercel.app" />
+    <link rel="alternate" hreflang="x-default" href="https://ninjatracker.vercel.app" />
   </head>
   <body>
+    <h1 style="position: absolute; left: -9999px">
+      NinjaTracker - приложение для отслеживания времени, эффективности, прогресса музыкальных тренировок
+    </h1>
     <div id="root" class="h-full w-full"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

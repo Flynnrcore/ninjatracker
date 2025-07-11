@@ -25,7 +25,7 @@ const DashboardPageContent = () => {
   return (
     <PageWrapper title="Дашборд">
       <div className="flex flex-col gap-8">
-        <div className="flex w-full flex-col gap-4 md:flex-wrap md:flex-row">
+        <div className="flex w-full flex-col gap-4 md:flex-row md:flex-wrap">
           <StatsCard title="Общее количество тренировок" value={statistics?.totalCount || 0} />
           <StatsCard title="Среднее время тренировки" value={getFormattedTime(statistics?.avgDuration || 0)} />
           <StatsCard title="Максимальное время тренировки" value={getFormattedTime(statistics?.maxDuration || 0)} />

@@ -61,9 +61,7 @@ export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null
           )}
         </ChartContainer>
         <CardFooter>
-          <CardDescription className="mt-2">
-            Статистика по типам тренировок
-          </CardDescription>
+          <CardDescription className="mt-2">Статистика по типам тренировок</CardDescription>
         </CardFooter>
       </CardContent>
     </Card>
