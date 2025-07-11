@@ -4,6 +4,7 @@ const generateNotes = (count: number) =>
   Array.from({ length: count }).map(() => ({
     left: `${Math.random() * 100}%`,
     duration: 12 + Math.random() * 10,
+    animationDelay: `${Math.random() * 8}s`,
     fontSize: `${10 + Math.random() * 40}px`,
     symbol: NOTES[Math.floor(Math.random() * NOTES.length)],
   }));

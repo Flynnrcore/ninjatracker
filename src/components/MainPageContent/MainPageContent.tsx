@@ -9,7 +9,7 @@ const MainPageContent = () => {
   return (
     <div className="flex flex-col items-center justify-center pb-12 pt-12">
       <section className="relative flex w-full items-center justify-center overflow-hidden py-8 md:py-12">
-        <BackgroundAnimation countNotes={50} />
+        <BackgroundAnimation countNotes={70} />
         <div className="z-10 mx-4 flex max-w-7xl flex-col items-center gap-0 rounded-2xl border border-gray-200 bg-white p-6 pb-0 shadow-md md:mx-8 lg:mx-0 lg:flex-row lg:gap-12 lg:px-0 lg:py-0">
           <img
             className="aspect-auto h-full min-h-[300px] w-full min-w-[300px] rounded-2xl object-cover md:min-h-[360px] md:min-w-[360px] lg:ml-6 lg:w-1/3"

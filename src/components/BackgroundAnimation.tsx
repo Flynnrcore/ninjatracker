@@ -12,8 +12,10 @@ const BackgroundAnimation = ({ countNotes = 30 }: { countNotes?: number }) => {
           key={`${id}-${i}`}
           className="absolute text-2xl opacity-70"
           style={{
+            top: '-5%',
             left: note.left,
             animation: `falling-notes ${note.duration}s linear infinite`,
+            animationDelay: note.animationDelay,
             fontSize: note.fontSize,
           }}>
           {note.symbol}
