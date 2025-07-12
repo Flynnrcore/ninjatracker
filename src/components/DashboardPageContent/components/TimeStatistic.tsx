@@ -30,7 +30,7 @@ export const TimeStatistic = ({ statistic }: { statistic: TStatistic | null }) =
       <CardContent className="pt-0">
         <ChartContainer config={chartConfig}>
           {data.length > 0 ? (
-            <LineChart accessibilityLayer data={data} margin={{ top: 20, left: 5, right: 5, bottom: 5 }}>
+            <LineChart accessibilityLayer data={data} margin={{ top: 20, left: 35, right: 35, bottom: 20 }}>
               <CartesianGrid vertical={false} />
               <XAxis
                 dataKey="date"

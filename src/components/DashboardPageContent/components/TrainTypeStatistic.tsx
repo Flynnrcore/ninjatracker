@@ -1,5 +1,5 @@
 'use client';
-import { Bar, BarChart, CartesianGrid, LabelList, XAxis } from 'recharts';
+import { Bar, BarChart, CartesianGrid, LabelList, XAxis, YAxis } from 'recharts';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { type ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { EXERCISE_TYPES } from '@/constants/consts';
@@ -11,6 +11,7 @@ const chartConfig = {
     label: 'количество',
     color: 'orange',
   },
+  label: { color: 'red ' },
 } satisfies ChartConfig;
 
 export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null }) => {
@@ -38,22 +39,28 @@ export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null
       <CardContent className="m-0 h-full pb-0">
         <ChartContainer className="h-[90%] w-full p-0" config={chartConfig}>
           {data.length > 0 ? (
-            <BarChart accessibilityLayer data={data} margin={{ top: 30 }}>
-              <CartesianGrid vertical={false} />
-              <XAxis
+            <BarChart
+              accessibilityLayer
+              data={data}
+              layout="vertical"
+              margin={{
+                right: 16,
+              }}>
+              <CartesianGrid horizontal={false} />
+              <YAxis
                 dataKey="name"
+                type="category"
                 tickLine={false}
+                tickMargin={10}
                 axisLine={false}
-                tickMargin={6}
-                tickFormatter={(value: string) => {
-                  //if (value === 'Импровизация') return 'Импро';
-                  //if (value === 'Упражнения') return 'Упр';
-                  return value;
-                }}
+                tickFormatter={value => value.slice(0, 3)}
+                hide
               />
-              <ChartTooltip cursor={true} content={<ChartTooltipContent />} />
-              <Bar dataKey="count" fill="orange" radius={8}>
-                <LabelList position="top" offset={12} className="fill-foreground" fontSize={12} />
+              <XAxis dataKey="count" type="number" hide />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent indicator="dot" />} />
+              <Bar dataKey="count" layout="vertical" fill="var(--color-count)" radius={4}>
+                <LabelList dataKey="name" position="insideLeft" offset={8} className="fill-white" fontSize={12} />
+                <LabelList dataKey="count" position="right" offset={8} className="fill-black" fontSize={12} />
               </Bar>
             </BarChart>
           ) : (
