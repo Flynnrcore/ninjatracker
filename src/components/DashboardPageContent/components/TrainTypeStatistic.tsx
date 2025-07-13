@@ -26,7 +26,7 @@ export const TrainTypeStatistic = ({ statistic }: { statistic: TStatistic | null
   }
 
   return (
-    <Card className="w-full flex-1 basis-1/3 rounded-xl border-none bg-white shadow-md lg:max-w-lg">
+    <Card className="w-full flex-1 basis-1/3 rounded-xl border-none bg-white shadow-md lg:max-w-xl">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Любимый тип тренировки</CardTitle>
         <CardDescription>

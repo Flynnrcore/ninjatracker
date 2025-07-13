@@ -17,7 +17,7 @@ export const TimeStatistic = ({ statistic }: { statistic: TStatistic | null }) =
   const data = statistic ? [...statistic.difficulties].slice(-10) : [];
 
   return (
-    <Card className="flex w-full flex-1 rounded-xl border-none bg-white shadow-md lg:max-w-4xl">
+    <Card className="flex w-full flex-1 rounded-xl border-none bg-white shadow-md lg:max-w-3xl">
       <CardHeader>
         <CardTitle className="text-lg md:text-xl lg:text-2xl">Общее время тренировок</CardTitle>
         <CardDescription>
