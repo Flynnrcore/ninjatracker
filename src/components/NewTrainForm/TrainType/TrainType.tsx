@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { Checkbox, Label } from '@/components/ui';
+import { cn } from '@/lib/utils';
 
-const TrainType = () => {
+const TrainType = ({ className = '' }: { className?: string }) => {
   const [trainTypes, setTrainTypes] = useState<string[]>([]);
 
   const handleToggleCheckbox = (trainName: string) => {
@@ -29,7 +30,7 @@ const TrainType = () => {
         Тип тренировки
         <span className="required-dot">*</span>:
       </legend>
-      <div className="grid grid-cols-2 rounded-lg border border-gray-200 p-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3">
+      <div className={cn("grid grid-cols-2 rounded-lg border border-gray-200 p-3 sm:grid-cols-3 md:grid-cols-2 lg:grid-cols-3", className)}>
         {options.map(({ id, label }) => (
           <div key={id} className="flex items-center space-x-2 p-1">
             <Checkbox

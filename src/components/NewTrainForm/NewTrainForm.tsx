@@ -23,6 +23,7 @@ const NewTrainForm = () => {
   const navigate = useNavigate();
 
   const { validateForm, errors } = useFormValidation(TRAINING_FORM_VALIDATION_RULES);
+  console.log(errors.name);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -100,7 +101,7 @@ const NewTrainForm = () => {
                     id="trainName"
                     name="name"
                     type="text"
-                    className="h-10 w-full sm:h-9"
+                    className={`h-10 w-full sm:h-9 ${errors.name ? 'input-error' : ''}`}
                     placeholder="Название тренировки"
                     autoComplete="off"
                   />
@@ -123,13 +124,13 @@ const NewTrainForm = () => {
                   <label htmlFor="trainDate">Дата тренировки:</label>
                   <DatePicker />
                 </div>
-                <TrainType />
+                <TrainType className={errors.type ? 'input-error' : ''} />
               </div>
             </div>
           </div>
           <div className="mt-6 space-y-6">
             <StarRating value={difficulty} onChange={setDifficulty} />
-            <InstrumentSelector />
+            <InstrumentSelector className={errors.instrument ? 'input-error border-1' : ''} />
             <div className="rounded-xl border border-gray-200 bg-gray-50 p-4 sm:rounded-2xl">
               <Timer />
             </div>

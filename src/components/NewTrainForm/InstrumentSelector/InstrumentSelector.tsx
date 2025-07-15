@@ -1,8 +1,9 @@
 import { ToggleGroup, ToggleGroupItem, Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui';
 import { PATH } from '@/constants/paths';
+import { cn } from '@/lib/utils';
 import { useMemo, useState } from 'react';
 
-const InstrumentSelector = () => {
+const InstrumentSelector = ({ className = '' }: { className?: string }) => {
   const [instrument, setInstrument] = useState('eguitar');
 
   const instruments = useMemo(
@@ -29,7 +30,7 @@ const InstrumentSelector = () => {
         value={instrument}
         onValueChange={setInstrument}
         type="single"
-        className="grid grid-cols-2 sm:flex sm:flex-row"
+        className={cn("grid grid-cols-2 sm:flex sm:flex-row", className)}
         aria-label="Выберите инструмент"
         aria-required="true">
         {instruments.map(({ value, label, src, maxH }) => (
